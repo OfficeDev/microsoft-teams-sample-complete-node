@@ -1,0 +1,78 @@
+{
+    // Use IntelliSense to learn about possible Node.js debug attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug_Build_Launch - works with breakpoints",
+            "program": "${workspaceRoot}/src/app.ts",
+            "cwd": "${workspaceRoot}/build/src",
+            "preLaunchTask": "build",
+            "sourceMaps": true,
+            "outFiles": [ "${workspaceRoot}/build/**/*.js" ],
+            "env": {
+                "APP_BASE_URI": "http://localhost:3978",
+                "MICROSOFT_APP_ID": "",
+                "MICROSOFT_BOT_ID": "",
+                "MICROSOFT_BOT_PASSWORD": "",
+                "LUIS_ENDPOINT_URI": "",
+                "EXTERNAL_APP_CONSUMER_KEY": "",
+                "EXTERNAL_APP_CONSUMER_SECRET": "",
+                "EXTERNAL_APP_USER_TOKEN": "",
+                "EXTERNAL_APP_USER_TOKEN_SECRET": ""
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Build_Launch",
+            "program": "${workspaceRoot}\\build\\src\\app.js",
+            "cwd": "${workspaceRoot}\\build\\src",
+            "preLaunchTask": "build",
+            "sourceMaps": true,
+            "outFiles": [],
+            "env": {
+                "APP_BASE_URI": "http://localhost:3978",
+                "MICROSOFT_APP_ID": "",
+                "MICROSOFT_BOT_ID": "",
+                "MICROSOFT_BOT_PASSWORD": "",
+                "LUIS_ENDPOINT_URI": "",
+                "EXTERNAL_APP_CONSUMER_KEY": "",
+                "EXTERNAL_APP_CONSUMER_SECRET": "",
+                "EXTERNAL_APP_USER_TOKEN": "",
+                "EXTERNAL_APP_USER_TOKEN_SECRET": ""
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch",
+            "program": "${workspaceRoot}\\build\\src\\app.js",
+            "cwd": "${workspaceRoot}\\build\\src",
+            "sourceMaps": true,
+            "outFiles": [],
+            "env": {
+                "APP_BASE_URI": "http://localhost:3978",
+                "MICROSOFT_APP_ID": "",
+                "MICROSOFT_BOT_ID": "",
+                "MICROSOFT_BOT_PASSWORD": "",
+                "LUIS_ENDPOINT_URI": "",
+                "EXTERNAL_APP_CONSUMER_KEY": "",
+                "EXTERNAL_APP_CONSUMER_SECRET": "",
+                "EXTERNAL_APP_USER_TOKEN": "",
+                "EXTERNAL_APP_USER_TOKEN_SECRET": ""
+            }
+        },  
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Process",
+            "address": "localhost",
+            "port": 5858,
+            "outFiles": []
+        }
+    ]
+}

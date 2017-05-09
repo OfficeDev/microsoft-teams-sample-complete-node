@@ -1,0 +1,56 @@
+﻿{
+  "$schema": "https://statics.teams.microsoft.com/sdk/v0.5/manifest/MicrosoftTeams.schema.json",
+  "manifestVersion": "0.5",
+  "version": "1.0",
+  "id": "APP_ID",
+  "reverseDomainId": "com.Template.microsoftteams",
+  "developer": {
+    "name": "Bot Template",
+    "websiteUrl": "https://dev.botframework.com",
+    "privacyUrl": "https://privacy.microsoft.com/en-us/privacystatement",
+    "termsOfUseUrl": "https://www.botframework.com/Content/Microsoft-Bot-Framework-Preview-Online-Services-Agreement.htm"
+  },
+  "name": "Bot Template",
+  "description": {
+    "short": "Bot Template - a template for creating a bot",
+    "full": "The Bot Template is meant to create an envrionment in which to easily create a bot."
+  },
+  "icons": {
+    "44": "BASE_URI/assets/bot_blue.png",
+    "88": "BASE_URI/assets/bot_blue.png"
+  },
+  "accentColor": "#0079bf",
+  "galleryTabs": [
+    {
+      "configurationUrl": "BASE_URI/tab/tabConfig/index.html",
+      "canUpdateConfiguration": false,
+      "scopes": [
+        "team"
+      ]
+    }
+  ],
+  "staticTabs": [
+    {
+      "contentUrl": "BASE_URI/tab/tabDisplay/index.html",
+      "entityId": "1on1test123",
+      "name": "Bot Info",
+      "scopes": [
+        "team",
+        "personal"
+      ]
+    }
+  ],
+  "bots": [
+    {
+      "botId": "BOT_ID",
+      "scopes": [
+        "team",
+        "personal"
+      ]
+    }
+  ],
+  "permissions": [
+  ],
+  "validDomains": [
+  ]
+}

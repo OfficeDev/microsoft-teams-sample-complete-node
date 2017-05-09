@@ -1,0 +1,18 @@
+{
+    "app": {
+        "baseUri": "",
+        "appId": ""
+    },
+    "bot": {
+        "botId": "",
+        "botPassword": ""
+    },
+    "externalApp": {
+        "consumer_key": "SET_AS_ENVIRONMENT_VARIABLE",
+        "consumer_secret": "SET_AS_ENVIRONMENT_VARIABLE"
+    },
+    "externalAppUser": {
+        "token": "SET_AS_ENVIRONMENT_VARIABLE",
+        "token_secret": "SET_AS_ENVIRONMENT_VARIABLE"
+    }
+}
