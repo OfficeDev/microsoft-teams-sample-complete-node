@@ -1,0 +1,25 @@
+{
+    "app": {
+        "baseUri": "APP_BASE_URI",
+        "appId": "MICROSOFT_APP_ID"
+    },
+    "bot": {
+        "botId": "MICROSOFT_BOT_ID",
+        "botPassword": "MICROSOFT_BOT_PASSWORD"
+    },
+    "luis": {
+        "endpointUri": "LUIS_ENDPOINT_URI"
+    },
+    "externalApp": {
+        "consumer_key": "EXTERNAL_APP_CONSUMER_KEY",
+        "consumer_secret": "EXTERNAL_APP_CONSUMER_SECRET"
+    },
+    "externalAppUser": {
+        "token": "EXTERNAL_APP_USER_TOKEN",
+        "token_secret": "EXTERNAL_APP_USER_TOKEN_SECRET"
+    },
+    "vstsApp": {
+        "appId": "VSTS_APP_ID",
+        "appSecret": "VSTS_APP_SECRET"
+    }
+}
