@@ -19,7 +19,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "botbuilder": "^3.8.1",
-    "botbuilder-teams": "^0.1.2-beta1",
+    "botbuilder-teams": "^0.1.2",
     "chrono-node": "^1.2.5",
     "config": "^1.25.1",
     "crypto": "0.0.3",
