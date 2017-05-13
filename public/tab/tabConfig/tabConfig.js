@@ -12,5 +12,5 @@ $(document).ready(function () {
 });
 
 function createTabUrl() {
-    return window.location.protocol + "//" + window.location.host + "/tab/tabDisplay/index.html";
+    return window.location.protocol + "//" + window.location.host + "/tabDisplay";
 }

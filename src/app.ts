@@ -6,7 +6,8 @@ let path = require("path");
 let config = require("config");
 import { ExampleBot } from "./ExampleBot";
 import { VSTSTokenOAuth2API } from "./apis/VSTSTokenOAuth2API";
-import { TeamsChatConnector } from "botbuilder-teams";
+import * as teams from "botbuilder-teams";
+import { TabSetup } from "./tab/TabSetup";
 
 // Configure instrumentation - tooling with Azure
 // let appInsights = require("applicationinsights");
@@ -21,9 +22,10 @@ app.set("port", process.env.PORT || 3978);
 app.use(express.static(path.join(__dirname, "../../public")));
 app.use(express.static(path.join(__dirname, "./public"))); // used for static dialogs
 app.use(favicon(path.join(__dirname, "../../public/assets", "favicon.ico")));
+app.get("/tabDisplay", TabSetup.buildTab());
 
 // Create bot using Teams connector
-let connector = new TeamsChatConnector({
+let connector = new teams.TeamsChatConnector({
     appId: config.get("bot.botId"),
     appPassword: config.get("bot.botPassword"),
 });
