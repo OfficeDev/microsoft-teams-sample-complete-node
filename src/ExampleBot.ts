@@ -5,6 +5,7 @@ import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
+import { VSTSAPI } from "./apis/VSTSAPI";
 
 // =========================================================
 // Bot Setup
@@ -57,7 +58,37 @@ export class ExampleBot extends builder.UniversalBot {
         callback(null, "", 200);
     }
 
-    private composeExtensionHandler(event: builder.IEvent, query: teams.ComposeExtensionQuery, callback: (err: Error, result: teams.IComposeExtensionResponse, statusCode: number) => void): void {
+    private async composeExtensionHandler(event: builder.IEvent, query: teams.ComposeExtensionQuery, callback: (err: Error, result: teams.IComposeExtensionResponse, statusCode: number) => void): Promise<void> {
+        // // parameters should be identical to manifest
+        // if (query.parameters[0].name !== "query2") {
+        //     return callback(new Error("Parameter mismatch in manifest"), null, 500);
+        // }
+
+        // let logo: builder.ICardImage = {
+        //     alt: "logo",
+        //     url: config.get("app.baseUri") + "/assets/computer_person.jpg",
+        //     tap: null,
+        // };
+
+        // try {
+        //     let card = new builder.ThumbnailCard()
+        //         .title("sample title")
+        //         .images([logo])
+        //         .text("sample text")
+        //         .buttons([
+        //             {
+        //                 type: "openUrl",
+        //                 title: "Go to somewhere",
+        //                 value: "https://www.bing.com",
+        //             },
+        //         ]);
+        //     let response = teams.ComposeExtensionResponse.result("list").attachments([card.toAttachment()]);
+        //     callback(null, response.toResponse(), 200);
+        // }
+        // catch (e) {
+        //     callback(e, null, 500);
+        // }
+
         // parameters should be identical to manifest
         if (query.parameters[0].name !== "query2") {
             return callback(new Error("Parameter mismatch in manifest"), null, 500);
@@ -70,8 +101,13 @@ export class ExampleBot extends builder.UniversalBot {
         };
 
         try {
+            let session = await loadSessionAsync(this, event.address);
+            let vstsAPI = new VSTSAPI();
+            let body = await vstsAPI.getWorkItem(query.parameters[0].value, session);
+
             let card = new builder.ThumbnailCard()
-                .title("sample title")
+                .title(body.value[0].fields["System.Title"])
+                // .title("Test title")
                 .images([logo])
                 .text("sample text")
                 .buttons([

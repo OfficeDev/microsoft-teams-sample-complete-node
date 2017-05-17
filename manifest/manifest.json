@@ -1,26 +1,32 @@
 ﻿{
-  "$schema": "https://statics.teams.microsoft.com/sdk/v0.5/manifest/MicrosoftTeams.schema.json",
-  "manifestVersion": "0.5",
+  "$schema": "https://statics.teams.microsoft.com/sdk/v1.0/manifest/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.0",
   "version": "1.0",
   "id": "APP_ID",
   "reverseDomainId": "com.Template.microsoftteams",
+  "packageName": "com.Template.microsoftteams",
   "developer": {
     "name": "Bot Template",
     "websiteUrl": "https://dev.botframework.com",
     "privacyUrl": "https://privacy.microsoft.com/en-us/privacystatement",
     "termsOfUseUrl": "https://www.botframework.com/Content/Microsoft-Bot-Framework-Preview-Online-Services-Agreement.htm"
   },
-  "name": "Bot Template",
+  "name": {
+    "short": "Bot Template",
+    "long": "Bot Template"
+  },
   "description": {
     "short": "Bot Template - a template for creating a bot",
     "full": "The Bot Template is meant to create an envrionment in which to easily create a bot."
   },
   "icons": {
     "44": "BASE_URI/assets/bot_blue.png",
-    "88": "BASE_URI/assets/bot_blue.png"
+    "88": "BASE_URI/assets/bot_blue.png",
+    "outline": "BASE_URI/assets/bot_blue.png",
+    "color": "BASE_URI/assets/bot_blue.png"
   },
   "accentColor": "#0079bf",
-  "galleryTabs": [
+  "configurableTabs": [
     {
       "configurationUrl": "BASE_URI/tab/tabConfig/index.html",
       "canUpdateConfiguration": false,
@@ -31,7 +37,7 @@
   ],
   "staticTabs": [
     {
-      "contentUrl": "BASE_URI/tab/tabDisplay/index.html",
+      "contentUrl": "BASE_URI/tabDisplay",
       "entityId": "1on1test123",
       "name": "Bot Info",
       "scopes": [
@@ -42,15 +48,119 @@
   ],
   "bots": [
     {
-      "botId": "BOT_ID",
+      "botId": "REGISTERED_BOT_ID",
       "scopes": [
         "team",
         "personal"
+      ],
+      "commandLists": [
+        {
+          "scopes": [
+            "team"
+          ],
+          "commands": [
+            {
+              "title": "run trig",
+              "description": "Runs the simplest test"
+            },
+            {
+              "title": "run multi trig 2",
+              "description": "Displays a card with invoke buttons"
+            },
+            {
+              "title": "get roster",
+              "description": "Fetches the roster for the current conversation"
+            },
+            {
+              "title": "how",
+              "description": "Shows which dialog sent the last message"
+            },
+            {
+              "title": "send 1:1",
+              "description": "Send the user a 1:1 message"
+            },
+            {
+              "title": "setup text message",
+              "description": "Sets up a text message that can be updated"
+            },
+            {
+              "title": "update text message",
+              "description": "Updates a text message once it is setup to be updated"
+            },
+            {
+              "title": "setup card message",
+              "description": "Sets up a card that can be updated"
+            }
+          ]
+        },
+        {
+          "scopes": [
+            "personal"
+          ],
+          "commands": [
+            {
+              "title": "run trig",
+              "description": "Runs the simplest test"
+            },
+            {
+              "title": "run multi trig 2",
+              "description": "Displays a card with invoke buttons"
+            },
+            {
+              "title": "get roster",
+              "description": "Fetches the roster for the current conversation"
+            },
+            {
+              "title": "how",
+              "description": "Shows which dialog sent the last message"
+            },
+            {
+              "title": "send 1:1",
+              "description": "Send the user a 1:1 message"
+            },
+            {
+              "title": "setup text message",
+              "description": "Sets up a text message that can be updated"
+            },
+            {
+              "title": "update text message",
+              "description": "Updates a text message once it is setup to be updated"
+            },
+            {
+              "title": "setup card message",
+              "description": "Sets up a card that can be updated"
+            }
+          ]
+        }
       ]
     }
   ],
-  "permissions": [
+  "composeExtensions": [
+    {
+      "botId": "REGISTERED_BOT_ID",
+      "scopes": [
+        "personal",
+        "team"
+      ],
+      "commands": [
+        {
+          "id": "search123",
+          "description": "Find a card",
+          "title": "Search",
+          "initialRun": true,
+          "parameters": [
+            {
+              "title": "query1",
+              "name": "query2",
+              "description": "Search string"
+            }
+          ]
+        }
+      ]
+    }
   ],
+  "permissions": [],
   "validDomains": [
+    "BASE_URI"
   ]
 }
