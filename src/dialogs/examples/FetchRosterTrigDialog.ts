@@ -7,7 +7,7 @@ import * as teams from "botbuilder-teams";
 export class FetchRosterTrigDialog extends TriggerDialog {
 
     private static async fetchRoster(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        // setting these this way to keep away typescript errors
+        // casting to keep away typescript errors
         let msgConnector: any = session.connector;
         let msgAddress: builder.IChatConnectorAddress = session.message.address;
         let msgServiceUrl = msgAddress.serviceUrl;
