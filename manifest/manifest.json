@@ -72,6 +72,10 @@
               "description": "Fetches the roster for the current conversation"
             },
             {
+              "title": "get roster payload",
+              "description": "Fetches the full roster payload for the current conversation"
+            },
+            {
               "title": "how",
               "description": "Shows which dialog sent the last message"
             },
@@ -109,6 +113,10 @@
             {
               "title": "get roster",
               "description": "Fetches the roster for the current conversation"
+            },
+            {
+              "title": "get roster payload",
+              "description": "Fetches the full roster payload for the current conversation"
             },
             {
               "title": "how",
@@ -150,8 +158,8 @@
           "initialRun": true,
           "parameters": [
             {
-              "title": "query1",
-              "name": "query2",
+              "title": "query123",
+              "name": "query",
               "description": "Search string"
             }
           ]
@@ -161,6 +169,6 @@
   ],
   "permissions": [],
   "validDomains": [
-    "BASE_URI"
+    "BASE_URI_EXCLUDING_HTTPS://"
   ]
 }

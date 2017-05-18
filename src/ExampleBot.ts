@@ -5,7 +5,6 @@ import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
-import { VSTSAPI } from "./apis/VSTSAPI";
 
 // =========================================================
 // Bot Setup
@@ -59,66 +58,43 @@ export class ExampleBot extends builder.UniversalBot {
     }
 
     private async composeExtensionHandler(event: builder.IEvent, query: teams.ComposeExtensionQuery, callback: (err: Error, result: teams.IComposeExtensionResponse, statusCode: number) => void): Promise<void> {
-        // // parameters should be identical to manifest
-        // if (query.parameters[0].name !== "query2") {
-        //     return callback(new Error("Parameter mismatch in manifest"), null, 500);
-        // }
+        let manifestInitialRun = "initialRun";
+        let manifestParameterName = "query";
 
-        // let logo: builder.ICardImage = {
-        //     alt: "logo",
-        //     url: config.get("app.baseUri") + "/assets/computer_person.jpg",
-        //     tap: null,
-        // };
-
-        // try {
-        //     let card = new builder.ThumbnailCard()
-        //         .title("sample title")
-        //         .images([logo])
-        //         .text("sample text")
-        //         .buttons([
-        //             {
-        //                 type: "openUrl",
-        //                 title: "Go to somewhere",
-        //                 value: "https://www.bing.com",
-        //             },
-        //         ]);
-        //     let response = teams.ComposeExtensionResponse.result("list").attachments([card.toAttachment()]);
-        //     callback(null, response.toResponse(), 200);
-        // }
-        // catch (e) {
-        //     callback(e, null, 500);
-        // }
-
-        // parameters should be identical to manifest
-        if (query.parameters[0].name !== "query2") {
+        if (query.parameters[0].name !== manifestInitialRun && query.parameters[0].name !== manifestParameterName) {
             return callback(new Error("Parameter mismatch in manifest"), null, 500);
         }
 
-        let logo: builder.ICardImage = {
-            alt: "logo",
-            url: config.get("app.baseUri") + "/assets/computer_person.jpg",
-            tap: null,
-        };
-
         try {
             let session = await loadSessionAsync(this, event.address);
-            let vstsAPI = new VSTSAPI();
-            let body = await vstsAPI.getWorkItem(query.parameters[0].value, session);
+            let title = "";
 
-            let card = new builder.ThumbnailCard()
-                .title(body.value[0].fields["System.Title"])
-                // .title("Test title")
-                .images([logo])
-                .text("sample text")
-                .buttons([
-                    {
-                        type: "openUrl",
-                        title: "Go to somewhere",
-                        value: "https://www.bing.com",
-                    },
-                ]);
-            let response = teams.ComposeExtensionResponse.result("list").attachments([card.toAttachment()]);
-            callback(null, response.toResponse(), 200);
+            // parameters should be identical to manifest
+            if (query.parameters[0].name === manifestInitialRun) {
+                title = session.gettext(Strings.initial_run_title);
+            } else if (query.parameters[0].name === manifestParameterName) {
+                title = query.parameters[0].value;
+            }
+
+            let cards = Array<builder.IAttachment>();
+            for (let i = 0; i < 3; i++) {
+                let card = new builder.ThumbnailCard()
+                    .title(title + " " + (i + 1))
+                    .images([
+                        new builder.CardImage(session)
+                            .url(config.get("app.baseUri") + "/assets/computer_person.jpg")
+                            .alt(session.gettext(Strings.img_default)),
+                    ])
+                    .text(session.gettext(Strings.default_text))
+                    .buttons([
+                        builder.CardAction.openUrl(session, "https://www.bing.com", Strings.go_to_bing_button),
+                    ]);
+                cards.push(card.toAttachment());
+            }
+
+            let response = teams.ComposeExtensionResponse.result("list").attachments(cards);
+
+            return callback(null, response.toResponse(), 200);
         }
         catch (e) {
             callback(e, null, 500);
