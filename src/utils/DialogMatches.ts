@@ -25,6 +25,8 @@ export const DialogMatches = {
     update_card_update_msg: "update_card_update_msg",
     fetchRosterMatch: /fetch roster/i,
     fetchRosterMatch2: /get roster/i,
+    fetchRosterPayloadMatch: /fetch roster payload/i,
+    fetchRosterPayloadMatch2: /get roster payload/i,
     resetBotStateMatch: /reset/i,
     // *************************** END OF EXAMPLES *********************************
 

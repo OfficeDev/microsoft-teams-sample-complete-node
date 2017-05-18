@@ -46,6 +46,7 @@ export const DialogIds = {
     UpdateMsgCardSetupTrigDialogId: "UpdateMsgCardSetupTrigDialog",
     UpdateMsgCardUpdateTrigDialogId: "UpdateMsgCardUpdateTrigDialog",
     FetchRosterTrigDialogId: "FetchRosterTrigDialog",
+    FetchRosterPayloadTrigDialogId: "FetchRosterPayloadTrigDialog",
     ResetBotStateTrigDialogId: "ResetBotStateTrigDialog",
     // *************************** END OF EXAMPLES *********************************
 

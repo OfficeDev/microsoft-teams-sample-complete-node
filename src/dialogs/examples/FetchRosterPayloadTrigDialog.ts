@@ -4,9 +4,9 @@ import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import * as teams from "botbuilder-teams";
 
-export class FetchRosterTrigDialog extends TriggerDialog {
+export class FetchRosterPayloadTrigDialog extends TriggerDialog {
 
-    private static async fetchRoster(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
+    private static async fetchRosterPayload(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         // casting to keep away typescript errors
         let msgConnector: any = session.connector;
         let msgAddress: builder.IChatConnectorAddress = session.message.address;
@@ -17,11 +17,7 @@ export class FetchRosterTrigDialog extends TriggerDialog {
             teams.TeamsMessage.getTenantId(session.message),
             (err, result) => {
                 if (!err) {
-                    let response = "";
-                    for (let i = 0; i < result.length; i++) {
-                        response += result[i].givenName + " " + result[i].surname + "<br>";
-                    }
-                    session.send(response);
+                    session.send(JSON.stringify(result));
                 } else {
                     session.error(err);
                 }
@@ -33,12 +29,12 @@ export class FetchRosterTrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.FetchRosterTrigDialogId,
+            DialogIds.FetchRosterPayloadTrigDialogId,
             [
-                DialogMatches.fetchRosterMatch,
-                DialogMatches.fetchRosterMatch2,
+                DialogMatches.fetchRosterPayloadMatch,
+                DialogMatches.fetchRosterPayloadMatch2,
             ],
-            FetchRosterTrigDialog.fetchRoster,
+            FetchRosterPayloadTrigDialog.fetchRosterPayload,
         );
     }
 }

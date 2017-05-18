@@ -23,6 +23,7 @@ import { UpdateMsgTextUpdateTrigDialog } from "./examples/UpdateMsgTextUpdateTri
 import { UpdateMsgCardSetupTrigDialog } from "./examples/UpdateMsgCardSetupTrigDialog";
 import { UpdateMsgCardUpdateTrigDialog } from "./examples/UpdateMsgCardUpdateTrigDialog";
 import { FetchRosterTrigDialog } from "./examples/FetchRosterTrigDialog";
+import { FetchRosterPayloadTrigDialog } from "./examples/FetchRosterPayloadTrigDialog";
 import { ResetBotStateTrigDialog } from "./examples/ResetBotStateTrigDialog";
 // *************************** END OF EXAMPLES *********************************
 
@@ -70,6 +71,7 @@ export class RootDialog extends builder.IntentDialog {
         new UpdateMsgCardSetupTrigDialog(bot);
         new UpdateMsgCardUpdateTrigDialog(bot);
         new FetchRosterTrigDialog(bot);
+        new FetchRosterPayloadTrigDialog(bot);
         new ResetBotStateTrigDialog(bot);
         // *************************** END OF EXAMPLES *********************************
 
