@@ -18,11 +18,7 @@ export function loadSessionAsync (bot: builder.UniversalBot, address: builder.IA
 };
 
 export function isMessageFromChannel(message: builder.IMessage): boolean {
-    if (message.sourceEvent && message.sourceEvent.channel && message.sourceEvent.channel.id) {
-        return true;
-    } else {
-        return false;
-    }
+    return (message.sourceEvent && message.sourceEvent.channel && message.sourceEvent.channel.id);
 }
 
 // tslint:disable-next-line:variable-name

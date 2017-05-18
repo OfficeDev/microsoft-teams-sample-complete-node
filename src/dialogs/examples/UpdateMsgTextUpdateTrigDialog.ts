@@ -11,6 +11,7 @@ export class UpdateMsgTextUpdateTrigDialog extends TriggerDialog {
             let msg = new builder.Message(session)
                 .address(session.conversationData.lastTextMessage)
                 .text(Strings.updated_text_msg);
+
             session.connector.update(msg.toMessage(), (err, address) => {
                 if (!err) {
                     // do not need to save the incoming address because Teams does not change it

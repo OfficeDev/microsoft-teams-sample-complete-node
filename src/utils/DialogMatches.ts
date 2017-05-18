@@ -25,7 +25,7 @@ export const DialogMatches = {
     update_card_update_msg: "update_card_update_msg",
     fetchRosterMatch: /fetch roster/i,
     fetchRosterMatch2: /get roster/i,
-    resetBotStateMatch: /reset bot state/i,
+    resetBotStateMatch: /reset/i,
     // *************************** END OF EXAMPLES *********************************
 
     // Add regex or string intent matches for dialogs
