@@ -68,6 +68,8 @@ export class VSTSTokenOAuth2API {
         session.userData.vsts_refresh_token = body.refresh_token;
 
         session.send(Strings.tokens_set_confirmation);
+
+        session.save().sendBatch();
     }
 
     public async refreshTokens(session: builder.Session): Promise<void> {
@@ -85,6 +87,8 @@ export class VSTSTokenOAuth2API {
         session.userData.vsts_refresh_token = body.refresh_token;
 
         session.send(Strings.tokens_set_confirmation);
+
+        session.save().sendBatch();
     }
 
     // Make a POST request to API.

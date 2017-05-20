@@ -13,10 +13,10 @@ import * as teams from "botbuilder-teams";
 export class ExampleBot extends builder.UniversalBot {
 
     constructor(
-        // public _connector: builder.IConnector,
         private _connector: teams.TeamsChatConnector,
+        private botSettings: any,
     ) {
-        super(_connector);
+        super(_connector, botSettings);
         this.set("persistConversationData", true);
 
         // Root dialog

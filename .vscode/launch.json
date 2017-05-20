@@ -22,7 +22,10 @@
                 "EXTERNAL_APP_CONSUMER_KEY": "",
                 "EXTERNAL_APP_CONSUMER_SECRET": "",
                 "EXTERNAL_APP_USER_TOKEN": "",
-                "EXTERNAL_APP_USER_TOKEN_SECRET": ""
+                "EXTERNAL_APP_USER_TOKEN_SECRET": "",
+                "CHANNEL_STORAGE_TYPE": "",
+                "MONGODB_CONNECTION_STRING": "",
+                "MONGODB_BOT_STATE_COLLECTION": ""
             }
         },
         {
@@ -43,7 +46,10 @@
                 "EXTERNAL_APP_CONSUMER_KEY": "",
                 "EXTERNAL_APP_CONSUMER_SECRET": "",
                 "EXTERNAL_APP_USER_TOKEN": "",
-                "EXTERNAL_APP_USER_TOKEN_SECRET": ""
+                "EXTERNAL_APP_USER_TOKEN_SECRET": "",
+                "CHANNEL_STORAGE_TYPE": "",
+                "MONGODB_CONNECTION_STRING": "",
+                "MONGODB_BOT_STATE_COLLECTION": ""
             }
         },
         {
@@ -63,7 +69,10 @@
                 "EXTERNAL_APP_CONSUMER_KEY": "",
                 "EXTERNAL_APP_CONSUMER_SECRET": "",
                 "EXTERNAL_APP_USER_TOKEN": "",
-                "EXTERNAL_APP_USER_TOKEN_SECRET": ""
+                "EXTERNAL_APP_USER_TOKEN_SECRET": "",
+                "CHANNEL_STORAGE_TYPE": "",
+                "MONGODB_CONNECTION_STRING": "",
+                "MONGODB_BOT_STATE_COLLECTION": ""
             }
         },  
         {

@@ -17,6 +17,8 @@
     "node": ">=6.9.1"
   },
   "dependencies": {
+    "assert": "^1.4.1",
+    "async": "^2.4.0",
     "bluebird": "^3.4.7",
     "botbuilder": "^3.8.1",
     "botbuilder-teams": "^0.1.2",
