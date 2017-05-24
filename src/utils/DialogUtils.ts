@@ -8,10 +8,10 @@ export interface MatchActionPair {
 export function loadSessionAsync (bot: builder.UniversalBot, address: builder.IAddress): Promise<builder.Session> {
     return new Promise<builder.Session>((resolve, reject) => {
         bot.loadSession(address, (err: any, session: builder.Session) => {
-            if (err) {
-                reject(err);
-            } else {
+            if (!err) {
                 resolve(session);
+            } else {
+                reject(err);
             }
         });
     });

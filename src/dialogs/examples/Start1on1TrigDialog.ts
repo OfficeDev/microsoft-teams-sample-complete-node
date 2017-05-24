@@ -3,6 +3,7 @@ import { TriggerDialog } from "../../utils/TriggerDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
+// import { loadSessionAsync } from "../../utils/DialogUtils";
 
 export class Start1on1TrigDialog extends TriggerDialog {
 
@@ -12,10 +13,9 @@ export class Start1on1TrigDialog extends TriggerDialog {
         super(bot,
             DialogIds.Start1on1TrigDialogId,
             DialogMatches.start1on1Match,
-            (session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void) => {
-                // setting it this way to keep away typescript error
-                // because the interface is not completely up to date
-                let msgAddress: any = session.message.address;
+            async (session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void) => {
+                // casting to keep away typescript error
+                let msgAddress: builder.IChatConnectorAddress = session.message.address;
                 let msgServiceUrl = msgAddress.serviceUrl;
 
                 let address =
@@ -35,8 +35,23 @@ export class Start1on1TrigDialog extends TriggerDialog {
                     useAuth: true,
                 };
                 bot.beginDialog(address, DialogIds.TestTrigDialogId);
+
                 session.send(Strings.one_on_one_message_sent);
                 session.endDialog();
+
+                // session.connector.startConversation(address, (err, address2) => {
+                //     if (!err) {
+                //         let msg = new builder.Message(session)
+                //             .address(address2)
+                //             .text("testing123");
+                //         session.send(msg);
+                //         session.send(Strings.one_on_one_message_sent);
+                //         session.endDialog();
+                //     } else {
+                //         session.error(err);
+                //         session.endDialog();
+                //     }
+                // });
             },
         );
     }
