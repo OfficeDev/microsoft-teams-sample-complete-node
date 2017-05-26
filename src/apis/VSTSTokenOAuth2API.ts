@@ -14,6 +14,7 @@ export interface RequestCallback {
 
 // API wrapper
 export class VSTSTokenOAuth2API {
+
     public static getUserAuthorizationURL(session: builder.Session): string {
         let args = {
             client_id: config.get("vstsApp.appId"),
@@ -69,6 +70,7 @@ export class VSTSTokenOAuth2API {
 
         session.send(Strings.tokens_set_confirmation);
 
+        // try to save the tokens in case no other messages are sent
         session.save().sendBatch();
     }
 
@@ -88,6 +90,7 @@ export class VSTSTokenOAuth2API {
 
         session.send(Strings.tokens_set_confirmation);
 
+        // try to save the tokens in case no other messages are sent
         session.save().sendBatch();
     }
 

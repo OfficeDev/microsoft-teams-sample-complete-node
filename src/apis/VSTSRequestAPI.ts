@@ -10,6 +10,7 @@ export interface RequestCallback {
 
 // API wrapper
 export class VSTSRequestAPI {
+
     // Creates a new request wrapper for a given API.
     constructor() {
         // do nothing

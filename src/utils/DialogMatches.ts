@@ -15,7 +15,7 @@ export const DialogMatches = {
     oauthTestMatch: /run oauth test/i,
     quizQuestionMatch: /run quiz question/i,
     startQuizMatch: /run quiz/i,
-    start1on1Match: /send 1:1/i,
+    start1to1Match: /send 1:1/i,
     testTrigMatch: /run trig/i,
     beginDialogMatch: /run begin dialog/i,
     constructorArgsMatch: /run constructor args/i,

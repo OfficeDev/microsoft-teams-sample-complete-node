@@ -3,6 +3,7 @@ import { VSTSRequestAPI } from "./VSTSRequestAPI";
 import * as querystring from "querystring";
 
 export class VSTSAPI {
+
     private requestAPI: VSTSRequestAPI;
 
     constructor () {

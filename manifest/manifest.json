@@ -3,7 +3,6 @@
   "manifestVersion": "1.0",
   "version": "1.0",
   "id": "APP_ID",
-  "reverseDomainId": "com.Template.microsoftteams",
   "packageName": "com.Template.microsoftteams",
   "developer": {
     "name": "Bot Template",
@@ -13,15 +12,13 @@
   },
   "name": {
     "short": "Bot Template",
-    "long": "Bot Template"
+    "full": "Bot Template"
   },
   "description": {
     "short": "Bot Template - a template for creating a bot",
     "full": "The Bot Template is meant to create an envrionment in which to easily create a bot."
   },
   "icons": {
-    "44": "BASE_URI/assets/bot_blue.png",
-    "88": "BASE_URI/assets/bot_blue.png",
     "outline": "BASE_URI/assets/bot_blue.png",
     "color": "BASE_URI/assets/bot_blue.png"
   },

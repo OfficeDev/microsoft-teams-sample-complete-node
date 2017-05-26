@@ -36,7 +36,7 @@ export const DialogIds = {
     QuizQ2TrigDialogId: "QuizQ2TrigDialog",
     QuizQ3TrigDialogId: "QuizQ3TrigDialog",
     QuizTrigDialogId: "QuizTrigDialog",
-    Start1on1TrigDialogId: "Start1on1TrigDialog",
+    Start1to1TrigDialogId: "Start1to1TrigDialog",
     TestTrigDialogId: "TestTrigDialog",
     BeginDialogExampleTrigDialogId: "BeginDialogExampleTrigDialog",
     PromptFlowGameTrigDialogId: "PromptFlowGameTrigDialog",
