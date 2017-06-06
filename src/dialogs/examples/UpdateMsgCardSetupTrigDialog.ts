@@ -11,11 +11,15 @@ export class UpdateMsgCardSetupTrigDialog extends TriggerDialog {
         let msg = new builder.Message(session).addAttachment(tempCard);
 
         session.send(msg).sendBatch((err, addresses) => {
-            session.conversationData.updateCardCounter = 0;
-            session.save().sendBatch();
-            session.beginDialog(DialogIds.UpdateMsgCardUpdateTrigDialogId, { address: addresses[0] });
+            if (!err) {
+                session.conversationData.updateCardCounter = 0;
+                session.save().sendBatch();
+                session.beginDialog(DialogIds.UpdateMsgCardUpdateTrigDialogId, { address: addresses[0] });
+            } else {
+                session.error(err);
+                session.endDialog();
+            }
         });
-        session.endDialog();
     }
 
     constructor(

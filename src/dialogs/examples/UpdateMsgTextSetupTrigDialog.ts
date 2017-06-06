@@ -8,10 +8,14 @@ export class UpdateMsgTextSetupTrigDialog extends TriggerDialog {
 
     private static async setupTextMessage(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         session.send(Strings.set_text_msg).sendBatch((err, addresses) => {
-            session.conversationData.lastTextMessage = addresses[0];
-            session.save().sendBatch();
+            if (!err) {
+                session.conversationData.lastTextMessage = addresses[0];
+                session.save().sendBatch();
+            } else {
+                session.error(err);
+            }
+            session.endDialog();
         });
-        session.endDialog();
     }
 
     constructor(

@@ -6,9 +6,10 @@ import { Strings } from "../../locale/locale";
 
 export class Start1to1TrigDialog extends TriggerDialog {
 
-    // Below is another way to send a direct 1:1 message.  It is completely encapsulated within a waterfall step, but is limited to only
-    // sending a message and cannot call beginDialog()
-    // to use: comment out the function in the constructor, uncomment the call for the send1to1Msg function in the constructor, uncomment the send1to1Msg function below
+    // Below is another way to send a direct 1:1 message.  It is completely encapsulated within a waterfall
+    // step, but is limited to only sending a message and cannot call beginDialog()
+    // To Use: comment out the async function in the constructor, uncomment the line in the constructor
+    // which references the send1to1Msg function, uncomment the send1to1Msg function definition below
 
     // private static async send1to1Msg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
     //     // casting to keep away typescript error
@@ -81,9 +82,10 @@ export class Start1to1TrigDialog extends TriggerDialog {
                 session.endDialog();
             },
 
-            // Below is another way to send a direct 1:1 message.  It is completely encapsulated within a waterfall step, but is limited to only
-            // sending a message and cannot call beginDialog()
-            // to use: comment out the function above, uncomment the line below, uncomment the send1to1Msg function above
+            // Below is another way to send a direct 1:1 message.  It is completely encapsulated within a waterfall
+            // step, but is limited to only sending a message and cannot call beginDialog()
+            // To Use: comment out the function directly above, uncomment the line below, uncomment the send1to1Msg
+            // function definition above the constructor
 
             // Start1to1TrigDialog.send1to1Msg,
 

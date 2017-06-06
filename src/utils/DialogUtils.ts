@@ -48,6 +48,7 @@ export const DialogIds = {
     FetchRosterTrigDialogId: "FetchRosterTrigDialog",
     FetchRosterPayloadTrigDialogId: "FetchRosterPayloadTrigDialog",
     ResetBotStateTrigDialogId: "ResetBotStateTrigDialog",
+    AtMentionTrigDialogId: "AtMentionTrigDialog",
     // *************************** END OF EXAMPLES *********************************
 
     // Add entries for dialog ids

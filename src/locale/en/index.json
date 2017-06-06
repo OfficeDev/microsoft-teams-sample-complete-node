@@ -42,6 +42,7 @@
     "game_button_no": "No",
     "game_success": "Yay!!!!  What a fun game!",
     "game_failure_funny": "Awwww man!  I'm still in the prototype phase.",
+    "at_mention": "I'm a bot, and I at-mentioned you.",
     "initial_run_title": "Initial Run",
     "go_to_bing_button": "Go to Bing",
     "set_alarm_msg": "Received a set alarm intent ('builtin.intent.alarm.set_alarm') from Luis.",

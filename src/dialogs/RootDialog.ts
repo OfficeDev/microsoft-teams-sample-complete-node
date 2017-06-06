@@ -25,6 +25,7 @@ import { UpdateMsgCardUpdateTrigDialog } from "./examples/UpdateMsgCardUpdateTri
 import { FetchRosterTrigDialog } from "./examples/FetchRosterTrigDialog";
 import { FetchRosterPayloadTrigDialog } from "./examples/FetchRosterPayloadTrigDialog";
 import { ResetBotStateTrigDialog } from "./examples/ResetBotStateTrigDialog";
+import { AtMentionTrigDialog } from "./examples/AtMentionTrigDialog";
 // *************************** END OF EXAMPLES *********************************
 
 // Add imports for dialogs
@@ -73,6 +74,7 @@ export class RootDialog extends builder.IntentDialog {
         new FetchRosterTrigDialog(bot);
         new FetchRosterPayloadTrigDialog(bot);
         new ResetBotStateTrigDialog(bot);
+        new AtMentionTrigDialog(bot);
         // *************************** END OF EXAMPLES *********************************
 
         // Add child dialogs

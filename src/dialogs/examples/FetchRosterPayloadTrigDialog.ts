@@ -22,7 +22,8 @@ export class FetchRosterPayloadTrigDialog extends TriggerDialog {
                     session.error(err);
                 }
                 session.endDialog();
-        });
+            },
+        );
     }
 
     constructor(

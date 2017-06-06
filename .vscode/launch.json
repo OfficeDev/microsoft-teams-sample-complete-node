@@ -23,6 +23,8 @@
                 "EXTERNAL_APP_CONSUMER_SECRET": "",
                 "EXTERNAL_APP_USER_TOKEN": "",
                 "EXTERNAL_APP_USER_TOKEN_SECRET": "",
+                "VSTS_APP_ID": "",
+                "VSTS_APP_SECRET": "",
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": ""
@@ -47,6 +49,8 @@
                 "EXTERNAL_APP_CONSUMER_SECRET": "",
                 "EXTERNAL_APP_USER_TOKEN": "",
                 "EXTERNAL_APP_USER_TOKEN_SECRET": "",
+                "VSTS_APP_ID": "",
+                "VSTS_APP_SECRET": "",
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": ""
@@ -70,6 +74,8 @@
                 "EXTERNAL_APP_CONSUMER_SECRET": "",
                 "EXTERNAL_APP_USER_TOKEN": "",
                 "EXTERNAL_APP_USER_TOKEN_SECRET": "",
+                "VSTS_APP_ID": "",
+                "VSTS_APP_SECRET": "",
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": ""
