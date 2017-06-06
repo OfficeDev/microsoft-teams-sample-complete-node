@@ -18,12 +18,12 @@ export class VSTSRequestAPI {
 
     private async getAccessToken(session: builder.Session): Promise<any> {
         let auth = new VSTSTokenOAuth2API();
-        // sets tokens in session.userData.vsts_access_token and session.userData.vsts_refresh_token
+        // sets tokens in session.userData.vstsAuth.token and session.userData.vstsAuth.refreshToken
         await auth.refreshTokens(session);
 
         session.sendTyping();
 
-        let args = { vsts_access_token: session.userData.vsts_access_token };
+        let args = { vsts_access_token: session.userData.vstsAuth.token };
 
         return args;
     };

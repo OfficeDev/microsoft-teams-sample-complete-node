@@ -39,10 +39,13 @@ export class VSTSTokenOAuth2API {
 
                 let auth = new VSTSTokenOAuth2API();
                 session.sendTyping();
-                // It should send confirmation when it is done
-                auth.setupTokens(session, code);
 
-                res.send(session.gettext(Strings.please_return_to_teams));
+                // Change to create an actual random number
+                let randomValidationNumber = "12345";
+
+                auth.setupTokens(session, code, randomValidationNumber);
+
+                res.send(session.gettext(Strings.please_return_to_teams, randomValidationNumber));
             } catch (e) {
                 // Don't log expected errors
                 res.redirect("/tab/error_generic.png");
@@ -54,7 +57,7 @@ export class VSTSTokenOAuth2API {
         // do nothing
     }
 
-    public async setupTokens(session: builder.Session, code: string): Promise<void> {
+    public async setupTokens(session: builder.Session, code: string, randomValidationNumber: string): Promise<void> {
         session.sendTyping();
         let args = {
             assertion: code,
@@ -65,10 +68,15 @@ export class VSTSTokenOAuth2API {
 
         let body = JSON.parse(resp);
 
-        session.userData.vsts_access_token = body.access_token;
-        session.userData.vsts_refresh_token = body.refresh_token;
+        session.userData.vstsAuth = {
+            token: body.access_token,
+            refreshToken: body.refresh_token,
+            isValidated: false,
+            randomValidationNumber: randomValidationNumber,
+        };
 
-        session.send(Strings.tokens_set_confirmation);
+        // START VALIDATION DIALOG
+        // session.send(Strings.tokens_set_confirmation);
 
         // try to save the tokens in case no other messages are sent
         session.save().sendBatch();
@@ -77,7 +85,7 @@ export class VSTSTokenOAuth2API {
     public async refreshTokens(session: builder.Session): Promise<void> {
         session.sendTyping();
         let args = {
-            vsts_refresh_token: session.userData.vsts_refresh_token,
+            vsts_refresh_token: session.userData.vstsAuth.refreshToken,
             tokenRequestType: "refresh_token",
          };
 
@@ -85,10 +93,10 @@ export class VSTSTokenOAuth2API {
 
         let body = JSON.parse(resp);
 
-        session.userData.vsts_access_token = body.access_token;
-        session.userData.vsts_refresh_token = body.refresh_token;
+        session.userData.vstsAuth.token = body.access_token;
+        session.userData.vstsAuth.refreshToken = body.refresh_token;
 
-        session.send(Strings.tokens_set_confirmation);
+        session.send(Strings.tokens_refreshed_confirmation);
 
         // try to save the tokens in case no other messages are sent
         session.save().sendBatch();

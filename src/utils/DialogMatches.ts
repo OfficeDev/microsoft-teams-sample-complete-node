@@ -27,7 +27,7 @@ export const DialogMatches = {
     fetchRosterMatch2: /get roster/i,
     fetchRosterPayloadMatch: /fetch roster payload/i,
     fetchRosterPayloadMatch2: /get roster payload/i,
-    resetBotStateMatch: /reset/i,
+    resetUserStateMatch: /reset/i,
     atMentionMatch: /run at mention/i,
     // *************************** END OF EXAMPLES *********************************
 
