@@ -111,10 +111,10 @@ export class VSTSTokenOAuth2API {
     public postAsync(uri: string, args: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.post(uri, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });

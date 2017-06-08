@@ -40,10 +40,10 @@ export class VSTSRequestAPI {
 
         return new Promise((resolve, reject) => {
             this.get(url, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });
@@ -61,10 +61,10 @@ export class VSTSRequestAPI {
 
         return new Promise((resolve, reject) => {
             this.del(url, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });
@@ -82,10 +82,10 @@ export class VSTSRequestAPI {
 
         return new Promise((resolve, reject) => {
             this.post(url, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });
@@ -103,10 +103,10 @@ export class VSTSRequestAPI {
 
         return new Promise((resolve, reject) => {
             this.put(url, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });

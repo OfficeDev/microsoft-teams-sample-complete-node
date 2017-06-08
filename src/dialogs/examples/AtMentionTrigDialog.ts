@@ -15,11 +15,12 @@ export class AtMentionTrigDialog extends TriggerDialog {
             id: session.message.address.user.id,
         };
 
-        let msg = new teams.TeamsMessage(session)
-            .addMentionToText(atMention)
-            .text(Strings.at_mention);
+        // because of the way .text and .addMentionToText work you, first, have to add the text to the message
+        // then you can add the at-mention to the text
+        let msg = new teams.TeamsMessage(session).text(Strings.at_mention);
+        let msgWithAtMention = (msg as teams.TeamsMessage).addMentionToText(atMention);
 
-        session.send(msg);
+        session.send(msgWithAtMention);
         session.endDialog();
     }
 
