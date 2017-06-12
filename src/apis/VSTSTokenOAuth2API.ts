@@ -6,6 +6,7 @@ import * as express from "express";
 import * as builder from "botbuilder";
 import { loadSessionAsync } from "../utils/DialogUtils";
 import { Strings } from "../locale/locale";
+import { DialogIds } from "../utils/DialogUtils";
 
 // Callback for HTTP requests
 export interface RequestCallback {
@@ -14,6 +15,7 @@ export interface RequestCallback {
 
 // API wrapper
 export class VSTSTokenOAuth2API {
+
     public static getUserAuthorizationURL(session: builder.Session): string {
         let args = {
             client_id: config.get("vstsApp.appId"),
@@ -38,10 +40,13 @@ export class VSTSTokenOAuth2API {
 
                 let auth = new VSTSTokenOAuth2API();
                 session.sendTyping();
-                // It should send confirmation when it is done
-                auth.setupTokens(session, code);
 
-                res.send(session.gettext(Strings.please_return_to_teams));
+                // Change to create an actual random number
+                let randomValidationNumber = "12345";
+
+                auth.setupTokens(session, code, randomValidationNumber);
+
+                res.send(session.gettext(Strings.please_return_to_teams, randomValidationNumber));
             } catch (e) {
                 // Don't log expected errors
                 res.redirect("/tab/error_generic.png");
@@ -53,7 +58,7 @@ export class VSTSTokenOAuth2API {
         // do nothing
     }
 
-    public async setupTokens(session: builder.Session, code: string): Promise<void> {
+    public async setupTokens(session: builder.Session, code: string, randomValidationNumber: string): Promise<void> {
         session.sendTyping();
         let args = {
             assertion: code,
@@ -64,16 +69,27 @@ export class VSTSTokenOAuth2API {
 
         let body = JSON.parse(resp);
 
-        session.userData.vsts_access_token = body.access_token;
-        session.userData.vsts_refresh_token = body.refresh_token;
+        session.userData.vstsAuth = {
+            token: body.access_token,
+            refreshToken: body.refresh_token,
+            isValidated: false,
+            randomValidationNumber: randomValidationNumber,
+        };
 
-        session.send(Strings.tokens_set_confirmation);
+        // START VALIDATION DIALOG
+        // used for debugging to let developer know tokens were refreshed
+        // session.send(Strings.tokens_set_confirmation);
+
+        session.beginDialog(DialogIds.ValidateVSTSAuthUserTrigDialogId);
+
+        // try to save the tokens in case no other messages are sent
+        session.save().sendBatch();
     }
 
     public async refreshTokens(session: builder.Session): Promise<void> {
         session.sendTyping();
         let args = {
-            vsts_refresh_token: session.userData.vsts_refresh_token,
+            vsts_refresh_token: session.userData.vstsAuth.refreshToken,
             tokenRequestType: "refresh_token",
          };
 
@@ -81,10 +97,14 @@ export class VSTSTokenOAuth2API {
 
         let body = JSON.parse(resp);
 
-        session.userData.vsts_access_token = body.access_token;
-        session.userData.vsts_refresh_token = body.refresh_token;
+        session.userData.vstsAuth.token = body.access_token;
+        session.userData.vstsAuth.refreshToken = body.refresh_token;
 
-        session.send(Strings.tokens_set_confirmation);
+        // used for debugging to let developer know tokens were refreshed
+        // session.send(Strings.tokens_refreshed_confirmation);
+
+        // try to save the tokens in case no other messages are sent
+        session.save().sendBatch();
     }
 
     // Make a POST request to API.
@@ -96,10 +116,10 @@ export class VSTSTokenOAuth2API {
     public postAsync(uri: string, args: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.post(uri, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });

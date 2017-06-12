@@ -94,7 +94,8 @@ export class TestMultiTrigDialog extends MultiTriggerDialog {
                             .url(config.get("app.baseUri") + "/assets/computer_person.jpg")
                             .alt(session.gettext(Strings.img_default)),
                     ])
-                    .buttons(buttons);
+                    .buttons(buttons)
+                    .tap(builder.CardAction.imBack(session, "123"));    // this will not get the bot to do something but will show the functionality of a tap
 
                 cards.push(newCard);
         }

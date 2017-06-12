@@ -4,9 +4,12 @@ let favicon = require("serve-favicon");
 let http = require("http");
 let path = require("path");
 let config = require("config");
-import { ExampleBot } from "./ExampleBot";
+import { Bot } from "./Bot";
 import { VSTSTokenOAuth2API } from "./apis/VSTSTokenOAuth2API";
-import { TeamsChatConnector } from "botbuilder-teams";
+import * as teams from "botbuilder-teams";
+import { TabSetup } from "./tab/TabSetup";
+import { MongoDbBotStorage } from "./storage/MongoDbBotStorage";
+import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
 
 // Configure instrumentation - tooling with Azure
 // let appInsights = require("applicationinsights");
@@ -21,13 +24,28 @@ app.set("port", process.env.PORT || 3978);
 app.use(express.static(path.join(__dirname, "../../public")));
 app.use(express.static(path.join(__dirname, "./public"))); // used for static dialogs
 app.use(favicon(path.join(__dirname, "../../public/assets", "favicon.ico")));
+app.get("/tabDisplay", TabSetup.buildTab());
 
-// Create bot using Teams connector
-let connector = new TeamsChatConnector({
+// Create Teams connector for the bot
+let connector = new teams.TeamsChatConnector({
     appId: config.get("bot.botId"),
     appPassword: config.get("bot.botPassword"),
 });
-let bot = new ExampleBot(connector);
+
+// Create storage for the bot
+let channelStorage = null;
+let botStorage = null;
+if (config.get("channelStorageType") === "mongoDb") {
+    channelStorage = new MongoDbBotChannelStorage(config.get("mongoDb.botStateCollection"), config.get("mongoDb.connectionString"));
+    botStorage = new MongoDbBotStorage(config.get("mongoDb.botStateCollection"), config.get("mongoDb.connectionString"));
+};
+
+let botSettings = {
+    channelStorage: channelStorage,
+    storage: botStorage,
+};
+
+let bot = new Bot(connector, botSettings);
 
 // Configure bot routes
 app.post("/api/messages", connector.listen());

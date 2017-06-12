@@ -14,5 +14,10 @@
     "externalAppUser": {
         "token": "SET_AS_ENVIRONMENT_VARIABLE",
         "token_secret": "SET_AS_ENVIRONMENT_VARIABLE"
-    }
+    },
+    "vstsApp": {
+        "appId": "SET_AS_ENVIRONMENT_VARIABLE",
+        "appSecret": "SET_AS_ENVIRONMENT_VARIABLE"
+    },
+    "channelStorageType": "default_bot_framework_sdk_store"
 }

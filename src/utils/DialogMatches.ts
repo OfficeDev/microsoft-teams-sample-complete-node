@@ -12,10 +12,11 @@ export const DialogMatches = {
     set_alarm_intent: "builtin.intent.alarm.set_alarm",
     delete_alarm_intent: "builtin.intent.alarm.delete_alarm",
     authorizeAppMatch: /authorize/i,
+    validate_user_input_number: "validate_user_input_number",
     oauthTestMatch: /run oauth test/i,
     quizQuestionMatch: /run quiz question/i,
     startQuizMatch: /run quiz/i,
-    start1on1Match: /send 1:1/i,
+    start1to1Match: /send 1:1/i,
     testTrigMatch: /run trig/i,
     beginDialogMatch: /run begin dialog/i,
     constructorArgsMatch: /run constructor args/i,
@@ -25,7 +26,10 @@ export const DialogMatches = {
     update_card_update_msg: "update_card_update_msg",
     fetchRosterMatch: /fetch roster/i,
     fetchRosterMatch2: /get roster/i,
-    resetBotStateMatch: /reset bot state/i,
+    fetchRosterPayloadMatch: /fetch roster payload/i,
+    fetchRosterPayloadMatch2: /get roster payload/i,
+    resetUserStateMatch: /reset/i,
+    atMentionMatch: /run at mention/i,
     // *************************** END OF EXAMPLES *********************************
 
     // Add regex or string intent matches for dialogs

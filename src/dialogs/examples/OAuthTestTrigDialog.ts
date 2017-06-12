@@ -15,6 +15,11 @@ export class OAuthTestTrigDialog extends TriggerDialog {
         let desiredWorkItemId = args.response;
         let vstsAPI = new VSTSAPI();
         let body = await vstsAPI.getWorkItem(desiredWorkItemId, session);
+        if (!body) {
+            session.endDialog();
+            // return is needed because endDialog does not quit out of function
+            return;
+        }
 
         session.send(session.gettext(Strings.title_of_work_item_template, body.value[0].fields["System.Title"]));
         session.send(session.gettext(Strings.get_html_info_for_work_item_template, body.value[0].url));

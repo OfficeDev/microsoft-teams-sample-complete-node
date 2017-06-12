@@ -27,10 +27,10 @@ export class ExampleOAuth1API {
     public getAsync(uri: string, args: any = {}): Promise<any> {
         return new Promise((resolve, reject) => {
             this.get(uri, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });
@@ -45,10 +45,10 @@ export class ExampleOAuth1API {
     public delAsync(uri: string, args: any = {}): Promise<any> {
         return new Promise((resolve, reject) => {
             this.del(uri, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });
@@ -63,10 +63,10 @@ export class ExampleOAuth1API {
     public postAsync(uri: string, args: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.post(uri, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });
@@ -81,10 +81,10 @@ export class ExampleOAuth1API {
     public putAsync(uri: string, args: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.put(uri, args, (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (!err) {
                     resolve(result);
+                } else {
+                    reject(err);
                 }
             });
         });

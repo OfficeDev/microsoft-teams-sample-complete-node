@@ -8,21 +8,17 @@ export interface MatchActionPair {
 export function loadSessionAsync (bot: builder.UniversalBot, address: builder.IAddress): Promise<builder.Session> {
     return new Promise<builder.Session>((resolve, reject) => {
         bot.loadSession(address, (err: any, session: builder.Session) => {
-            if (err) {
-                reject(err);
-            } else {
+            if (!err) {
                 resolve(session);
+            } else {
+                reject(err);
             }
         });
     });
 };
 
 export function isMessageFromChannel(message: builder.IMessage): boolean {
-    if (message.sourceEvent && message.sourceEvent.channel && message.sourceEvent.channel.id) {
-        return true;
-    } else {
-        return false;
-    }
+    return (message.sourceEvent && message.sourceEvent.channel && message.sourceEvent.channel.id);
 }
 
 // tslint:disable-next-line:variable-name
@@ -36,11 +32,12 @@ export const DialogIds = {
     NatLangMultiTrigDialogId: "NatLangMultiTrigDialog",
     OAuthTestTrigDialogId: "OAuthTestTrigDialog",
     AuthorizeAppTrigDialogId: "AuthorizeAppTrigDialog",
+    ValidateVSTSAuthUserTrigDialogId: "ValidateVSTSAuthUserTrigDialog",
     QuizQ1TrigDialogId: "QuizQ1TrigDialog",
     QuizQ2TrigDialogId: "QuizQ2TrigDialog",
     QuizQ3TrigDialogId: "QuizQ3TrigDialog",
     QuizTrigDialogId: "QuizTrigDialog",
-    Start1on1TrigDialogId: "Start1on1TrigDialog",
+    Start1to1TrigDialogId: "Start1to1TrigDialog",
     TestTrigDialogId: "TestTrigDialog",
     BeginDialogExampleTrigDialogId: "BeginDialogExampleTrigDialog",
     PromptFlowGameTrigDialogId: "PromptFlowGameTrigDialog",
@@ -50,7 +47,9 @@ export const DialogIds = {
     UpdateMsgCardSetupTrigDialogId: "UpdateMsgCardSetupTrigDialog",
     UpdateMsgCardUpdateTrigDialogId: "UpdateMsgCardUpdateTrigDialog",
     FetchRosterTrigDialogId: "FetchRosterTrigDialog",
-    ResetBotStateTrigDialogId: "ResetBotStateTrigDialog",
+    FetchRosterPayloadTrigDialogId: "FetchRosterPayloadTrigDialog",
+    ResetUserStateTrigDialogId: "ResetUserStateTrigDialog",
+    AtMentionTrigDialogId: "AtMentionTrigDialog",
     // *************************** END OF EXAMPLES *********************************
 
     // Add entries for dialog ids

@@ -103,18 +103,18 @@ gulp.task('statics:copy', ['clean'], function () {
 /**
  * Copy .ts dialog files to build directory as .txt files for browser viewing
  */
-gulp.task('staticDialogs:copy', ['clean'], function() {
-    return gulp.src('./src/dialogs/*.ts')
+gulp.task('exampleDialogs:copy', ['clean'], function() {
+    return gulp.src('./src/dialogs/examples/*.ts')
         .pipe(rename(function (path) {
             path.extname = ".txt";
         }))
-        .pipe(gulp.dest("./build/src/public/staticDialogs"));
+        .pipe(gulp.dest("./build/src/public/exampleDialogs"));
 });
 
 /**
  * Build application.
  */
-gulp.task('build', ['clean', 'ts:lint', 'ts', 'statics:copy', 'staticDialogs:copy']);
+gulp.task('build', ['clean', 'ts:lint', 'ts', 'statics:copy', 'exampleDialogs:copy']);
 
 /**
  * Run tests.
