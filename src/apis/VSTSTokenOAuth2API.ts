@@ -6,6 +6,7 @@ import * as express from "express";
 import * as builder from "botbuilder";
 import { loadSessionAsync } from "../utils/DialogUtils";
 import { Strings } from "../locale/locale";
+import { DialogIds } from "../utils/DialogUtils";
 
 // Callback for HTTP requests
 export interface RequestCallback {
@@ -76,7 +77,10 @@ export class VSTSTokenOAuth2API {
         };
 
         // START VALIDATION DIALOG
+        // used for debugging to let developer know tokens were refreshed
         // session.send(Strings.tokens_set_confirmation);
+
+        session.beginDialog(DialogIds.ValidateVSTSAuthUserTrigDialogId);
 
         // try to save the tokens in case no other messages are sent
         session.save().sendBatch();
@@ -96,7 +100,8 @@ export class VSTSTokenOAuth2API {
         session.userData.vstsAuth.token = body.access_token;
         session.userData.vstsAuth.refreshToken = body.refresh_token;
 
-        session.send(Strings.tokens_refreshed_confirmation);
+        // used for debugging to let developer know tokens were refreshed
+        // session.send(Strings.tokens_refreshed_confirmation);
 
         // try to save the tokens in case no other messages are sent
         session.save().sendBatch();

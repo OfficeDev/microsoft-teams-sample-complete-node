@@ -32,6 +32,7 @@ export const DialogIds = {
     NatLangMultiTrigDialogId: "NatLangMultiTrigDialog",
     OAuthTestTrigDialogId: "OAuthTestTrigDialog",
     AuthorizeAppTrigDialogId: "AuthorizeAppTrigDialog",
+    ValidateVSTSAuthUserTrigDialogId: "ValidateVSTSAuthUserTrigDialog",
     QuizQ1TrigDialogId: "QuizQ1TrigDialog",
     QuizQ2TrigDialogId: "QuizQ2TrigDialog",
     QuizQ3TrigDialogId: "QuizQ3TrigDialog",

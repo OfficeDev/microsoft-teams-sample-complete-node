@@ -2,6 +2,7 @@ import * as request from "request";
 import * as builder from "botbuilder";
 let http = require("http");
 import { VSTSTokenOAuth2API } from "./VSTSTokenOAuth2API";
+import { DialogIds } from "../utils/DialogUtils";
 
 // Callback for HTTP requests
 export interface RequestCallback {
@@ -16,7 +17,23 @@ export class VSTSRequestAPI {
         // do nothing
     }
 
+    private isUserValidated(session: builder.Session): boolean {
+        let isValidated = session.userData &&
+            session.userData.vstsAuth &&
+            session.userData.vstsAuth.isValidated;
+
+        if (!isValidated) {
+            session.beginDialog(DialogIds.AuthorizeAppTrigDialogId);
+        }
+
+        return isValidated;
+    }
+
     private async getAccessToken(session: builder.Session): Promise<any> {
+        if (!this.isUserValidated(session)) {
+            return null;
+        }
+
         let auth = new VSTSTokenOAuth2API();
         // sets tokens in session.userData.vstsAuth.token and session.userData.vstsAuth.refreshToken
         await auth.refreshTokens(session);
@@ -37,6 +54,9 @@ export class VSTSRequestAPI {
     // tslint:disable-next-line:member-ordering
     public async getAsync(url: string, session: builder.Session): Promise<any> {
         let args = await this.getAccessToken(session);
+        if (!args) {
+            return null;
+        }
 
         return new Promise((resolve, reject) => {
             this.get(url, args, (err, result) => {
@@ -58,6 +78,9 @@ export class VSTSRequestAPI {
     // tslint:disable-next-line:member-ordering
     public async delAsync(url: string, session: builder.Session): Promise<any> {
         let args = await this.getAccessToken(session);
+        if (!args) {
+            return null;
+        }
 
         return new Promise((resolve, reject) => {
             this.del(url, args, (err, result) => {
@@ -79,6 +102,9 @@ export class VSTSRequestAPI {
     // tslint:disable-next-line:member-ordering
     public async postAsync(url: string, session: builder.Session): Promise<any> {
         let args = await this.getAccessToken(session);
+        if (!args) {
+            return null;
+        }
 
         return new Promise((resolve, reject) => {
             this.post(url, args, (err, result) => {
@@ -100,6 +126,9 @@ export class VSTSRequestAPI {
     // tslint:disable-next-line:member-ordering
     public async putAsync(url: string, session: builder.Session): Promise<any> {
         let args = await this.getAccessToken(session);
+        if (!args) {
+            return null;
+        }
 
         return new Promise((resolve, reject) => {
             this.put(url, args, (err, result) => {

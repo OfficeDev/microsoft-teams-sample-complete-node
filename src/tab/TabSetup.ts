@@ -29,8 +29,11 @@ export class TabSetup {
                 for (let i = 0; i < files.length; i++) {
                     let currFile = files[i];
                     let fileName = path.parse(currFile).name;
-                    htmlPage += `<br>
-                    <a href="/exampleDialogs/` + fileName +  `.txt">` + fileName + `.ts</a>`;
+                    let fileExtension = path.parse(currFile).ext;
+                    if (fileExtension === ".ts") {
+                        htmlPage += `<br>
+                        <a href="/exampleDialogs/` + fileName +  `.txt">` + fileName + `.ts</a>`;
+                    }
                 }
 
                 htmlPage += `</body>

@@ -5,6 +5,7 @@ import { DialogIds } from "../utils/DialogUtils";
 
 // *************************** BEGINNING OF EXAMPLES ***************************
 import { AuthorizeAppTrigDialog } from "./examples/AuthorizeAppTrigDialog";
+import { ValidateVSTSAuthUserTrigDialog } from "./examples/ValidateVSTSAuthUserTrigDialog";
 import { BeginDialogExampleTrigDialog } from "./examples/BeginDialogExampleTrigDialog";
 import { GetLastDialogUsedTrigDialog } from "./examples/GetLastDialogUsedTrigDialog";
 import { NatLangMultiTrigDialog } from "./examples/NatLangMultiTrigDialog";
@@ -54,6 +55,7 @@ export class RootDialog extends builder.IntentDialog {
 
         // *************************** BEGINNING OF EXAMPLES ***************************
         new AuthorizeAppTrigDialog(bot);
+        new ValidateVSTSAuthUserTrigDialog(bot);
         new BeginDialogExampleTrigDialog(bot);
         new GetLastDialogUsedTrigDialog(bot);
         new NatLangMultiTrigDialog(bot);

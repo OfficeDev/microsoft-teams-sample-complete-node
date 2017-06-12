@@ -12,6 +12,7 @@ export const DialogMatches = {
     set_alarm_intent: "builtin.intent.alarm.set_alarm",
     delete_alarm_intent: "builtin.intent.alarm.delete_alarm",
     authorizeAppMatch: /authorize/i,
+    validate_user_input_number: "validate_user_input_number",
     oauthTestMatch: /run oauth test/i,
     quizQuestionMatch: /run quiz question/i,
     startQuizMatch: /run quiz/i,

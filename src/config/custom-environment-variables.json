@@ -1,11 +1,11 @@
 {
     "app": {
         "baseUri": "APP_BASE_URI",
-        "appId": "MICROSOFT_APP_ID"
+        "appId": "TEAMS_APP_ID"
     },
     "bot": {
-        "botId": "MICROSOFT_BOT_ID",
-        "botPassword": "MICROSOFT_BOT_PASSWORD"
+        "botId": "MICROSOFT_APP_ID",
+        "botPassword": "MICROSOFT_APP_PASSWORD"
     },
     "luis": {
         "endpointUri": "LUIS_ENDPOINT_URI"

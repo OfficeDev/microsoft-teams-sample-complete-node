@@ -4,7 +4,7 @@ let favicon = require("serve-favicon");
 let http = require("http");
 let path = require("path");
 let config = require("config");
-import { ExampleBot } from "./ExampleBot";
+import { Bot } from "./Bot";
 import { VSTSTokenOAuth2API } from "./apis/VSTSTokenOAuth2API";
 import * as teams from "botbuilder-teams";
 import { TabSetup } from "./tab/TabSetup";
@@ -45,7 +45,7 @@ let botSettings = {
     storage: botStorage,
 };
 
-let bot = new ExampleBot(connector, botSettings);
+let bot = new Bot(connector, botSettings);
 
 // Configure bot routes
 app.post("/api/messages", connector.listen());

@@ -10,7 +10,7 @@ import * as teams from "botbuilder-teams";
 // Bot Setup
 // =========================================================
 
-export class ExampleBot extends builder.UniversalBot {
+export class Bot extends builder.UniversalBot {
 
     constructor(
         private _connector: teams.TeamsChatConnector,
@@ -22,16 +22,18 @@ export class ExampleBot extends builder.UniversalBot {
         // Root dialog
         new RootDialog(this).createChildDialogs();
 
+        // Add middleware
+        this.use(
+            // currently this middleware cannot be used because there is an error using it
+            // with updating messages examples
+            // builder.Middleware.sendTyping(),
+            new StripBotAtMentions(),
+        );
+
         // Handle invoke events
         this._connector.onInvoke((event, callback) => { this.invokeHandler(event, callback); });
         this._connector.onQuery("search123", (event, query, callback) => { this.composeExtensionHandler(event, query, callback); });
         this.on("conversationUpdate", (event) => { this.conversationUpdateHandler(event); });
-
-        // Add middleware
-        this.use(
-            // builder.Middleware.sendTyping(),
-            new StripBotAtMentions(),
-        );
     }
 
     // Handle incoming invoke
