@@ -10,7 +10,7 @@
   "main": "app.js",
   "scripts": {
     "start": "cd build/src && node app.js",
-    "predebug": "gulp build",
+    "build": "gulp build",
     "debug": "node ./build/src/app.js"
   },
   "engines": {
