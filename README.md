@@ -22,9 +22,6 @@ Install Node:
 * https://nodejs.org/en/download/  
 * NOTE: This gives you npm  
 
-Install Gulp globally - run:  
-* npm install --global gulp
-
 Install the bot Emulator - click on "Bot Framework Emulator (Mac and Windows)":  
 * https://docs.botframework.com/en-us/downloads/#navtitle  
 * NOTE: make sure to pin the emulator to your task bar because it can sometimes be difficult to find again  
