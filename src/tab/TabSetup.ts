@@ -18,6 +18,8 @@ export class TabSetup {
                     <!DOCTYPE html>
                     <html>
                     <head>
+                        <script src='https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js'></script>
+                        <script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
                     </head>
 
                     <body>
@@ -30,13 +32,33 @@ export class TabSetup {
                     let currFile = files[i];
                     let fileName = path.parse(currFile).name;
                     let fileExtension = path.parse(currFile).ext;
-                    if (fileExtension === ".ts") {
+                    if (fileExtension === ".txt") {
                         htmlPage += `<br>
                         <a href="/exampleDialogs/` + fileName +  `.txt">` + fileName + `.ts</a>`;
                     }
                 }
 
-                htmlPage += `</body>
+                htmlPage += `
+                    <br>
+                    <br>
+                    <br>
+                    <button onclick="showContext()">Click to Show Tab's Context</button>
+                    <br>
+                    <p id="contextOutput"></p>
+                    <script>
+                        var microsoftTeams;
+
+                        $(document).ready(function () {
+                            microsoftTeams.initialize();
+                        });
+
+                        function showContext() {
+                            microsoftTeams.getContext((context) => {
+                                document.getElementById("contextOutput").innerHTML = JSON.stringify(context);
+                            });
+                        }
+                    </script>
+                    </body>
                     </html>
                     
                     </body>
