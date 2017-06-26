@@ -7,14 +7,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug_Build_Launch - works with breakpoints",
+            "name": "Debug_Build_Launch (works with breakpoints)",
             "program": "${workspaceRoot}/src/app.ts",
             "cwd": "${workspaceRoot}/build/src",
             "preLaunchTask": "build",
             "sourceMaps": true,
             "outFiles": [ "${workspaceRoot}/build/**/*.js" ],
             "env": {
-                "APP_BASE_URI": "http://localhost:3978",
+                "BASE_URI": "http://localhost:3978",
                 "TEAMS_APP_ID": "",
                 "MICROSOFT_APP_ID": "",
                 "MICROSOFT_APP_PASSWORD": "",
@@ -33,14 +33,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Build_Launch",
-            "program": "${workspaceRoot}\\build\\src\\app.js",
-            "cwd": "${workspaceRoot}\\build\\src",
+            "name": "Fiddler Launch (only works when running Fiddler)",
+            "program": "${workspaceRoot}/src/app.ts",
+            "cwd": "${workspaceRoot}/build/src",
             "preLaunchTask": "build",
             "sourceMaps": true,
-            "outFiles": [],
+            "outFiles": [ "${workspaceRoot}/build/**/*.js" ],
             "env": {
-                "APP_BASE_URI": "http://localhost:3978",
+                "BASE_URI": "http://localhost:3978",
                 "TEAMS_APP_ID": "",
                 "MICROSOFT_APP_ID": "",
                 "MICROSOFT_APP_PASSWORD": "",
@@ -53,19 +53,22 @@
                 "VSTS_APP_SECRET": "",
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
-                "MONGODB_BOT_STATE_COLLECTION": ""
+                "MONGODB_BOT_STATE_COLLECTION": "",
+                "http_proxy": "http://localhost:8888",
+                "no_proxy": "login.microsoftonline.com",
+                "NODE_TLS_REJECT_UNAUTHORIZED": "0"
             }
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch",
+            "name": "Just Launch (no build)",
             "program": "${workspaceRoot}\\build\\src\\app.js",
             "cwd": "${workspaceRoot}\\build\\src",
             "sourceMaps": true,
             "outFiles": [],
             "env": {
-                "APP_BASE_URI": "http://localhost:3978",
+                "BASE_URI": "http://localhost:3978",
                 "TEAMS_APP_ID": "",
                 "MICROSOFT_APP_ID": "",
                 "MICROSOFT_APP_PASSWORD": "",
@@ -80,14 +83,6 @@
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": ""
             }
-        },  
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "Attach to Process",
-            "address": "localhost",
-            "port": 5858,
-            "outFiles": []
         }
     ]
 }
