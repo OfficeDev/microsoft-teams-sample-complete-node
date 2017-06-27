@@ -1,6 +1,6 @@
 {
     "app": {
-        "baseUri": "APP_BASE_URI",
+        "baseUri": "BASE_URI",
         "appId": "TEAMS_APP_ID"
     },
     "bot": {
