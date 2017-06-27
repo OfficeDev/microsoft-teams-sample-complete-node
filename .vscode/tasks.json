@@ -9,7 +9,7 @@
     "tasks": [
         {
             "taskName": "build",
-            "args": ["run", "build"],
+            "args": ["run", "-s", "build"],
             "isBuildCommand": true,
             "problemMatcher": []
         }
