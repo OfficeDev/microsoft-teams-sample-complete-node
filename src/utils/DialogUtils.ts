@@ -37,6 +37,7 @@ export const DialogIds = {
     QuizQ2TrigDialogId: "QuizQ2TrigDialog",
     QuizQ3TrigDialogId: "QuizQ3TrigDialog",
     QuizTrigDialogId: "QuizTrigDialog",
+    O365ConnectorCardDialogId: "O365ConnectorCardDialog",
     Start1to1TrigDialogId: "Start1to1TrigDialog",
     TestTrigDialogId: "TestTrigDialog",
     BeginDialogExampleTrigDialogId: "BeginDialogExampleTrigDialog",

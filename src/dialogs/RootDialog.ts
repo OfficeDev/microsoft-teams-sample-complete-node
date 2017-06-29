@@ -15,6 +15,7 @@ import { QuizQ1TrigDialog } from "./examples/QuizQ1TrigDialog";
 import { QuizQ2TrigDialog } from "./examples/QuizQ2TrigDialog";
 import { QuizQ3TrigDialog } from "./examples/QuizQ3TrigDialog";
 import { QuizTrigDialog } from "./examples/QuizTrigDialog";
+import { O365ConnectorCardDialog } from "./examples/O365ConnectorCardDialog";
 import { Start1to1TrigDialog } from "./examples/Start1to1TrigDialog";
 import { TestMultiTrigDialog } from "./examples/TestMultiTrigDialog";
 import { TestTrigDialog } from "./examples/TestTrigDialog";
@@ -65,6 +66,7 @@ export class RootDialog extends builder.IntentDialog {
         new QuizQ2TrigDialog(bot);
         new QuizQ3TrigDialog(bot);
         new QuizTrigDialog(bot);
+        new O365ConnectorCardDialog(bot);
         new Start1to1TrigDialog(bot);
         new TestMultiTrigDialog(bot);
         new TestTrigDialog(bot);
