@@ -17,10 +17,11 @@ export interface RequestCallback {
 export class VSTSTokenOAuth2API {
 
     public static getUserAuthorizationURL(session: builder.Session): string {
+        let currentEventInfo = session.message;
         let args = {
             client_id: config.get("vstsApp.appId"),
             response_type: "Assertion",
-            state: JSON.stringify(session.message.address),
+            state: JSON.stringify(currentEventInfo),
             scope: "vso.work",
             redirect_uri: config.get("app.baseUri") + "/api/oauthCallback",
         };
@@ -35,8 +36,8 @@ export class VSTSTokenOAuth2API {
                 let code = req.query.code;
                 let state = req.query.state;
 
-                let address: builder.IAddress = JSON.parse(state);
-                let session = await loadSessionAsync(bot, address);
+                let currentEventInfo = JSON.parse(state);
+                let session = await loadSessionAsync(bot, currentEventInfo);
 
                 let auth = new VSTSTokenOAuth2API();
                 session.sendTyping();
