@@ -13,11 +13,10 @@ export class Start1to1TrigDialog extends TriggerDialog {
 
     // private static async send1to1Msg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
     //     // casting to keep away typescript error
-    //     let msgAddress: builder.IChatConnectorAddress = session.message.address;
+    //     let msgAddress = (session.message.address as builder.IChatConnectorAddress);
     //     let msgServiceUrl = msgAddress.serviceUrl;
 
-    //     let newAddress =
-    //     {
+    //     let newAddress = {
     //         channelId: "msteams",
     //         user: { id: session.message.address.user.id },
     //         channelData: {
@@ -37,10 +36,10 @@ export class Start1to1TrigDialog extends TriggerDialog {
     //         if (!err) {
     //             let msg = new builder.Message(session)
     //                 .address(resultAddress)
-    //                 .text("*123");
+    //                 .text(Strings.proactive_msg_one_to_one);
     //             session.send(msg);
 
-    //             session.send(Strings.one_on_one_message_sent);
+    //             session.send(Strings.one_to_one_message_sent);
     //         } else {
     //             session.error(err);
     //         }
@@ -57,11 +56,10 @@ export class Start1to1TrigDialog extends TriggerDialog {
 
             async (session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void) => {
                 // casting to keep away typescript error
-                let msgAddress: builder.IChatConnectorAddress = session.message.address;
+                let msgAddress = (session.message.address as builder.IChatConnectorAddress);
                 let msgServiceUrl = msgAddress.serviceUrl;
 
-                let address =
-                {
+                let address = {
                     channelId: "msteams",
                     user: { id: session.message.address.user.id },
                     channelData: {
@@ -71,14 +69,18 @@ export class Start1to1TrigDialog extends TriggerDialog {
                     },
                     bot: {
                         id: session.message.address.bot.id,
-                        name: session.message.address.bot.name,
+                        // The bot's name can be used, but is not necessary
+                        // name: session.message.address.bot.name,
                     },
                     serviceUrl: msgServiceUrl,
                     useAuth: true,
                 };
+
+                // this does not currently work with the localization and multiple languages system
+                // the method listed below does currently handle localization
                 bot.beginDialog(address, DialogIds.TestTrigDialogId);
 
-                session.send(Strings.one_on_one_message_sent);
+                session.send(Strings.one_to_one_message_sent);
                 session.endDialog();
             },
 
@@ -88,7 +90,6 @@ export class Start1to1TrigDialog extends TriggerDialog {
             // function definition above the constructor
 
             // Start1to1TrigDialog.send1to1Msg,
-
         );
     }
 }
