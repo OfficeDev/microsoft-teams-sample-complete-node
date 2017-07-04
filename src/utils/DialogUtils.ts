@@ -27,7 +27,7 @@ export function loadSessionAsync (bot: builder.UniversalBot, event: builder.IEve
 };
 
 export function getLocaleFromEvent(event: builder.IEvent): string {
-    // Casting to keep away typescript errors
+    // casting to keep away typescript errors
     let currEvent = (event as any);
     if (currEvent.entities && currEvent.entities.length) {
         for (let i = 0; i < currEvent.entities.length; i++) {
