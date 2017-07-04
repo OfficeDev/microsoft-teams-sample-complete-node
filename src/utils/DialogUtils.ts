@@ -5,17 +5,42 @@ export interface MatchActionPair {
     action: builder.IDialogWaterfallStep | builder.IDialogWaterfallStep[];
 }
 
-export function loadSessionAsync (bot: builder.UniversalBot, address: builder.IAddress): Promise<builder.Session> {
+export function loadSessionAsync (bot: builder.UniversalBot, event: builder.IEvent): Promise<builder.Session> {
+    let address = event.address;
     return new Promise<builder.Session>((resolve, reject) => {
         bot.loadSession(address, (err: any, session: builder.Session) => {
             if (!err) {
-                resolve(session);
+                let locale = getLocaleFromEvent(event);
+                if (locale) {
+                    (session as any)._locale = locale;
+                    session.localizer.load(locale, (err2) => {
+                        resolve(session);
+                    });
+                } else {
+                    resolve(session);
+                }
             } else {
                 reject(err);
             }
         });
     });
 };
+
+export function getLocaleFromEvent(event: builder.IEvent): string {
+    // Casting to keep away typescript errors
+    let currEvent = (event as any);
+    if (currEvent.entities && currEvent.entities.length) {
+        for (let i = 0; i < currEvent.entities.length; i++) {
+            if (currEvent.entities[i].type &&
+                currEvent.entities[i].type === "clientInfo" &&
+                currEvent.entities[i].locale)
+            {
+                return currEvent.entities[i].locale;
+            }
+        }
+    }
+    return null;
+}
 
 export function isMessageFromChannel(message: builder.IMessage): boolean {
     return (message.sourceEvent && message.sourceEvent.channel && message.sourceEvent.channel.id);
