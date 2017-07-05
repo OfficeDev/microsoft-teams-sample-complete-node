@@ -1,51 +1,59 @@
 import * as builder from "botbuilder";
 import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds } from "../../utils/DialogUtils";
+import { DialogIds, loadSessionAsync } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 
 export class Start1to1TrigDialog extends TriggerDialog {
 
-    // Below is another way to send a direct 1:1 message.  It is completely encapsulated within a waterfall
-    // step, but is limited to only sending a message and cannot call beginDialog()
-    // To Use: comment out the async function in the constructor, uncomment the line in the constructor
-    // which references the send1to1Msg function, uncomment the send1to1Msg function definition below
+    private static async send1to1Msg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
+        // casting to keep away typescript error
+        let msgAddress = (session.message.address as builder.IChatConnectorAddress);
+        let msgServiceUrl = msgAddress.serviceUrl;
 
-    // private static async send1to1Msg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-    //     // casting to keep away typescript error
-    //     let msgAddress = (session.message.address as builder.IChatConnectorAddress);
-    //     let msgServiceUrl = msgAddress.serviceUrl;
+        // to send a proactive message to a one to one chat create the address, but leave out the conversation id
+        let newAddress = {
+            channelId: "msteams",
+            user: { id: session.message.address.user.id },
+            channelData: {
+                tenant: {
+                    id: session.message.sourceEvent.tenant.id,
+                },
+            },
+            bot: {
+                id: session.message.address.bot.id,
+                // The bot's name can be used, but is not necessary
+                // name: session.message.address.bot.name,
+            },
+            serviceUrl: msgServiceUrl,
+            useAuth: true,
+        };
 
-    //     let newAddress = {
-    //         channelId: "msteams",
-    //         user: { id: session.message.address.user.id },
-    //         channelData: {
-    //             tenant: {
-    //                 id: session.message.sourceEvent.tenant.id,
-    //             },
-    //         },
-    //         bot: {
-    //             id: session.message.address.bot.id,
-    //             name: session.message.address.bot.name,
-    //         },
-    //         serviceUrl: msgServiceUrl,
-    //         useAuth: true,
-    //     };
+        session.connector.startConversation(newAddress, async (err, resultAddress) => {
+            if (!err) {
+                // create a new event based on the incoming message, but change
+                // the address to be the new result address
+                let createdEvent = { ...session.message, address: resultAddress };
+                // using this template and base trigger dialog, the bot is always present in args.constructorArgs.bot
+                let sessionFor1to1 = await loadSessionAsync(args.constructorArgs.bot, createdEvent);
+                sessionFor1to1.beginDialog(DialogIds.TestTrigDialogId);
 
-    //     session.connector.startConversation(newAddress, (err, resultAddress) => {
-    //         if (!err) {
-    //             let msg = new builder.Message(session)
-    //                 .address(resultAddress)
-    //                 .text(Strings.proactive_msg_one_to_one);
-    //             session.send(msg);
+                // if you wish to only send one message rather than starting a dialog, you can
+                // skip the three steps above (comment them out), not create a new session,
+                // and run the commented out section below
 
-    //             session.send(Strings.one_to_one_message_sent);
-    //         } else {
-    //             session.error(err);
-    //         }
-    //         session.endDialog();
-    //     });
-    // }
+                // let proactiveMsg = new builder.Message(session)
+                //     .address(resultAddress)
+                //     .text(Strings.proactive_msg_one_to_one);
+                // session.send(proactiveMsg);
+
+                session.send(Strings.one_to_one_message_sent);
+            } else {
+                session.error(err);
+            }
+            session.endDialog();
+        });
+    }
 
     constructor(
         bot: builder.UniversalBot,
@@ -54,42 +62,41 @@ export class Start1to1TrigDialog extends TriggerDialog {
             DialogIds.Start1to1TrigDialogId,
             DialogMatches.start1to1Match,
 
-            async (session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void) => {
-                // casting to keep away typescript error
-                let msgAddress = (session.message.address as builder.IChatConnectorAddress);
-                let msgServiceUrl = msgAddress.serviceUrl;
+            Start1to1TrigDialog.send1to1Msg,
 
-                let address = {
-                    channelId: "msteams",
-                    user: { id: session.message.address.user.id },
-                    channelData: {
-                        tenant: {
-                            id: session.message.sourceEvent.tenant.id,
-                        },
-                    },
-                    bot: {
-                        id: session.message.address.bot.id,
-                        // The bot's name can be used, but is not necessary
-                        // name: session.message.address.bot.name,
-                    },
-                    serviceUrl: msgServiceUrl,
-                    useAuth: true,
-                };
+            // Below is another way to send a direct 1:1 message.  It is limited in that it does not work with the
+            // automatic localization and multiple languages system
+            // To Use: comment out the function directly above, Start1to1TrigDialog.send1to1Msg,
+            // uncomment the function below
 
-                // this does not currently work with the localization and multiple languages system
-                // the method listed below does currently handle localization
-                bot.beginDialog(address, DialogIds.TestTrigDialogId);
+            // async (session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void) => {
+            //     // casting to keep away typescript error
+            //     let msgAddress = (session.message.address as builder.IChatConnectorAddress);
+            //     let msgServiceUrl = msgAddress.serviceUrl;
 
-                session.send(Strings.one_to_one_message_sent);
-                session.endDialog();
-            },
+            //     let address = {
+            //         channelId: "msteams",
+            //         user: { id: session.message.address.user.id },
+            //         channelData: {
+            //             tenant: {
+            //                 id: session.message.sourceEvent.tenant.id,
+            //             },
+            //         },
+            //         bot: {
+            //             id: session.message.address.bot.id,
+            //             // The bot's name can be used, but is not necessary
+            //             // name: session.message.address.bot.name,
+            //         },
+            //         serviceUrl: msgServiceUrl,
+            //         useAuth: true,
+            //     };
 
-            // Below is another way to send a direct 1:1 message.  It is completely encapsulated within a waterfall
-            // step, but is limited to only sending a message and cannot call beginDialog()
-            // To Use: comment out the function directly above, uncomment the line below, uncomment the send1to1Msg
-            // function definition above the constructor
+            //     // this does not currently work with the localization and multiple languages system
+            //     bot.beginDialog(address, DialogIds.TestTrigDialogId);
 
-            // Start1to1TrigDialog.send1to1Msg,
+            //     session.send(Strings.one_to_one_message_sent);
+            //     session.endDialog();
+            // },
         );
     }
 }
