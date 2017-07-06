@@ -31,6 +31,7 @@ export const DialogMatches = {
     fetchRosterPayloadMatch2: /get roster payload/i,
     resetUserStateMatch: /reset/i,
     atMentionMatch: /run at mention/i,
+    sendProactiveMsgToChannelDialogMatch: /send (?:a )?message to(?: the)?(.*?)(?:channel)?$/i,
     // *************************** END OF EXAMPLES *********************************
 
     // Add regex or string intent matches for dialogs

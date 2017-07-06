@@ -11,7 +11,7 @@ export class ValidateVSTSAuthUserTrigDialog extends TriggerDialog {
     }
 
     private static async validateInputNumber(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        let userEnteredNumber = args.response;
+        let userEnteredNumber = args.response.trim();
         let validationNumber = session.userData.vstsAuth.randomValidationNumber;
         if (userEnteredNumber === validationNumber) {
             session.userData.vstsAuth.isValidated = true;

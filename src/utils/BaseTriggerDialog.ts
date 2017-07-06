@@ -18,12 +18,15 @@ export abstract class BaseTriggerDialog extends BaseDialog {
         constructorArgs?: any): void {
             let newActionList = new Array<builder.IDialogWaterfallStep>();
             newActionList.push((session, args, next) => { this.setDialogIdAsCurrent(session, args, next); });
-            if (constructorArgs) {
-                newActionList.push((session, args, next) => {
+            newActionList.push((session, args, next) => {
+                if (constructorArgs) {
                     args.constructorArgs = constructorArgs;
-                    next(args);
-                });
-            }
+                } else {
+                    args.constructorArgs = {};
+                }
+                args.constructorArgs.bot = bot;
+                next(args);
+            });
             if (Array.isArray(action)) {
                 newActionList = newActionList.concat((action as builder.IDialogWaterfallStep[]));
             } else {

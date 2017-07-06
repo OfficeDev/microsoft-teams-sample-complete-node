@@ -1,6 +1,7 @@
 import * as builder from "botbuilder";
 let config = require("config");
 import { RootDialog } from "./dialogs/RootDialog";
+import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
@@ -27,6 +28,11 @@ export class Bot extends builder.UniversalBot {
             // currently this middleware cannot be used because there is an error using it
             // with updating messages examples
             // builder.Middleware.sendTyping(),
+
+            // set on "receive" of message
+            new SetLocaleFromTeamsSetting(),
+
+            // set on "botbuilder" (after session created)
             new StripBotAtMentions(),
         );
 
@@ -38,7 +44,7 @@ export class Bot extends builder.UniversalBot {
 
     // Handle incoming invoke
     private async invokeHandler(event: builder.IEvent, callback: (err: Error, body: any, status?: number) => void): Promise<void> {
-        let session = await loadSessionAsync(this, event.address);
+        let session = await loadSessionAsync(this, event);
         if (session) {
             // Clear the stack on invoke, as many builtin dialogs don't play well with invoke
             // Invoke messages should carry the necessary information to perform their action
@@ -68,7 +74,7 @@ export class Bot extends builder.UniversalBot {
         }
 
         try {
-            let session = await loadSessionAsync(this, event.address);
+            let session = await loadSessionAsync(this, event);
             let title = "";
 
             // parameters should be identical to manifest
@@ -103,8 +109,9 @@ export class Bot extends builder.UniversalBot {
         }
     }
 
+    // set incoming event to any because membersAdded is not a field in builder.IEvent
     private async conversationUpdateHandler(event: any): Promise<void> {
-        let session = await loadSessionAsync(this, event.address);
+        let session = await loadSessionAsync(this, event);
 
         if (event.membersAdded && event.membersAdded[0].id && event.membersAdded[0].id.endsWith(config.get("bot.botId"))) {
             session.send(Strings.bot_introduction); // probably only works in Teams

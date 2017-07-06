@@ -7,15 +7,20 @@ export class StripBotAtMentions implements builder.IMiddlewareMap {
         let message = session.message;
         if (message) {
             let botMri = message.address.bot.id.toLowerCase();
-            let botAtMention = message.entities && message.entities.find(
+            let botAtMentions = message.entities && message.entities.filter(
                 (entity) => (entity.type === "mention") && (entity.mentioned.id.toLowerCase() === botMri));
-            if (botAtMention) {
+            if (botAtMentions && botAtMentions.length) {
                 // Save original text as property of the message
                 (message as any).textWithBotMentions = message.text;
-                message.text = message.text.replace(botAtMention.text, "").trim();
+                // Remove the text corresponding to each mention
+                message.text = botAtMentions.reduce(
+                    (previousText, entity) => {
+                        return previousText.replace(entity.text, "").trim();
+                    },
+                    message.text,
+                );
             }
         }
         next();
     }
-
 }

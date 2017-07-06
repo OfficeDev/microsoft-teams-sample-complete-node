@@ -42,6 +42,8 @@ export class TabSetup {
                     <br>
                     <br>
                     <br>
+                    <p id="currentTheme">Current theme will show here when you change it in Teams settings - it can be found on the initial load by fetching the context</p>
+                    <br>
                     <button onclick="showContext()">Click to Show Tab's Context</button>
                     <br>
                     <p id="contextOutput"></p>
@@ -50,6 +52,9 @@ export class TabSetup {
 
                         $(document).ready(function () {
                             microsoftTeams.initialize();
+                            microsoftTeams.registerOnThemeChangeHandler(function(theme) {
+                                document.getElementById("currentTheme").innerHTML = theme;
+                            });
                         });
 
                         function showContext() {
