@@ -3,6 +3,7 @@ import { TriggerDialog } from "../../utils/TriggerDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
+import * as teams from "botbuilder-teams";
 
 export class O365ConnectorCardDialog extends TriggerDialog {
 
@@ -15,7 +16,7 @@ export class O365ConnectorCardDialog extends TriggerDialog {
         o365Card.contentType = "application/vnd.microsoft.teams.card.o365connector";
 
         // this is the default example's content
-        o365Card.content = {
+        let o365ConnectorCardContent: teams.O365ConnectorCard = {
             title: session.gettext(Strings.default_title),
             sections: [
                 {
@@ -27,18 +28,21 @@ export class O365ConnectorCardDialog extends TriggerDialog {
             ],
         };
 
+        o365Card.content = o365ConnectorCardContent;
+
         /**
          * Below are a few more examples of more complex connector cards
          * The default card's content will be overwritten if a different option is desired
-         * and passed into the call
+         * and its number passed into the call to the bot
          *
          * To use: simply call 'show connector card 2' or 'show connector card 3'
          *
          * Note: these examples are just filled with demo data and that demo data is NOT using the localization system
          * as shown above
          *
-         * Note: they are leveraging an actual JSON string as their input content - more examples can be found at
-         * https://messagecardplayground.azurewebsites.net/
+         * Note: these examples are leveraging an actual JSON string as their input content - more examples can be found at
+         * https://messagecardplayground.azurewebsites.net/ - it is recommended that the developer use the method
+         * shown above in order to get the benefits of type checking from the teams.O365ConnectorCard interface
          */
 
         // Overwrite default card content if option 2 is desired
