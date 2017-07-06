@@ -1,4 +1,6 @@
 import * as builder from "botbuilder";
+import * as request from "request";
+import urlJoin = require("url-join");
 
 export interface MatchActionPair {
     match: RegExp | RegExp[] | string | string[];
@@ -46,6 +48,107 @@ export function isMessageFromChannel(message: builder.IMessage): boolean {
     return (message.sourceEvent && message.sourceEvent.channel && message.sourceEvent.channel.id);
 }
 
+// Starts a new reply chain by posting a message to a channel.
+// Parameters:
+//      chatConnector: Chat connector instance.
+//      message: The message to post. The address in this message is ignored, and the message is posted to the specified channel.
+//      channelId: Id of the channel to post the message to.
+// Returns: A copy of "message.address", with the "conversation" property referring to the new reply chain.
+export async function startReplyChainInChannel(chatConnector: builder.ChatConnector, message: builder.Message, channelId: string): Promise<builder.IChatConnectorAddress> {
+    let activity = message.toMessage();
+
+    // Build request
+    let options: request.Options = {
+        method: "POST",
+        // We use urlJoin to concatenate urls. url.resolve should not be used here,
+        // since it resolves urls as hrefs are resolved, which could result in losing
+        // the last fragment of the serviceUrl
+        url: urlJoin((activity.address as any).serviceUrl, "/v3/conversations"),
+        body: {
+            isGroup: true,
+            activity: activity,
+            channelData: {
+                teamsChannelId: channelId,
+            },
+        },
+        json: true,
+    };
+
+    let response = await sendRequestWithAccessToken(chatConnector, options);
+    if (response && response.hasOwnProperty("id")) {
+        let address = createAddressFromResponse(activity.address, response) as any;
+        if (address.user) {
+            delete address.user;
+        }
+        if (address.correlationId) {
+            delete address.correlationId;
+        }
+        return address;
+    } else {
+        throw new Error("Failed to start reply chain: no conversation ID returned.");
+    }
+}
+
+// Send an authenticated request
+async function sendRequestWithAccessToken(chatConnector: builder.ChatConnector, options: request.Options): Promise<any> {
+    // Add access token
+    await addAccessToken(chatConnector, options);
+
+    // Execute request
+    return new Promise<any>((resolve, reject) => {
+        request(options, (err, response, body) => {
+            if (err) {
+                reject(err);
+            } else {
+                if (response.statusCode < 400) {
+                    try {
+                        let result = typeof body === "string" ? JSON.parse(body) : body;
+                        resolve(result);
+                    } catch (e) {
+                        reject(e instanceof Error ? e : new Error(e.toString()));
+                    }
+                } else {
+                    let txt = "Request to '" + options.url + "' failed: [" + response.statusCode + "] " + response.statusMessage;
+                    reject(new Error(txt));
+                }
+            }
+        });
+    });
+}
+
+// Add access token to request options
+function addAccessToken(chatConnector: builder.ChatConnector, options: request.Options): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        // ChatConnector type definition doesn't include getAccessToken
+        (chatConnector as any).getAccessToken((err: any, token: string) => {
+            if (err) {
+                reject(err);
+            } else {
+                options.headers = {
+                    "Authorization": "Bearer " + token,
+                };
+                resolve();
+            }
+        });
+    });
+}
+
+// Create a copy of address with the data from the response
+function createAddressFromResponse(address: builder.IChatConnectorAddress, response: any): builder.IChatConnectorAddress {
+    let result = {
+        ...address,
+        conversation: { id: response["id"] },
+        useAuth: true,
+    };
+    if (result.id) {
+        delete result.id;
+    }
+    if (response["activityId"]) {
+        result.id = response["activityId"];
+    }
+    return result;
+}
+
 // tslint:disable-next-line:variable-name
 export const DialogIds = {
     // Base dialog Ids - DO NOT DELETE
@@ -76,6 +179,7 @@ export const DialogIds = {
     FetchRosterPayloadTrigDialogId: "FetchRosterPayloadTrigDialog",
     ResetUserStateTrigDialogId: "ResetUserStateTrigDialog",
     AtMentionTrigDialogId: "AtMentionTrigDialog",
+    SendProactiveMsgToChannelDialogId: "SendProactiveMsgToChannelDialog",
     // *************************** END OF EXAMPLES *********************************
 
     // Add entries for dialog ids

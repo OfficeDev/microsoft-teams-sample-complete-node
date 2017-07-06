@@ -61,5 +61,13 @@
     "no_msg_to_update": "No message to update. (it)",
     "loading": "Loading... (it)",
     "update_card_button": "Update %s (it)",
+    "cmd_only_works_in_channel": "Sorry - this call only works when called from within a channel chat (it)",
+    "choose_channel_prompt": "What channel would you like to send a message to? (it)",
+    "channel_choice_failure": "Could not find the channel you were looking for (it)",
+    "proactive_channel_msg": "This is a proactive channel message. (it)",
+    "proactive_msg_in_reply_chain": "This message has been put in the first proactive message's reply chain. (it)",
+    "proactive_channel_msg_sent": "Proactive channel message sent (it)",
+    "error_proactive_channel_msg": "Error sending proactive channel message (it)",
+    "general_channel_name": "GENERALE",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }
