@@ -1,10 +1,10 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogIds, isMessageFromChannel } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import * as teams from "botbuilder-teams";
 
-export class FetchRosterPayloadTrigDialog extends TriggerDialog {
+export class FetchRosterPayloadTrigDialog extends TriggerActionDialog {
 
     private static async fetchRosterPayload(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         // casting to keep away typescript errors

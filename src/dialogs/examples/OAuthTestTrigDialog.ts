@@ -1,11 +1,11 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 import { VSTSAPI } from "../../apis/VSTSAPI";
 
-export class OAuthTestTrigDialog extends TriggerDialog {
+export class OAuthTestTrigDialog extends TriggerActionDialog {
 
     private static async promptForWorkItemId(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         builder.Prompts.text(session, Strings.prompt_for_work_item_id);

@@ -2,12 +2,12 @@ import * as builder from "botbuilder";
 let config = require("config");
 import { DialogIds, isMessageFromChannel } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
-import { MultiTriggerDialog } from "../../utils/MultiTriggerDialog";
+import { MultiTriggerActionDialog } from "../../utils/MultiTriggerActionDialog";
 import { Strings } from "../../locale/locale";
 import * as querystring from "querystring";
 // import * as exampleAPI from "../../apis/ExampleAPI";
 
-export class TestMultiTrigDialog extends MultiTriggerDialog {
+export class TestMultiTrigDialog extends MultiTriggerActionDialog {
 
     private static async test1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         session.send(Strings.multi_trig_test_1);

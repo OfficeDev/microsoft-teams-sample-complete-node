@@ -1,12 +1,12 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { VSTSTokenOAuth2API } from "../../apis/VSTSTokenOAuth2API";
 import { Strings } from "../../locale/locale";
 let config = require("config");
 
-export class AuthorizeAppTrigDialog extends TriggerDialog {
+export class AuthorizeAppTrigDialog extends TriggerActionDialog {
 
     private static async sendAuthorizeMsg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let url = VSTSTokenOAuth2API.getUserAuthorizationURL(session);

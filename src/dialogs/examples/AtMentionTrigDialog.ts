@@ -1,11 +1,11 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 import * as teams from "botbuilder-teams";
 
-export class AtMentionTrigDialog extends TriggerDialog {
+export class AtMentionTrigDialog extends TriggerActionDialog {
 
     private static async atMentionUser(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let atMention: builder.IIdentity = {

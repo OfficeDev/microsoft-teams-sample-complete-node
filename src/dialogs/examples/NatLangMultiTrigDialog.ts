@@ -1,10 +1,10 @@
 import * as builder from "botbuilder";
-import { MultiTriggerDialog } from "../../utils/MultiTriggerDialog";
+import { MultiTriggerActionDialog } from "../../utils/MultiTriggerActionDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 
-export class NatLangMultiTrigDialog extends MultiTriggerDialog {
+export class NatLangMultiTrigDialog extends MultiTriggerActionDialog {
 
     private static async setAlarmIntent(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         session.send(Strings.set_alarm_msg);

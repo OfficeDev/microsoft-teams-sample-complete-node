@@ -2,7 +2,7 @@ import * as builder from "botbuilder";
 import { BaseDialog } from "./BaseDialog";
 import { DialogIds } from "./DialogUtils";
 
-export abstract class BaseTriggerDialog extends BaseDialog {
+export abstract class BaseTriggerActionDialog extends BaseDialog {
 
     constructor (
         protected dialogId: string,

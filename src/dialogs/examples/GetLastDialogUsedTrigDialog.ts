@@ -1,10 +1,10 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 
-export class GetLastDialogUsedTrigDialog extends TriggerDialog {
+export class GetLastDialogUsedTrigDialog extends TriggerActionDialog {
 
     private static async returnLastDialogUsed(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let msg = session.gettext(Strings.current_dialog_template, session.conversationData.currentDialogName);

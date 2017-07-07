@@ -1,10 +1,10 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogIds } from "../../utils/DialogUtils";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 
-export class ResetUserStateTrigDialog extends TriggerDialog {
+export class ResetUserStateTrigDialog extends TriggerActionDialog {
 
     private static async resetUserState(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         delete session.userData.vstsAuth;

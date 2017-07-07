@@ -1,7 +1,7 @@
 import * as builder from "botbuilder";
-import { BaseTriggerDialog } from "./BaseTriggerDialog";
+import { BaseTriggerActionDialog } from "./BaseTriggerActionDialog";
 
-export abstract class TriggerDialog extends BaseTriggerDialog {
+export abstract class TriggerActionDialog extends BaseTriggerActionDialog {
 
     constructor(
         protected bot: builder.UniversalBot,

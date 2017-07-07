@@ -1,10 +1,10 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { DialogIds } from "../../utils/DialogUtils";
 import { Strings } from "../../locale/locale";
 
-export class BeginDialogExampleTrigDialog extends TriggerDialog {
+export class BeginDialogExampleTrigDialog extends TriggerActionDialog {
 
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         session.send(Strings.step_1);

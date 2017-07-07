@@ -1,8 +1,8 @@
 import * as builder from "botbuilder";
-import { BaseTriggerDialog } from "./BaseTriggerDialog";
+import { BaseTriggerActionDialog } from "./BaseTriggerActionDialog";
 import { MatchActionPair } from "./DialogUtils";
 
-export abstract class MultiTriggerDialog extends BaseTriggerDialog {
+export abstract class MultiTriggerActionDialog extends BaseTriggerActionDialog {
 
     constructor(
         protected bot: builder.UniversalBot,
