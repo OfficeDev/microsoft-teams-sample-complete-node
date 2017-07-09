@@ -1,6 +1,6 @@
 import * as builder from "botbuilder";
 import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
-import { DialogIds } from "../../utils/DialogUtils";
+import { DialogIds } from "../../utils/DialogIds";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { VSTSTokenOAuth2API } from "../../apis/VSTSTokenOAuth2API";
 import { Strings } from "../../locale/locale";

@@ -1,6 +1,7 @@
 import * as builder from "botbuilder";
 let config = require("config");
-import { DialogIds, isMessageFromChannel } from "../../utils/DialogUtils";
+import { isMessageFromChannel } from "../../utils/DialogUtils";
+import { DialogIds } from "../../utils/DialogIds";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { MultiTriggerActionDialog } from "../../utils/MultiTriggerActionDialog";
 import { Strings } from "../../locale/locale";

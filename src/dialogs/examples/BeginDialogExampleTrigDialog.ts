@@ -1,7 +1,7 @@
 import * as builder from "botbuilder";
 import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
 import { DialogMatches } from "../../utils/DialogMatches";
-import { DialogIds } from "../../utils/DialogUtils";
+import { DialogIds } from "../../utils/DialogIds";
 import { Strings } from "../../locale/locale";
 
 export class BeginDialogExampleTrigDialog extends TriggerActionDialog {

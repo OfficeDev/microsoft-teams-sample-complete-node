@@ -1,6 +1,7 @@
 import * as builder from "botbuilder";
 import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
-import { DialogIds, loadSessionAsync } from "../../utils/DialogUtils";
+import { loadSessionAsync } from "../../utils/DialogUtils";
+import { DialogIds } from "../../utils/DialogIds";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 

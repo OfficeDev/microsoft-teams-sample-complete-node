@@ -1,6 +1,6 @@
 import * as builder from "botbuilder";
 import { BaseDialog } from "./BaseDialog";
-import { DialogIds } from "./DialogUtils";
+import { DialogIds } from "./DialogIds";
 
 export abstract class BaseTriggerActionDialog extends BaseDialog {
 

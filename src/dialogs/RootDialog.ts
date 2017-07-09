@@ -1,6 +1,6 @@
 import * as builder from "botbuilder";
 import { Strings } from "../locale/locale";
-import { DialogIds } from "../utils/DialogUtils";
+import { DialogIds } from "../utils/DialogIds";
 // let config = require("config");
 
 // *************************** BEGINNING OF EXAMPLES ***************************

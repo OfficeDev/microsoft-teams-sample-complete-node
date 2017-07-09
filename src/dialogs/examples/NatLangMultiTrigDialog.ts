@@ -1,6 +1,6 @@
 import * as builder from "botbuilder";
 import { MultiTriggerActionDialog } from "../../utils/MultiTriggerActionDialog";
-import { DialogIds } from "../../utils/DialogUtils";
+import { DialogIds } from "../../utils/DialogIds";
 import { DialogMatches } from "../../utils/DialogMatches";
 import { Strings } from "../../locale/locale";
 

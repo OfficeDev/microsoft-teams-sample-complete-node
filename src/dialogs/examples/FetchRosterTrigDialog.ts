@@ -1,6 +1,7 @@
 import * as builder from "botbuilder";
 import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
-import { DialogIds, isMessageFromChannel } from "../../utils/DialogUtils";
+import { isMessageFromChannel } from "../../utils/DialogUtils";
+import { DialogIds } from "../../utils/DialogIds";
 import { DialogMatches } from "../../utils/DialogMatches";
 import * as teams from "botbuilder-teams";
 

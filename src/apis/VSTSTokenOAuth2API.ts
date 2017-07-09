@@ -6,7 +6,7 @@ import * as express from "express";
 import * as builder from "botbuilder";
 import { loadSessionAsync } from "../utils/DialogUtils";
 import { Strings } from "../locale/locale";
-import { DialogIds } from "../utils/DialogUtils";
+import { DialogIds } from "../utils/DialogIds";
 
 // Callback for HTTP requests
 export interface RequestCallback {
