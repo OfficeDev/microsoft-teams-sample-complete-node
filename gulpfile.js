@@ -104,7 +104,10 @@ gulp.task('statics:copy', ['clean'], function () {
  * Copy .ts dialog files to build directory as .txt files for browser viewing
  */
 gulp.task('exampleDialogs:copy', ['clean'], function() {
-    return gulp.src('./src/dialogs/examples/*.ts')
+    return gulp.src(['./src/dialogs/examples/auth/*.ts',
+        './src/dialogs/examples/basic/*.ts',
+        './src/dialogs/examples/moderate/*.ts',
+        './src/dialogs/examples/teams/*.ts'])
         .pipe(rename(function (path) {
             path.extname = ".txt";
         }))

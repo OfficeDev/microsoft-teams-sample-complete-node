@@ -40,7 +40,7 @@ export abstract class BaseTriggerActionDialog extends BaseDialog {
     }
 
     private async setDialogIdAsCurrent(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        if (this.getDialogId() !== DialogIds.GetLastDialogUsedTrigDialogId) {
+        if (this.getDialogId() !== DialogIds.GetLastDialogUsedDialogId) {
             session.conversationData.currentDialogName = this.getDialogId();
         }
         next(args);

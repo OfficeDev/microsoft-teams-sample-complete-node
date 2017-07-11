@@ -1,11 +1,11 @@
 import * as builder from "botbuilder";
-import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
-import { isMessageFromChannel } from "../../utils/DialogUtils";
-import { DialogIds } from "../../utils/DialogIds";
-import { DialogMatches } from "../../utils/DialogMatches";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { isMessageFromChannel } from "../../../utils/DialogUtils";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
 import * as teams from "botbuilder-teams";
 
-export class FetchRosterPayloadTrigDialog extends TriggerActionDialog {
+export class FetchRosterDialog extends TriggerActionDialog {
 
     private static async fetchRosterPayload(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         // casting to keep away typescript errors
@@ -40,12 +40,9 @@ export class FetchRosterPayloadTrigDialog extends TriggerActionDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.FetchRosterPayloadTrigDialogId,
-            [
-                DialogMatches.fetchRosterPayloadMatch,
-                DialogMatches.fetchRosterPayloadMatch2,
-            ],
-            FetchRosterPayloadTrigDialog.fetchRosterPayload,
+            DialogIds.FetchRosterDialogId,
+            DialogMatches.FetchRosterDialogMatch,
+            FetchRosterDialog.fetchRosterPayload,
         );
     }
 }

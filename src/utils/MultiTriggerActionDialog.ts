@@ -1,25 +1,29 @@
 import * as builder from "botbuilder";
 import { BaseTriggerActionDialog } from "./BaseTriggerActionDialog";
-import { MatchActionPair } from "./DialogUtils";
+import { MultiTriggerActionDialogEntry } from "./DialogUtils";
 
 export abstract class MultiTriggerActionDialog extends BaseTriggerActionDialog {
 
     constructor(
         protected bot: builder.UniversalBot,
-        protected dialogId: string,
-        protected matchActionPairList: MatchActionPair[],
+        protected multiTriggerActionDialogEntryList: MultiTriggerActionDialogEntry[],
         protected constructorArgs?: any,
     ) {
-        super(dialogId);
+        super(
+            multiTriggerActionDialogEntryList ?
+                multiTriggerActionDialogEntryList[0].dialogId :
+                "Error: undefined dialogId",
+        );
 
-        if (matchActionPairList) {
-            for (let i = 0; i < matchActionPairList.length; i++) {
-                let currMatchActionPair = matchActionPairList[i];
+        if (multiTriggerActionDialogEntryList) {
+            for (let i = 0; i < multiTriggerActionDialogEntryList.length; i++) {
+                let currEntry = multiTriggerActionDialogEntryList[i];
                 this.addDialogWithTriggerActionToBot(bot,
-                    this.getDialogId() + i,
-                    currMatchActionPair.match,
-                    currMatchActionPair.action,
-                    constructorArgs);
+                    currEntry.dialogId,
+                    currEntry.match,
+                    currEntry.action,
+                    constructorArgs,
+                );
             }
         }
     }

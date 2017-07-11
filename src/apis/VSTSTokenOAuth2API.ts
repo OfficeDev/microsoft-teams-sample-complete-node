@@ -81,7 +81,7 @@ export class VSTSTokenOAuth2API {
         // used for debugging to let developer know tokens were refreshed
         // session.send(Strings.tokens_set_confirmation);
 
-        session.beginDialog(DialogIds.ValidateVSTSAuthUserTrigDialogId);
+        session.beginDialog(DialogIds.VSTSAuthValidateUserDialogId);
 
         // try to save the tokens in case no other messages are sent
         session.save().sendBatch();

@@ -25,7 +25,7 @@ export class VSTSRequestAPI {
 
         if (!isValidated) {
             session.send(Strings.need_to_log_in);
-            session.beginDialog(DialogIds.AuthorizeAppTrigDialogId);
+            session.beginDialog(DialogIds.VSTSLogInDialogId);
         }
 
         return isValidated;

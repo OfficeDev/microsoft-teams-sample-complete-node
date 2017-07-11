@@ -2,7 +2,8 @@ import * as builder from "botbuilder";
 import * as request from "request";
 import urlJoin = require("url-join");
 
-export interface MatchActionPair {
+export interface MultiTriggerActionDialogEntry {
+    dialogId: string;
     match: RegExp | RegExp[] | string | string[];
     action: builder.IDialogWaterfallStep | builder.IDialogWaterfallStep[];
 }

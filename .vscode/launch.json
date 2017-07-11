@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug_Build_Launch (works with breakpoints)",
+            "name": "Launch - Emulator",
             "program": "${workspaceRoot}/src/app.ts",
             "cwd": "${workspaceRoot}/build/src",
             "preLaunchTask": "build",
@@ -33,7 +33,33 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Fiddler Launch (only works when running Fiddler)",
+            "name": "Launch - Teams Debug",
+            "program": "${workspaceRoot}/src/app.ts",
+            "cwd": "${workspaceRoot}/build/src",
+            "preLaunchTask": "build",
+            "sourceMaps": true,
+            "outFiles": [ "${workspaceRoot}/build/**/*.js" ],
+            "env": {
+                "BASE_URI": "http://localhost:3978",
+                "TEAMS_APP_ID": "",
+                "MICROSOFT_APP_ID": "",
+                "MICROSOFT_APP_PASSWORD": "",
+                "LUIS_ENDPOINT_URI": "",
+                "EXTERNAL_APP_CONSUMER_KEY": "",
+                "EXTERNAL_APP_CONSUMER_SECRET": "",
+                "EXTERNAL_APP_USER_TOKEN": "",
+                "EXTERNAL_APP_USER_TOKEN_SECRET": "",
+                "VSTS_APP_ID": "",
+                "VSTS_APP_SECRET": "",
+                "CHANNEL_STORAGE_TYPE": "",
+                "MONGODB_CONNECTION_STRING": "",
+                "MONGODB_BOT_STATE_COLLECTION": ""
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch - Fiddler (only works when running Fiddler)",
             "program": "${workspaceRoot}/src/app.ts",
             "cwd": "${workspaceRoot}/build/src",
             "preLaunchTask": "build",
@@ -62,7 +88,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Just Launch (no build)",
+            "name": "Launch (no build)",
             "program": "${workspaceRoot}\\build\\src\\app.js",
             "cwd": "${workspaceRoot}\\build\\src",
             "sourceMaps": true,

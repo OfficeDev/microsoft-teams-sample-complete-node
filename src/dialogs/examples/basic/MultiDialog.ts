@@ -1,17 +1,17 @@
 import * as builder from "botbuilder";
 let config = require("config");
-import { isMessageFromChannel } from "../../utils/DialogUtils";
-import { DialogIds } from "../../utils/DialogIds";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { MultiTriggerActionDialog } from "../../utils/MultiTriggerActionDialog";
-import { Strings } from "../../locale/locale";
+import { isMessageFromChannel } from "../../../utils/DialogUtils";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { MultiTriggerActionDialog } from "../../../utils/MultiTriggerActionDialog";
+import { Strings } from "../../../locale/locale";
 import * as querystring from "querystring";
 // import * as exampleAPI from "../../apis/ExampleAPI";
 
-export class TestMultiTrigDialog extends MultiTriggerActionDialog {
+export class MultiDialog extends MultiTriggerActionDialog {
 
     private static async test1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        session.send(Strings.multi_trig_test_1);
+        session.send(Strings.multi_dialog_1);
         session.endDialog();
     }
 
@@ -46,14 +46,14 @@ export class TestMultiTrigDialog extends MultiTriggerActionDialog {
                  */
                 buttons.push(new builder.CardAction(session)
                     .type("invoke")
-                    .title(Strings.invoke_button_multi_trig_1)
+                    .title(Strings.invoke_button_multi_dialog_1)
                     .value("{" +
-                        "\"dialog\": \"" + DialogIds.TestMultiTrigDialogId + "0" + "\", " +
+                        "\"dialog\": \"" + DialogIds.MultiDialogId + "\", " +
                         "\"response\": \"Information for called intent\"" +
                     "}"),
                 );
 
-                buttons.push(new builder.CardAction(session).type("invoke").title(Strings.invoke_button_test_trig_dialog).value("{\"dialog\": \"" + DialogIds.TestTrigDialogId + "\"}"));
+                buttons.push(new builder.CardAction(session).type("invoke").title(Strings.invoke_button_hello_dialog).value("{\"dialog\": \"" + DialogIds.HelloDialogId + "\"}"));
 
                 if (isMessageFromChannel(session.message)) {
                     // create button to deep link to the channel tab - channel tab must have added for this to work
@@ -110,18 +110,18 @@ export class TestMultiTrigDialog extends MultiTriggerActionDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.TestMultiTrigDialogId, [
+            [
                 {
-                    match: [
-                        DialogMatches.multiTrigTest1Match,
-                        DialogMatches.multiTrigTest1Match2,
-                    ],
-                    action: TestMultiTrigDialog.test1,
+                    dialogId: DialogIds.MultiDialogId,
+                    match: DialogMatches.MultiDialogMatch,
+                    action: MultiDialog.test1,
                 },
                 {
-                    match: DialogMatches.multiTrigTest2Match,
-                    action: TestMultiTrigDialog.test2,
+                    dialogId: DialogIds.MultiDialog2Id,
+                    match: DialogMatches.MultiDialog2Match,
+                    action: MultiDialog.test2,
                 },
-        ]);
+            ],
+        );
     }
 }

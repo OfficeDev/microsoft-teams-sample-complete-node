@@ -1,19 +1,19 @@
 import * as builder from "botbuilder";
-import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
 let config = require("config");
-import { DialogIds } from "../../utils/DialogIds";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 
-export class QuizQ3TrigDialog extends TriggerActionDialog {
+export class QuizQ2Dialog extends TriggerActionDialog {
 
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let buttons = new Array<builder.CardAction>();
-        buttons.push(builder.CardAction.imBack(session, "y_e_s", session.gettext(Strings.game_button_yes) + "3"));
-        buttons.push(builder.CardAction.imBack(session, "n_o", session.gettext(Strings.game_button_no) + "3"));
+        buttons.push(builder.CardAction.imBack(session, "y_e_s", session.gettext(Strings.game_button_yes) + "2"));
+        buttons.push(builder.CardAction.imBack(session, "n_o", session.gettext(Strings.game_button_no) + "2"));
 
         let newCard = new builder.HeroCard(session)
-            .title(session.gettext(Strings.default_title) + "3")
+            .title(session.gettext(Strings.default_title) + "2")
             .subtitle(Strings.default_subtitle)
             .text(Strings.quiz_choose)
             .images([
@@ -46,11 +46,11 @@ export class QuizQ3TrigDialog extends TriggerActionDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.QuizQ3TrigDialogId,
-            DialogMatches.quizQuestionMatch,
+            DialogIds.QuizQ2DialogId,
+            DialogMatches.QuizQ2DialogMatch,
             [
-                QuizQ3TrigDialog.step1,
-                QuizQ3TrigDialog.step2,
+                QuizQ2Dialog.step1,
+                QuizQ2Dialog.step2,
             ],
         );
     }

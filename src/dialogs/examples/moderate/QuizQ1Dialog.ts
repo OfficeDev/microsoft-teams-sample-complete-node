@@ -1,19 +1,19 @@
 import * as builder from "botbuilder";
-import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
 let config = require("config");
-import { DialogIds } from "../../utils/DialogIds";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 
-export class QuizQ2TrigDialog extends TriggerActionDialog {
+export class QuizQ1Dialog extends TriggerActionDialog {
 
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let buttons = new Array<builder.CardAction>();
-        buttons.push(builder.CardAction.imBack(session, "y_e_s", session.gettext(Strings.game_button_yes) + "2"));
-        buttons.push(builder.CardAction.imBack(session, "n_o", session.gettext(Strings.game_button_no) + "2"));
+        buttons.push(builder.CardAction.imBack(session, "y_e_s", Strings.game_button_yes));
+        buttons.push(builder.CardAction.imBack(session, "n_o", Strings.game_button_no));
 
         let newCard = new builder.HeroCard(session)
-            .title(session.gettext(Strings.default_title) + "2")
+            .title(Strings.default_title)
             .subtitle(Strings.default_subtitle)
             .text(Strings.quiz_choose)
             .images([
@@ -46,11 +46,11 @@ export class QuizQ2TrigDialog extends TriggerActionDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.QuizQ2TrigDialogId,
-            DialogMatches.quizQuestionMatch,
+            DialogIds.QuizQ1DialogId,
+            DialogMatches.QuizQ1DialogMatch,
             [
-                QuizQ2TrigDialog.step1,
-                QuizQ2TrigDialog.step2,
+                QuizQ1Dialog.step1,
+                QuizQ1Dialog.step2,
             ],
         );
     }

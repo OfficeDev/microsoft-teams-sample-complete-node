@@ -1,8 +1,8 @@
 import * as builder from "botbuilder";
-import { TriggerActionDialog } from "../../utils/TriggerActionDialog";
-import { DialogIds } from "../../utils/DialogIds";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 import * as teams from "botbuilder-teams";
 
 export class O365ConnectorCardDialog extends TriggerActionDialog {
@@ -117,7 +117,7 @@ export class O365ConnectorCardDialog extends TriggerActionDialog {
     ) {
         super(bot,
             DialogIds.O365ConnectorCardDialogId,
-            DialogMatches.connectorCardMatch,
+            DialogMatches.O365ConnectorCardDialogMatch,
             O365ConnectorCardDialog.step1,
         );
     }

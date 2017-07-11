@@ -6,7 +6,7 @@ export abstract class BaseDialog {
         // do nothing
     }
 
-    public getDialogId(): string {
+    protected getDialogId(): string {
         return this.dialogId;
     }
 }

@@ -57,27 +57,27 @@
           ],
           "commands": [
             {
-              "title": "run trig",
-              "description": "Runs the simplest test"
+              "title": "hello",
+              "description": "Runs the simplest hello dialog"
             },
             {
-              "title": "run multi trig 2",
+              "title": "multi dialog 2",
               "description": "Displays a card with invoke buttons"
             },
             {
-              "title": "get roster",
-              "description": "Fetches the roster for the current conversation"
-            },
-            {
-              "title": "get roster payload",
+              "title": "roster",
               "description": "Fetches the full roster payload for the current conversation"
             },
             {
-              "title": "how",
+              "title": "names",
+              "description": "Lists the names of the users for the current conversation"
+            },
+            {
+              "title": "last dialog",
               "description": "Shows which dialog sent the last message"
             },
             {
-              "title": "send 1:1",
+              "title": "send message to 1:1",
               "description": "Send the user a 1:1 message"
             },
             {
@@ -100,27 +100,27 @@
           ],
           "commands": [
             {
-              "title": "run trig",
-              "description": "Runs the simplest test"
+              "title": "hello",
+              "description": "Runs the simplest hello dialog"
             },
             {
-              "title": "run multi trig 2",
+              "title": "multi dialog 2",
               "description": "Displays a card with invoke buttons"
             },
             {
-              "title": "get roster",
-              "description": "Fetches the roster for the current conversation"
-            },
-            {
-              "title": "get roster payload",
+              "title": "roster",
               "description": "Fetches the full roster payload for the current conversation"
             },
             {
-              "title": "how",
+              "title": "names",
+              "description": "Lists the names of the users for the current conversation"
+            },
+            {
+              "title": "last dialog",
               "description": "Shows which dialog sent the last message"
             },
             {
-              "title": "send 1:1",
+              "title": "send message to 1:1",
               "description": "Send the user a 1:1 message"
             },
             {
