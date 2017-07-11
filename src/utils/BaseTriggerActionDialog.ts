@@ -1,8 +1,8 @@
 import * as builder from "botbuilder";
 import { BaseDialog } from "./BaseDialog";
-import { DialogIds } from "./DialogUtils";
+import { DialogIds } from "./DialogIds";
 
-export abstract class BaseTriggerDialog extends BaseDialog {
+export abstract class BaseTriggerActionDialog extends BaseDialog {
 
     constructor (
         protected dialogId: string,
@@ -40,7 +40,7 @@ export abstract class BaseTriggerDialog extends BaseDialog {
     }
 
     private async setDialogIdAsCurrent(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        if (this.getDialogId() !== DialogIds.GetLastDialogUsedTrigDialogId) {
+        if (this.getDialogId() !== DialogIds.GetLastDialogUsedDialogId) {
             session.conversationData.currentDialogName = this.getDialogId();
         }
         next(args);

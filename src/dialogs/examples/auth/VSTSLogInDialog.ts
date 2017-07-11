@@ -1,21 +1,27 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { VSTSTokenOAuth2API } from "../../apis/VSTSTokenOAuth2API";
-import { Strings } from "../../locale/locale";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { VSTSTokenOAuth2API } from "../../../apis/VSTSTokenOAuth2API";
+import { Strings } from "../../../locale/locale";
 let config = require("config");
 
-export class AuthorizeAppTrigDialog extends TriggerDialog {
+export class VSTSLogInDialog extends TriggerActionDialog {
 
     private static async sendAuthorizeMsg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let url = VSTSTokenOAuth2API.getUserAuthorizationURL(session);
 
-        let buttons = [];
+        // let newCard = new builder.SigninCard(session)
+        //     .button(
+        //         Strings.sign_in,
+        //         url,
+        //     )
+        //     .text(Strings.default_text);
 
+        let buttons = [];
         buttons.push(builder.CardAction.openUrl(session, url, Strings.sign_in));
 
-        let newCard = new builder.HeroCard(session)
+        let newCard = new builder.ThumbnailCard(session)
             .title(Strings.default_title)
             .subtitle(Strings.default_subtitle)
             .text(Strings.default_text)
@@ -36,9 +42,9 @@ export class AuthorizeAppTrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.AuthorizeAppTrigDialogId,
-            DialogMatches.authorizeAppMatch,
-            AuthorizeAppTrigDialog.sendAuthorizeMsg,
+            DialogIds.VSTSLogInDialogId,
+            DialogMatches.VSTSLogInDialogMatch,
+            VSTSLogInDialog.sendAuthorizeMsg,
         );
     }
 }

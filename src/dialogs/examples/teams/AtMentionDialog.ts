@@ -1,11 +1,11 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 import * as teams from "botbuilder-teams";
 
-export class AtMentionTrigDialog extends TriggerDialog {
+export class AtMentionDialog extends TriggerActionDialog {
 
     private static async atMentionUser(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let atMention: builder.IIdentity = {
@@ -28,9 +28,9 @@ export class AtMentionTrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.AtMentionTrigDialogId,
-            DialogMatches.atMentionMatch,
-            AtMentionTrigDialog.atMentionUser,
+            DialogIds.AtMentionDialogId,
+            DialogMatches.AtMentionDialogMatch,
+            AtMentionDialog.atMentionUser,
         );
     }
 }

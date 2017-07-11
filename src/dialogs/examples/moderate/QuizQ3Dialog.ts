@@ -1,11 +1,11 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
 let config = require("config");
-import { DialogIds } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 
-export class QuizQ3TrigDialog extends TriggerDialog {
+export class QuizQ3Dialog extends TriggerActionDialog {
 
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let buttons = new Array<builder.CardAction>();
@@ -46,11 +46,11 @@ export class QuizQ3TrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.QuizQ3TrigDialogId,
-            DialogMatches.quizQuestionMatch,
+            DialogIds.QuizQ3DialogId,
+            DialogMatches.QuizQ3DialogMatch,
             [
-                QuizQ3TrigDialog.step1,
-                QuizQ3TrigDialog.step2,
+                QuizQ3Dialog.step1,
+                QuizQ3Dialog.step2,
             ],
         );
     }

@@ -1,12 +1,13 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds, isMessageFromChannel } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { isMessageFromChannel } from "../../../utils/DialogUtils";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
 import * as teams from "botbuilder-teams";
 
-export class FetchRosterPayloadTrigDialog extends TriggerDialog {
+export class ListNamesDialog extends TriggerActionDialog {
 
-    private static async fetchRosterPayload(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
+    private static async fetchRoster(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         // casting to keep away typescript errors
         let teamsChatConnector = (session.connector as teams.TeamsChatConnector);
         let msgAddress = (session.message.address as builder.IChatConnectorAddress);
@@ -26,7 +27,11 @@ export class FetchRosterPayloadTrigDialog extends TriggerDialog {
             teams.TeamsMessage.getTenantId(session.message),
             (err, result) => {
                 if (!err) {
-                    session.send(JSON.stringify(result));
+                    let response = "";
+                    for (let i = 0; i < result.length; i++) {
+                        response += result[i].givenName + " " + result[i].surname + "<br>";
+                    }
+                    session.send(response);
                 } else {
                     session.error(err);
                 }
@@ -39,12 +44,9 @@ export class FetchRosterPayloadTrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.FetchRosterPayloadTrigDialogId,
-            [
-                DialogMatches.fetchRosterPayloadMatch,
-                DialogMatches.fetchRosterPayloadMatch2,
-            ],
-            FetchRosterPayloadTrigDialog.fetchRosterPayload,
+            DialogIds.ListNamesDialogId,
+            DialogMatches.ListNamesDialogMatch,
+            ListNamesDialog.fetchRoster,
         );
     }
 }

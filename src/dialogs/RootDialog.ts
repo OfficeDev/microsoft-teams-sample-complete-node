@@ -1,34 +1,34 @@
 import * as builder from "botbuilder";
 import { Strings } from "../locale/locale";
-import { DialogIds } from "../utils/DialogUtils";
+import { DialogIds } from "../utils/DialogIds";
 // let config = require("config");
 
 // *************************** BEGINNING OF EXAMPLES ***************************
-import { AuthorizeAppTrigDialog } from "./examples/AuthorizeAppTrigDialog";
-import { ValidateVSTSAuthUserTrigDialog } from "./examples/ValidateVSTSAuthUserTrigDialog";
-import { BeginDialogExampleTrigDialog } from "./examples/BeginDialogExampleTrigDialog";
-import { GetLastDialogUsedTrigDialog } from "./examples/GetLastDialogUsedTrigDialog";
-import { NatLangMultiTrigDialog } from "./examples/NatLangMultiTrigDialog";
-import { OAuthTestTrigDialog } from "./examples/OAuthTestTrigDialog";
-import { PromptFlowGameTrigDialog } from "./examples/PromptFlowGameTrigDialog";
-import { QuizQ1TrigDialog } from "./examples/QuizQ1TrigDialog";
-import { QuizQ2TrigDialog } from "./examples/QuizQ2TrigDialog";
-import { QuizQ3TrigDialog } from "./examples/QuizQ3TrigDialog";
-import { QuizTrigDialog } from "./examples/QuizTrigDialog";
-import { O365ConnectorCardDialog } from "./examples/O365ConnectorCardDialog";
-import { SendProactiveMsgToChannelDialog } from "./examples/SendProactiveMsgToChannelDialog";
-import { Start1to1TrigDialog } from "./examples/Start1to1TrigDialog";
-import { TestMultiTrigDialog } from "./examples/TestMultiTrigDialog";
-import { TestTrigDialog } from "./examples/TestTrigDialog";
-import { ConstructorArgsTrigDialog } from "./examples/ConstructorArgsTrigDialog";
-import { UpdateMsgTextSetupTrigDialog } from "./examples/UpdateMsgTextSetupTrigDialog";
-import { UpdateMsgTextUpdateTrigDialog } from "./examples/UpdateMsgTextUpdateTrigDialog";
-import { UpdateMsgCardSetupTrigDialog } from "./examples/UpdateMsgCardSetupTrigDialog";
-import { UpdateMsgCardUpdateTrigDialog } from "./examples/UpdateMsgCardUpdateTrigDialog";
-import { FetchRosterTrigDialog } from "./examples/FetchRosterTrigDialog";
-import { FetchRosterPayloadTrigDialog } from "./examples/FetchRosterPayloadTrigDialog";
-import { ResetUserStateTrigDialog } from "./examples/ResetUserStateTrigDialog";
-import { AtMentionTrigDialog } from "./examples/AtMentionTrigDialog";
+import { ResetUserStateDialog } from "./examples/auth/ResetUserStateDialog";
+import { VSTSAPICallDialog } from "./examples/auth/VSTSAPICallDialog";
+import { VSTSAuthValidateUserDialog } from "./examples/auth/VSTSAuthValidateUserDialog";
+import { VSTSLogInDialog } from "./examples/auth/VSTSLogInDialog";
+import { GetLastDialogUsedDialog } from "./examples/basic/GetLastDialogUsedDialog";
+import { HelloDialog } from "./examples/basic/HelloDialog";
+import { MultiDialog } from "./examples/basic/MultiDialog";
+import { O365ConnectorCardDialog } from "./examples/basic/O365ConnectorCardDialog";
+import { BeginDialogFlowDialog } from "./examples/moderate/BeginDialogFlowDialog";
+import { ConstructorArgsDialog } from "./examples/moderate/ConstructorArgsDialog";
+import { ListNamesDialog } from "./examples/moderate/ListNamesDialog";
+import { LuisRecognizerNatLanguageDialog } from "./examples/moderate/LuisRecognizerNatLanguageDialog";
+import { PromptDialog } from "./examples/moderate/PromptDialog";
+import { QuizFullDialog } from "./examples/moderate/QuizFullDialog";
+import { QuizQ1Dialog } from "./examples/moderate/QuizQ1Dialog";
+import { QuizQ2Dialog } from "./examples/moderate/QuizQ2Dialog";
+import { QuizQ3Dialog } from "./examples/moderate/QuizQ3Dialog";
+import { AtMentionDialog } from "./examples/teams/AtMentionDialog";
+import { FetchRosterDialog } from "./examples/teams/FetchRosterDialog";
+import { ProactiveMsgTo1to1Dialog } from "./examples/teams/ProactiveMsgTo1to1Dialog";
+import { ProactiveMsgToChannelDialog } from "./examples/teams/ProactiveMsgToChannelDialog";
+import { UpdateCardMsgDialog } from "./examples/teams/UpdateCardMsgDialog";
+import { UpdateCardMsgSetupDialog } from "./examples/teams/UpdateCardMsgSetupDialog";
+import { UpdateTextMsgDialog } from "./examples/teams/UpdateTextMsgDialog";
+import { UpdateTextMsgSetupDialog } from "./examples/teams/UpdateTextMsgSetupDialog";
 // *************************** END OF EXAMPLES *********************************
 
 // Add imports for dialogs
@@ -56,31 +56,31 @@ export class RootDialog extends builder.IntentDialog {
         let bot = this.bot;
 
         // *************************** BEGINNING OF EXAMPLES ***************************
-        new AuthorizeAppTrigDialog(bot);
-        new ValidateVSTSAuthUserTrigDialog(bot);
-        new BeginDialogExampleTrigDialog(bot);
-        new GetLastDialogUsedTrigDialog(bot);
-        new NatLangMultiTrigDialog(bot);
-        new OAuthTestTrigDialog(bot);
-        new PromptFlowGameTrigDialog(bot);
-        new QuizQ1TrigDialog(bot);
-        new QuizQ2TrigDialog(bot);
-        new QuizQ3TrigDialog(bot);
-        new QuizTrigDialog(bot);
+        new ResetUserStateDialog(bot);
+        new VSTSAPICallDialog(bot);
+        new VSTSAuthValidateUserDialog(bot);
+        new VSTSLogInDialog(bot);
+        new GetLastDialogUsedDialog(bot);
+        new HelloDialog(bot);
+        new MultiDialog(bot);
         new O365ConnectorCardDialog(bot);
-        new SendProactiveMsgToChannelDialog(bot);
-        new Start1to1TrigDialog(bot);
-        new TestMultiTrigDialog(bot);
-        new TestTrigDialog(bot);
-        new ConstructorArgsTrigDialog(bot, "12345");
-        new UpdateMsgTextSetupTrigDialog(bot);
-        new UpdateMsgTextUpdateTrigDialog(bot);
-        new UpdateMsgCardSetupTrigDialog(bot);
-        new UpdateMsgCardUpdateTrigDialog(bot);
-        new FetchRosterTrigDialog(bot);
-        new FetchRosterPayloadTrigDialog(bot);
-        new ResetUserStateTrigDialog(bot);
-        new AtMentionTrigDialog(bot);
+        new BeginDialogFlowDialog(bot);
+        new ConstructorArgsDialog(bot, "12345");
+        new ListNamesDialog(bot);
+        new LuisRecognizerNatLanguageDialog(bot);
+        new PromptDialog(bot);
+        new QuizFullDialog(bot);
+        new QuizQ1Dialog(bot);
+        new QuizQ2Dialog(bot);
+        new QuizQ3Dialog(bot);
+        new AtMentionDialog(bot);
+        new FetchRosterDialog(bot);
+        new ProactiveMsgTo1to1Dialog(bot);
+        new ProactiveMsgToChannelDialog(bot);
+        new UpdateCardMsgDialog(bot);
+        new UpdateCardMsgSetupDialog(bot);
+        new UpdateTextMsgDialog(bot);
+        new UpdateTextMsgSetupDialog(bot);
         // *************************** END OF EXAMPLES *********************************
 
         // Add child dialogs

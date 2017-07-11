@@ -1,10 +1,11 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds, loadSessionAsync } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { loadSessionAsync } from "../../../utils/DialogUtils";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 
-export class Start1to1TrigDialog extends TriggerDialog {
+export class ProactiveMsgTo1to1Dialog extends TriggerActionDialog {
 
     private static async send1to1Msg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         // casting to keep away typescript error
@@ -36,7 +37,7 @@ export class Start1to1TrigDialog extends TriggerDialog {
                 let createdEvent = { ...session.message, address: resultAddress };
                 // using this template and base trigger dialog, the bot is always present in args.constructorArgs.bot
                 let sessionFor1to1 = await loadSessionAsync(args.constructorArgs.bot, createdEvent);
-                sessionFor1to1.beginDialog(DialogIds.TestTrigDialogId);
+                sessionFor1to1.beginDialog(DialogIds.HelloDialogId);
 
                 // if you wish to only send one message rather than starting a dialog, you can
                 // skip the three steps above (comment them out), not create a new session,
@@ -59,10 +60,10 @@ export class Start1to1TrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.Start1to1TrigDialogId,
-            DialogMatches.start1to1Match,
+            DialogIds.ProactiveMsgTo1to1DialogId,
+            DialogMatches.ProactiveMsgTo1to1DialogMatch,
 
-            Start1to1TrigDialog.send1to1Msg,
+            ProactiveMsgTo1to1Dialog.send1to1Msg,
 
             // Below is another way to send a direct 1:1 message.  It is limited in that it does not work with the
             // automatic localization and multiple languages system

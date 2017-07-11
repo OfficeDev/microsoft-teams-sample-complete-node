@@ -1,11 +1,11 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
-import { VSTSAPI } from "../../apis/VSTSAPI";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
+import { VSTSAPI } from "../../../apis/VSTSAPI";
 
-export class OAuthTestTrigDialog extends TriggerDialog {
+export class VSTSAPICallDialog extends TriggerActionDialog {
 
     private static async promptForWorkItemId(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         builder.Prompts.text(session, Strings.prompt_for_work_item_id);
@@ -37,11 +37,11 @@ export class OAuthTestTrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.OAuthTestTrigDialogId,
-            DialogMatches.oauthTestMatch,
+            DialogIds.VSTSAPICallDialogId,
+            DialogMatches.VSTSAPICallDialogMatch,
             [
-                OAuthTestTrigDialog.promptForWorkItemId,
-                OAuthTestTrigDialog.showWorkItem,
+                VSTSAPICallDialog.promptForWorkItemId,
+                VSTSAPICallDialog.showWorkItem,
             ],
         );
     }

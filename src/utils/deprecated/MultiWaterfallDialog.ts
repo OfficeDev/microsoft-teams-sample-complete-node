@@ -1,19 +1,19 @@
 import * as builder from "botbuilder";
 import { BaseDialog } from "./BaseDialog";
-import { MatchActionPair } from "./../DialogUtils";
+import { MultiTriggerActionDialogEntry } from "./../DialogUtils";
 
 // To extend this class - in the constructor of the new dialog the developer needs
 // to set this.matchesList and then call DialogUtils.addMatches(this.matchesList, this);
 export abstract class MultiWaterfallDialog extends BaseDialog {
     constructor(
         protected dialogId: string,
-        protected matchActionPairList: MatchActionPair[],
+        protected multiTriggerActionDialogEntryList: MultiTriggerActionDialogEntry[],
     ) {
         super(dialogId, {});
 
         let resultList = [];
-        if (matchActionPairList !== null) {
-            for (let i = 0; i < matchActionPairList.length; i++) {
+        if (multiTriggerActionDialogEntryList !== null) {
+            for (let i = 0; i < multiTriggerActionDialogEntryList.length; i++) {
                 let newActionList = [];
                 newActionList.push((session, args, next) => { this.setDialogIdAsCurrent(session, args, next); });
                 newActionList.push((session, args, next) => {
@@ -21,26 +21,26 @@ export abstract class MultiWaterfallDialog extends BaseDialog {
                     this.onDefault((session, args, next) => { this._onDefault(session, args, next); });
                     next(args);
                 });
-                if (Array.isArray(matchActionPairList[i].action)) {
-                    newActionList = newActionList.concat((matchActionPairList[i].action as builder.IDialogWaterfallStep[]));
+                if (Array.isArray(multiTriggerActionDialogEntryList[i].action)) {
+                    newActionList = newActionList.concat((multiTriggerActionDialogEntryList[i].action as builder.IDialogWaterfallStep[]));
                 } else {
-                    newActionList.push((matchActionPairList[i].action as builder.IDialogWaterfallStep));
+                    newActionList.push((multiTriggerActionDialogEntryList[i].action as builder.IDialogWaterfallStep));
                 }
 
                 let temp = {
-                    match: matchActionPairList[i].match,
+                    match: multiTriggerActionDialogEntryList[i].match,
                     action: newActionList,
                 };
 
                 resultList.push(temp);
             }
 
-            this.matchActionPairList = resultList;
+            this.multiTriggerActionDialogEntryList = resultList;
         }
     }
 
-    public getMatchActionPairList(): MatchActionPair[] {
-        let nonNullList = this.matchActionPairList;
+    public getMatchActionPairList(): MultiTriggerActionDialogEntry[] {
+        let nonNullList = this.multiTriggerActionDialogEntryList;
         if (nonNullList === null || nonNullList === undefined) {
             nonNullList = [];
         }

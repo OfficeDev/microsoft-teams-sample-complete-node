@@ -1,11 +1,12 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds, isMessageFromChannel, startReplyChainInChannel } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { isMessageFromChannel, startReplyChainInChannel } from "../../../utils/DialogUtils";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 import * as teams from "botbuilder-teams";
 
-export class SendProactiveMsgToChannelDialog extends TriggerDialog {
+export class ProactiveMsgToChannelDialog extends TriggerActionDialog {
 
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         if (!isMessageFromChannel(session.message)) {
@@ -78,11 +79,11 @@ export class SendProactiveMsgToChannelDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.SendProactiveMsgToChannelDialogId,
-            DialogMatches.sendProactiveMsgToChannelDialogMatch,
+            DialogIds.ProactiveMsgToChannelDialogId,
+            DialogMatches.ProactiveMsgToChannelDialogMatch,
             [
-                SendProactiveMsgToChannelDialog.step1,
-                SendProactiveMsgToChannelDialog.step2,
+                ProactiveMsgToChannelDialog.step1,
+                ProactiveMsgToChannelDialog.step2,
             ],
         );
     }

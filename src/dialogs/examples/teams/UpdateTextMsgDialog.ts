@@ -1,10 +1,10 @@
 import * as builder from "botbuilder";
-import { TriggerDialog } from "../../utils/TriggerDialog";
-import { DialogIds } from "../../utils/DialogUtils";
-import { DialogMatches } from "../../utils/DialogMatches";
-import { Strings } from "../../locale/locale";
+import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
+import { DialogIds } from "../../../utils/DialogIds";
+import { DialogMatches } from "../../../utils/DialogMatches";
+import { Strings } from "../../../locale/locale";
 
-export class UpdateMsgTextUpdateTrigDialog extends TriggerDialog {
+export class UpdateTextMsgDialog extends TriggerActionDialog {
 
     private static async updateTextMessage(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         if (session.conversationData.lastTextMessage) {
@@ -31,9 +31,9 @@ export class UpdateMsgTextUpdateTrigDialog extends TriggerDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.UpdateMsgTextUpdateTrigDialogId,
-            DialogMatches.updateTextUpdateMsgMatch,
-            UpdateMsgTextUpdateTrigDialog.updateTextMessage,
+            DialogIds.UpdateTextMsgDialogId,
+            DialogMatches.UpdateTextMsgDialogMatch,
+            UpdateTextMsgDialog.updateTextMessage,
         );
     }
 }

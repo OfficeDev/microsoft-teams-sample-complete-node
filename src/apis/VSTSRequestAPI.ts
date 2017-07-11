@@ -2,7 +2,7 @@ import * as request from "request";
 import * as builder from "botbuilder";
 let http = require("http");
 import { VSTSTokenOAuth2API } from "./VSTSTokenOAuth2API";
-import { DialogIds } from "../utils/DialogUtils";
+import { DialogIds } from "../utils/DialogIds";
 import { Strings } from "../locale/locale";
 
 // Callback for HTTP requests
@@ -25,7 +25,7 @@ export class VSTSRequestAPI {
 
         if (!isValidated) {
             session.send(Strings.need_to_log_in);
-            session.beginDialog(DialogIds.AuthorizeAppTrigDialogId);
+            session.beginDialog(DialogIds.VSTSLogInDialogId);
         }
 
         return isValidated;
