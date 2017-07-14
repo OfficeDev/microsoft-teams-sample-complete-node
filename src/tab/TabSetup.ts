@@ -9,15 +9,7 @@ export class TabSetup {
                 let htmlPage = `<!DOCTYPE html>
                     <html>
                     <head>
-                        <meta charset="utf-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Bot Info</title>
-                    </head>
-                    <body>
-                        
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
                         <script src='https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js'></script>
                         <script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
                     </head>
@@ -63,9 +55,6 @@ export class TabSetup {
                             });
                         }
                     </script>
-                    </body>
-                    </html>
-                    
                     </body>
                     </html>`;
 
