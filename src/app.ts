@@ -10,6 +10,7 @@ import * as teams from "botbuilder-teams";
 import { TabSetup } from "./tab/TabSetup";
 import { MongoDbBotStorage } from "./storage/MongoDbBotStorage";
 import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
+import { AADUserValidation } from "./apis/AADUserValidation";
 
 // Configure instrumentation - tooling with Azure
 // let appInsights = require("applicationinsights");
@@ -50,6 +51,8 @@ let bot = new Bot(connector, botSettings);
 // Configure bot routes
 app.post("/api/messages", connector.listen());
 app.get("/api/oauthCallback", VSTSTokenOAuth2API.setUserAccessToken(bot));
+app.get("/api/validateUser", AADUserValidation.validateUser(bot));
+app.get("/api/success", AADUserValidation.success(bot));
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: Function) => {
