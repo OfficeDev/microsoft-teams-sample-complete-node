@@ -64,7 +64,7 @@ export class MultiDialog extends MultiTriggerActionDialog {
                     // context is a url encoded json object with a channelId parameter inside of it
                     let appId = config.get("app.appId");
                     let entityId = "test123";
-                    let context = querystring.stringify({ "context": "{\"channelId\":\"" + session.message.sourceEvent.channel.id + "\"}" });
+                    let context = querystring.stringify({ context: "{\"channelId\":\"" + session.message.sourceEvent.channel.id + "\"}" });
                     let hardCodedUrl = "https://teams.microsoft.com/l/entity/" + appId + "/" + entityId + "?" + context;
                     buttons.push(builder.CardAction.openUrl(session, hardCodedUrl, Strings.open_channel_tab));
                 } else {

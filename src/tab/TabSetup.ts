@@ -36,6 +36,10 @@ export class TabSetup {
                     <br>
                     <p id="currentTheme">Current theme will show here when you change it in Teams settings - it can be found on the initial load by fetching the context</p>
                     <br>
+                    <p>NOTE: Trying to get the deeplink when this is a static tab does not work. This feature only works when this is a configurable tab.</p>
+                    <button onclick="getDeeplink()">Click to get a deeplink to this tab</button>
+                    <br>
+                    <br>
                     <button onclick="showContext()">Click to Show Tab's Context</button>
                     <br>
                     <p id="contextOutput"></p>
@@ -48,6 +52,10 @@ export class TabSetup {
                                 document.getElementById("currentTheme").innerHTML = theme;
                             });
                         });
+
+                        function getDeeplink() {
+                            microsoftTeams.shareDeepLink({subEntityId: "stuff", subEntityLabel: "stuff2"});
+                        }
 
                         function showContext() {
                             microsoftTeams.getContext((context) => {

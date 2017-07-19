@@ -1,6 +1,6 @@
 import * as builder from "botbuilder";
 import * as request from "request";
-import urlJoin = require("url-join");
+import * as urlJoin from "url-join";
 
 export interface MultiTriggerActionDialogEntry {
     dialogId: string;
