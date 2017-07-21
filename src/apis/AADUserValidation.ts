@@ -4,6 +4,7 @@ import * as express from "express";
 import * as builder from "botbuilder";
 import * as config from "config";
 import { AADRequestAPI } from "./AADRequestAPI";
+import { MongoDbTempTokensStorage } from "../storage/MongoDbTempTokensStorage";
 
 export class AADUserValidation {
     public static validateUser(bot: builder.UniversalBot): express.RequestHandler {
@@ -22,19 +23,21 @@ export class AADUserValidation {
                     return templateAuthzUrl.replace("<state>", state);
                 };
 
-                let authorizationUrl = createAuthorizationUrl("12345");
+                let authorizationUrl = createAuthorizationUrl(req.query.validationNumb);
                 res.redirect(authorizationUrl);
             } catch (e) {
                 // Don't log expected errors - error is probably from there not being example dialogs
                 res.send(`<html>
                     <body>
                     <p>
-                        Sorry.  There has been an error.
-                    </p>
+                        Sorry - There has been an error.` +
+                        e.toString() +
+                    `</p>
                     <br>
                     <img src="/tab/error_generic.png" alt="default image" />
                     </body>
-                    </html>`);
+                    </html>`,
+                );
             }
         };
     }
@@ -76,6 +79,15 @@ export class AADUserValidation {
                 //     res.send(data)
                 // );
 
+                // let tempTokensStorage = new MongoDbTempTokensStorage("temp-tokens-test", config.get("mongoDb.connectionString"));
+                let tempTokensDbConnection = await MongoDbTempTokensStorage.createConnection();
+                // make this call something we can await?
+                let tempTokensEntry = await tempTokensDbConnection.getTempTokensAsync(req.query.state);
+
+                await tempTokensDbConnection.deleteTempTokensAsync(req.query.state);
+
+                await tempTokensDbConnection.close();
+
                 let clientId = config.get("bot.botId");
                 let clientSecret = config.get("bot.botPassword");
                 // let authorityHostUrl = "https://login.windows.net";
@@ -115,6 +127,9 @@ export class AADUserValidation {
                 htmlPage += "<br><br>Cleaned Cert: " +
                     result;
 
+                htmlPage += "<br><br>Entry in DB: " +
+                    JSON.stringify(tempTokensEntry);
+
                 // https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
                 // https://login.microsoftonline.com/####/v2.0/.well-known/openid-configuration
 
@@ -128,15 +143,15 @@ export class AADUserValidation {
                 // Don't log expected errors - error is probably from there not being example dialogs
                 res.send(`<html>
                     <body>
-                    <p>` +
-                        // Sorry.  There has been an error.
+                    <p>
+                        Sorry.  There has been an error.` +
                         e.toString() +
-
                     `</p>
                     <br>
                     <img src="/tab/error_generic.png" alt="default image" />
                     </body>
-                    </html>`);
+                    </html>`,
+                );
             }
         };
     }

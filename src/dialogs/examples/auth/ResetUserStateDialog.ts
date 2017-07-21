@@ -8,6 +8,7 @@ export class ResetUserStateDialog extends TriggerActionDialog {
 
     private static async resetUserState(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         delete session.userData.vstsAuth;
+        delete session.userData.aadObjectId;
 
         session.clearDialogStack();
 

@@ -1,9 +1,9 @@
 import * as request from "request";
-import * as builder from "botbuilder";
+// import * as builder from "botbuilder";
 let http = require("http");
-import { VSTSTokenOAuth2API } from "./VSTSTokenOAuth2API";
-import { DialogIds } from "../utils/DialogIds";
-import { Strings } from "../locale/locale";
+// import { VSTSTokenOAuth2API } from "./VSTSTokenOAuth2API";
+// import { DialogIds } from "../utils/DialogIds";
+// import { Strings } from "../locale/locale";
 
 // Callback for HTTP requests
 export interface RequestCallback {
@@ -18,34 +18,34 @@ export class AADRequestAPI {
         // do nothing
     }
 
-    private isUserValidated(session: builder.Session): boolean {
-        let isValidated = session.userData &&
-            session.userData.vstsAuth &&
-            session.userData.vstsAuth.isValidated;
+    // private isUserValidated(session: builder.Session): boolean {
+    //     let isValidated = session.userData &&
+    //         session.userData.vstsAuth &&
+    //         session.userData.vstsAuth.isValidated;
 
-        if (!isValidated) {
-            session.send(Strings.need_to_log_in);
-            session.beginDialog(DialogIds.VSTSLogInDialogId);
-        }
+    //     if (!isValidated) {
+    //         session.send(Strings.need_to_log_in);
+    //         session.beginDialog(DialogIds.VSTSLogInDialogId);
+    //     }
 
-        return isValidated;
-    }
+    //     return isValidated;
+    // }
 
-    private async getAccessToken(session: builder.Session): Promise<any> {
-        if (!this.isUserValidated(session)) {
-            return null;
-        }
+    // private async getAccessToken(session: builder.Session): Promise<any> {
+    //     if (!this.isUserValidated(session)) {
+    //         return null;
+    //     }
 
-        let auth = new VSTSTokenOAuth2API();
-        // sets tokens in session.userData.vstsAuth.token and session.userData.vstsAuth.refreshToken
-        await auth.refreshTokens(session);
+    //     let auth = new VSTSTokenOAuth2API();
+    //     // sets tokens in session.userData.vstsAuth.token and session.userData.vstsAuth.refreshToken
+    //     await auth.refreshTokens(session);
 
-        session.sendTyping();
+    //     session.sendTyping();
 
-        let args = { vsts_access_token: session.userData.vstsAuth.token };
+    //     let args = { vsts_access_token: session.userData.vstsAuth.token };
 
-        return args;
-    };
+    //     return args;
+    // };
 
     // Make a GET request to API.
     // Syntax: .get(uri, [query], callback)
@@ -54,11 +54,11 @@ export class AADRequestAPI {
     };
 
     // tslint:disable-next-line:member-ordering
-    public async getAsync(url: string, session: builder.Session): Promise<any> {
-        let args = await this.getAccessToken(session);
-        if (!args) {
-            return null;
-        }
+    public async getAsync(url: string, args: any): Promise<any> {
+        // let args = await this.getAccessToken(session);
+        // if (!args) {
+        //     return null;
+        // }
 
         return new Promise((resolve, reject) => {
             this.get(url, args, (err, result) => {
@@ -78,11 +78,11 @@ export class AADRequestAPI {
     };
 
     // tslint:disable-next-line:member-ordering
-    public async delAsync(url: string, session: builder.Session): Promise<any> {
-        let args = await this.getAccessToken(session);
-        if (!args) {
-            return null;
-        }
+    public async delAsync(url: string, args: any): Promise<any> {
+        // let args = await this.getAccessToken(session);
+        // if (!args) {
+        //     return null;
+        // }
 
         return new Promise((resolve, reject) => {
             this.del(url, args, (err, result) => {
@@ -126,11 +126,11 @@ export class AADRequestAPI {
     };
 
     // tslint:disable-next-line:member-ordering
-    public async putAsync(url: string, session: builder.Session): Promise<any> {
-        let args = await this.getAccessToken(session);
-        if (!args) {
-            return null;
-        }
+    public async putAsync(url: string, args: any): Promise<any> {
+        // let args = await this.getAccessToken(session);
+        // if (!args) {
+        //     return null;
+        // }
 
         return new Promise((resolve, reject) => {
             this.put(url, args, (err, result) => {

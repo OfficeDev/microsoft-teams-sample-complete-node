@@ -4,9 +4,10 @@ import * as config from "config";
 let http = require("http");
 import * as express from "express";
 import * as builder from "botbuilder";
-import { loadSessionAsync } from "../utils/DialogUtils";
-import { Strings } from "../locale/locale";
-import { DialogIds } from "../utils/DialogIds";
+// import { loadSessionAsync } from "../utils/DialogUtils";
+// import { Strings } from "../locale/locale";
+// import { DialogIds } from "../utils/DialogIds";
+import { MongoDbTempTokensStorage } from "../storage/MongoDbTempTokensStorage";
 
 // Callback for HTTP requests
 export interface RequestCallback {
@@ -16,14 +17,13 @@ export interface RequestCallback {
 // API wrapper
 export class VSTSTokenOAuth2API {
 
-    public static getUserAuthorizationURL(session: builder.Session): string {
-        let currentEventInfo = session.message;
+    public static getUserAuthorizationURL(): string {
         let args = {
             client_id: config.get("vstsApp.appId"),
             response_type: "Assertion",
-            state: JSON.stringify(currentEventInfo),
+            state: "",
             scope: "vso.work",
-            redirect_uri: config.get("app.baseUri") + "/api/oauthCallback",
+            redirect_uri: config.get("app.baseUri") + "/api/VSTSOauthCallback",
         };
 
         let url = "https://app.vssps.visualstudio.com/oauth2/authorize/?" + querystring.stringify(args);
@@ -33,24 +33,31 @@ export class VSTSTokenOAuth2API {
     public static setUserAccessToken (bot: builder.UniversalBot): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
-                let code = req.query.code;
-                let state = req.query.state;
 
-                let currentEventInfo = JSON.parse(state);
-                let session = await loadSessionAsync(bot, currentEventInfo);
+                let code = req.query.code;
 
                 let auth = new VSTSTokenOAuth2API();
-                session.sendTyping();
 
                 // Change to create an actual random number
-                let randomValidationNumber = "12345";
+                let randomValidationNumber = "4444";
 
-                auth.setupTokens(session, code, randomValidationNumber);
+                await auth.tempSaveTokens(code, randomValidationNumber);
 
-                res.send(session.gettext(Strings.please_return_to_teams, randomValidationNumber));
+                // res.send(session.gettext(Strings.please_return_to_teams, randomValidationNumber));
+                res.redirect(config.get("app.baseUri") + "/api/validateUser?validationNumb=" + randomValidationNumber);
             } catch (e) {
                 // Don't log expected errors
-                res.redirect("/tab/error_generic.png");
+                res.send(`<html>
+                    <body>
+                    <p>
+                        Sorry.  There has been an error.` +
+                        e.toString() +
+                    `</p>
+                    <br>
+                    <img src="/tab/error_generic.png" alt="default image" />
+                    </body>
+                    </html>`,
+                );
             }
         };
     }
@@ -59,8 +66,7 @@ export class VSTSTokenOAuth2API {
         // do nothing
     }
 
-    public async setupTokens(session: builder.Session, code: string, randomValidationNumber: string): Promise<void> {
-        session.sendTyping();
+    public async tempSaveTokens(code: string, randomValidationNumber: string): Promise<void> {
         let args = {
             assertion: code,
             tokenRequestType: "get_token",
@@ -70,21 +76,24 @@ export class VSTSTokenOAuth2API {
 
         let body = JSON.parse(resp);
 
-        session.userData.vstsAuth = {
+        // session.userData.vstsAuth = {
+        //     token: body.access_token,
+        //     refreshToken: body.refresh_token,
+        //     isValidated: false,
+        //     randomValidationNumber: randomValidationNumber,
+        // };
+
+        let tempTokensEntry = {
+            _id: randomValidationNumber,
             token: body.access_token,
             refreshToken: body.refresh_token,
-            isValidated: false,
-            randomValidationNumber: randomValidationNumber,
         };
 
-        // START VALIDATION DIALOG
-        // used for debugging to let developer know tokens were refreshed
-        // session.send(Strings.tokens_set_confirmation);
-
-        session.beginDialog(DialogIds.VSTSAuthValidateUserDialogId);
-
-        // try to save the tokens in case no other messages are sent
-        session.save().sendBatch();
+        // let tempTokensStorage = new MongoDbTempTokensStorage("temp-tokens-test", config.get("mongoDb.connectionString"));
+        let tempTokensDbConnection = await MongoDbTempTokensStorage.createConnection();
+        // make this call something we can await?
+        await tempTokensDbConnection.saveTempTokensAsync(tempTokensEntry);
+        await tempTokensDbConnection.close();
     }
 
     public async refreshTokens(session: builder.Session): Promise<void> {
@@ -151,7 +160,7 @@ export class VSTSTokenOAuth2API {
                 "&client_assertion=" + config.get("vstsApp.appSecret") +
                 "&grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer" +
                 "&assertion=" + args.assertion +
-                "&redirect_uri=" + config.get("app.baseUri") + "/api/oauthCallback";
+                "&redirect_uri=" + config.get("app.baseUri") + "/api/VSTSOauthCallback";
 
         } else if (args.tokenRequestType === "refresh_token") {
             options.body = "client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer" +

@@ -9,7 +9,7 @@ let config = require("config");
 export class VSTSLogInDialog extends TriggerActionDialog {
 
     private static async sendAuthorizeMsg(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        let url = VSTSTokenOAuth2API.getUserAuthorizationURL(session);
+        let url = VSTSTokenOAuth2API.getUserAuthorizationURL();
 
         // let newCard = new builder.SigninCard(session)
         //     .button(
