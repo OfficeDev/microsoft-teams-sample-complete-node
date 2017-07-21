@@ -2,7 +2,7 @@ import * as express from "express";
 let fs = require("fs");
 let path = require("path");
 
-export class TabSetup {
+export class DefaultTab {
     public static buildTab(): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
@@ -10,6 +10,8 @@ export class TabSetup {
                     <html>
                     <head>
                         <title>Bot Info</title>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <script src='https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js'></script>
                         <script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
                     </head>

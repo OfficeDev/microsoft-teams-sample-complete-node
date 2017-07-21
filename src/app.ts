@@ -7,7 +7,7 @@ let config = require("config");
 import { Bot } from "./Bot";
 import { VSTSTokenOAuth2API } from "./apis/VSTSTokenOAuth2API";
 import * as teams from "botbuilder-teams";
-import { TabSetup } from "./tab/TabSetup";
+import { DefaultTab } from "./tab/DefaultTab";
 import { MongoDbBotStorage } from "./storage/MongoDbBotStorage";
 import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
 import { AADUserValidation } from "./apis/AADUserValidation";
@@ -25,7 +25,7 @@ app.set("port", process.env.PORT || 3978);
 app.use(express.static(path.join(__dirname, "../../public")));
 app.use(express.static(path.join(__dirname, "./public"))); // used for static dialogs
 app.use(favicon(path.join(__dirname, "../../public/assets", "favicon.ico")));
-app.get("/tabDisplay", TabSetup.buildTab());
+app.get("/tabDisplay", DefaultTab.buildTab());
 
 // Create Teams connector for the bot
 let connector = new teams.TeamsChatConnector({
@@ -50,7 +50,7 @@ let bot = new Bot(connector, botSettings);
 
 // Configure bot routes
 app.post("/api/messages", connector.listen());
-app.get("/api/oauthCallback", VSTSTokenOAuth2API.setUserAccessToken(bot));
+app.get("/api/VSTSOauthCallback", VSTSTokenOAuth2API.setUserAccessToken(bot));
 app.get("/api/validateUser", AADUserValidation.validateUser(bot));
 app.get("/api/success", AADUserValidation.success(bot));
 
