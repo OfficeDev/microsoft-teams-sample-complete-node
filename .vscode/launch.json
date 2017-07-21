@@ -27,7 +27,8 @@
                 "VSTS_APP_SECRET": "",
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
-                "MONGODB_BOT_STATE_COLLECTION": ""
+                "MONGODB_BOT_STATE_COLLECTION": "",
+                "MONGODB_TEMP_TOKENS_COLLECTION": ""
             }
         },
         {
@@ -53,7 +54,8 @@
                 "VSTS_APP_SECRET": "",
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
-                "MONGODB_BOT_STATE_COLLECTION": ""
+                "MONGODB_BOT_STATE_COLLECTION": "",
+                "MONGODB_TEMP_TOKENS_COLLECTION": ""
             }
         },
         {
@@ -80,6 +82,7 @@
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": "",
+                "MONGODB_TEMP_TOKENS_COLLECTION": "",
                 "http_proxy": "http://localhost:8888",
                 "no_proxy": "login.microsoftonline.com",
                 "NODE_TLS_REJECT_UNAUTHORIZED": "0"
@@ -107,7 +110,8 @@
                 "VSTS_APP_SECRET": "",
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
-                "MONGODB_BOT_STATE_COLLECTION": ""
+                "MONGODB_BOT_STATE_COLLECTION": "",
+                "MONGODB_TEMP_TOKENS_COLLECTION": ""
             }
         }
     ]
