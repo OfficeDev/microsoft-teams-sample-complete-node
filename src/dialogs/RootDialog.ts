@@ -10,6 +10,7 @@ import { VSTSAuthValidateUserDialog } from "./examples/auth/VSTSAuthValidateUser
 import { VSTSLogInDialog } from "./examples/auth/VSTSLogInDialog";
 import { GetLastDialogUsedDialog } from "./examples/basic/GetLastDialogUsedDialog";
 import { HelloDialog } from "./examples/basic/HelloDialog";
+import { HelpDialog } from "./examples/basic/HelpDialog";
 import { MultiDialog } from "./examples/basic/MultiDialog";
 import { O365ConnectorCardDialog } from "./examples/basic/O365ConnectorCardDialog";
 import { BeginDialogFlowDialog } from "./examples/moderate/BeginDialogFlowDialog";
@@ -62,6 +63,7 @@ export class RootDialog extends builder.IntentDialog {
         new VSTSLogInDialog(bot);
         new GetLastDialogUsedDialog(bot);
         new HelloDialog(bot);
+        new HelpDialog(bot);
         new MultiDialog(bot);
         new O365ConnectorCardDialog(bot);
         new BeginDialogFlowDialog(bot);

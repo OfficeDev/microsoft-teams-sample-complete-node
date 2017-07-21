@@ -1,23 +1,18 @@
 import * as express from "express";
 let fs = require("fs");
 let path = require("path");
+import * as config from "config";
 
-export class TabSetup {
+export class DefaultTab {
     public static buildTab(): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
                 let htmlPage = `<!DOCTYPE html>
                     <html>
                     <head>
+                        <title>Bot Info</title>
                         <meta charset="utf-8" />
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Bot Info</title>
-                    </head>
-                    <body>
-                        
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
                         <script src='https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js'></script>
                         <script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
                     </head>
@@ -42,10 +37,16 @@ export class TabSetup {
                     <br>
                     <br>
                     <br>
+                    <br>
                     <p id="currentTheme">Current theme will show here when you change it in Teams settings - it can be found on the initial load by fetching the context</p>
                     <br>
-                    <button onclick="showContext()">Click to Show Tab's Context</button>
+                    <button onclick="showAllCommands()">Click to See All Commands</button>
                     <br>
+                    <p>NOTE: Trying to get the deeplink when this is a static tab does not work. This feature only works when this is a configurable tab.</p>
+                    <button onclick="getDeeplink()">Click to get a deeplink to this tab</button>
+                    <br>
+                    <br>
+                    <button onclick="showContext()">Click to Show Tab's Context</button>
                     <p id="contextOutput"></p>
                     <script>
                         var microsoftTeams;
@@ -55,7 +56,20 @@ export class TabSetup {
                             microsoftTeams.registerOnThemeChangeHandler(function(theme) {
                                 document.getElementById("currentTheme").innerHTML = theme;
                             });
+                            microsoftTeams.getContext((context) => {
+                                if (context.subEntityId && context.subEntityId === 'allCommands') {
+                                    window.location = "${config.get("app.baseUri") + "/allCommands"}";
+                                }
+                            });
                         });
+
+                        function showAllCommands() {
+                            window.location = "${config.get("app.baseUri") + "/allCommands"}";
+                        }
+
+                        function getDeeplink() {
+                            microsoftTeams.shareDeepLink({subEntityId: "stuff", subEntityLabel: "stuff2"});
+                        }
 
                         function showContext() {
                             microsoftTeams.getContext((context) => {
@@ -63,9 +77,6 @@ export class TabSetup {
                             });
                         }
                     </script>
-                    </body>
-                    </html>
-                    
                     </body>
                     </html>`;
 

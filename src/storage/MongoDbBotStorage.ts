@@ -58,7 +58,8 @@ export class MongoDbBotStorage implements builder.IBotStorage {
                 this.botStateCollection.findOne(filter, (error: any, entity: any) => {
                     if (!error) {
                         if (entity) {
-                            let botData = entity.data || {};
+                            // let botData = entity.data || {};
+                            let botData = entity || {};
                             try {
                                 (data as any)[entry.field] = botData != null ? botData : null;
                             } catch (e) {
@@ -124,11 +125,13 @@ export class MongoDbBotStorage implements builder.IBotStorage {
             // Execute writes in parallel
             async.each(list, (entry, errorCallback) => {
                 let filter = { "_id": entry.id };
-                let document = {
-                    // Tag each document with user id so we can find all user data later
-                    userId: entry.userId || "",
-                    data: entry.botData,
-                };
+                // let document = {
+                //     // Tag each document with user id so we can find all user data later
+                //     userId: entry.userId || "",
+                //     data: entry.botData,
+                // };
+                let document = entry.botData;
+                document.userId = entry.userId || "";
                 this.botStateCollection.updateOne(filter, document, { upsert: true }, err => errorCallback(err));
             }, (err) => {
                 if (callback) {

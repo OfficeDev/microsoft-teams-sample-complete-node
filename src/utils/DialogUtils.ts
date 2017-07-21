@@ -1,6 +1,6 @@
 import * as builder from "botbuilder";
 import * as request from "request";
-import urlJoin = require("url-join");
+import * as urlJoin from "url-join";
 
 export interface MultiTriggerActionDialogEntry {
     dialogId: string;
@@ -47,6 +47,15 @@ export function getLocaleFromEvent(event: builder.IEvent): string {
 
 export function isMessageFromChannel(message: builder.IMessage): boolean {
     return (message.sourceEvent && message.sourceEvent.channel && message.sourceEvent.channel.id);
+}
+
+// simply checks to see if the incoming object is an empty object, i.e. {}
+// returns true on a null or undefined input
+export function isEmptyObj(obj: any): boolean {
+    if (obj) {
+        return Object.keys(obj).length === 0 && obj.constructor === Object;
+    }
+    return true;
 }
 
 // Starts a new reply chain by posting a message to a channel.
