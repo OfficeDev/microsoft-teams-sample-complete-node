@@ -1,6 +1,7 @@
 import * as express from "express";
 let fs = require("fs");
 let path = require("path");
+import * as config from "config";
 
 export class DefaultTab {
     public static buildTab(): express.RequestHandler {
@@ -36,14 +37,16 @@ export class DefaultTab {
                     <br>
                     <br>
                     <br>
+                    <br>
                     <p id="currentTheme">Current theme will show here when you change it in Teams settings - it can be found on the initial load by fetching the context</p>
+                    <br>
+                    <button onclick="showAllCommands()">Click to See All Commands</button>
                     <br>
                     <p>NOTE: Trying to get the deeplink when this is a static tab does not work. This feature only works when this is a configurable tab.</p>
                     <button onclick="getDeeplink()">Click to get a deeplink to this tab</button>
                     <br>
                     <br>
                     <button onclick="showContext()">Click to Show Tab's Context</button>
-                    <br>
                     <p id="contextOutput"></p>
                     <script>
                         var microsoftTeams;
@@ -53,7 +56,16 @@ export class DefaultTab {
                             microsoftTeams.registerOnThemeChangeHandler(function(theme) {
                                 document.getElementById("currentTheme").innerHTML = theme;
                             });
+                            microsoftTeams.getContext((context) => {
+                                if (context.subEntityId && context.subEntityId === 'allCommands') {
+                                    window.location = "${config.get("app.baseUri") + "/allCommands"}";
+                                }
+                            });
                         });
+
+                        function showAllCommands() {
+                            window.location = "${config.get("app.baseUri") + "/allCommands"}";
+                        }
 
                         function getDeeplink() {
                             microsoftTeams.shareDeepLink({subEntityId: "stuff", subEntityLabel: "stuff2"});

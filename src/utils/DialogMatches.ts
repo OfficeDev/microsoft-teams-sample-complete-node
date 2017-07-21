@@ -9,6 +9,7 @@ export const DialogMatches = {
     GetLastDialogUsedDialogMatch: /last dialog/i,
     HelloDialogMatch: /hello/i,
     HelloDialogMatch2: /hi/i,
+    HelpDialogMatch: /help/i,
     MultiDialogMatch: /multi dialog 1/i,
     MultiDialog2Match: /multi dialog 2/i,
     O365ConnectorCardDialogMatch: /connector card(.*)/i,
