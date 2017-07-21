@@ -25,6 +25,7 @@
     "channelStorageType": "CHANNEL_STORAGE_TYPE",
     "mongoDb": {
         "connectionString": "MONGODB_CONNECTION_STRING",
-        "botStateCollection": "MONGODB_BOT_STATE_COLLECTION"
+        "botStateCollection": "MONGODB_BOT_STATE_COLLECTION",
+        "tempTokensCollection": "MONGODB_TEMP_TOKENS_COLLECTION"
     }
 }

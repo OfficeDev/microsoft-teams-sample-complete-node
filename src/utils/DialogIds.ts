@@ -11,6 +11,7 @@ export const DialogIds = {
     VSTSLogInDialogId: "VSTSLogInDialog",
     HelloDialogId: "HelloDialog",
     HelpDialogId: "HelpDialog",
+    HeroCardDialogId: "HeroCardDialog",
     MultiDialogId: "MultiDialog",
     MultiDialog2Id: "MultiDialog2",
     O365ConnectorCardDialogId: "O365ConnectorCardDialog",

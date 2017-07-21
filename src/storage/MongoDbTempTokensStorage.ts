@@ -18,8 +18,7 @@ export class MongoDbTempTokensStorage {
     private tempTokensCollection: mongodb.Collection;
 
     public static async createConnection(): Promise<MongoDbTempTokensStorage> {
-        // let collectionName = config.get("mongoDb.tempTokensCollection");
-        let collectionName = config.get("mongoDb.botStateCollection");
+        let collectionName = config.get("mongoDb.tempTokensCollection");
         let connectionString = config.get("mongoDb.connectionString");
         let resultMongoDbTempTokensStorage = new MongoDbTempTokensStorage(collectionName, connectionString);
         await resultMongoDbTempTokensStorage.initialize();
