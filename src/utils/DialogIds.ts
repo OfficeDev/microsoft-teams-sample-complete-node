@@ -15,6 +15,7 @@ export const DialogIds = {
     MultiDialogId: "MultiDialog",
     MultiDialog2Id: "MultiDialog2",
     O365ConnectorCardDialogId: "O365ConnectorCardDialog",
+    ThumbnailCardDialogId: "ThumbnailCardDialog",
     BeginDialogFlowDialogId: "BeginDialogFlowDialog",
     ConstructorArgsDialogId: "ConstructorArgsDialog",
     ListNamesDialogId: "ListNamesDialog",

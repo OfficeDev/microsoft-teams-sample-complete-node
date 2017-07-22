@@ -14,6 +14,7 @@ export const DialogMatches = {
     MultiDialogMatch: /multi dialog 1/i,
     MultiDialog2Match: /multi dialog 2/i,
     O365ConnectorCardDialogMatch: /connector card(.*)/i,
+    ThumbnailCardDialogMatch: /thumbnail card/i,
     BeginDialogFlowDialogMatch: /dialog flow/i,
     ConstructorArgsDialogMatch: /constructor args/i,
     ListNamesDialogMatch: /names/i,
