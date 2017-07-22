@@ -17,7 +17,14 @@ export class ThumbnailCardDialog extends TriggerActionDialog {
              * This is an example of a button using invoke to begin a new dialog
              * the response field is used as a way to pass data to the newly begun dialog
              * the response field is not needed
+             *
+             * This is an example of getting the input data from the args
+             * when dialog is begun with beginDialog()
              */
+            // let input = "";
+            // if (args.response) {
+            //     input = args.response;
+            // }
             buttons.push(new builder.CardAction(session)
                 .type("invoke")
                 .title(Strings.invoke_button_hello_dialog)

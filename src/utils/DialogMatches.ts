@@ -6,6 +6,7 @@ export const DialogMatches = {
     VSTSAPICallDialogMatch: /vsts api call/i,
     VSTS_Auth_Validate_User_Dialog_Intent: "VSTS_Auth_Validate_User_Dialog_Intent",
     VSTSLogInDialogMatch: /log ?in/i,
+    DeeplinkDialogMatch: /deeplink/i,
     GetLastDialogUsedDialogMatch: /last dialog/i,
     HelloDialogMatch: /hello/i,
     HelloDialogMatch2: /hi/i,

@@ -9,6 +9,7 @@ export const DialogIds = {
     VSTSAPICallDialogId: "VSTSAPICallDialog",
     VSTSAuthValidateUserDialogId: "VSTSAuthValidateUserDialog",
     VSTSLogInDialogId: "VSTSLogInDialog",
+    DeeplinkDialogId: "DeeplinkDialog",
     HelloDialogId: "HelloDialog",
     HelpDialogId: "HelpDialog",
     HeroCardDialogId: "HeroCardDialog",
