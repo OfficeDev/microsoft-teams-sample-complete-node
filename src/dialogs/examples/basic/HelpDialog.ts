@@ -4,6 +4,7 @@ import { DialogIds } from "../../../utils/DialogIds";
 import { DialogMatches } from "../../../utils/DialogMatches";
 import { Strings } from "../../../locale/locale";
 import * as config from "config";
+import * as querystring from "querystring";
 
 export class HelpDialog extends TriggerActionDialog {
 
@@ -11,8 +12,15 @@ export class HelpDialog extends TriggerActionDialog {
         let buttons = new Array<builder.CardAction>();
         let botId = "28:" + config.get("bot.botId");
         let entityId = "1on1test123";
+        let queryParams = querystring.stringify(
+            {
+                conversationType: "chat",
+                context: "{\"subEntityId\":\"allCommands\"}",
+            },
+        );
+
         // hardCodedUrl has url encoded {"subEntityId":"allCommands"} set as the context
-        let hardCodedUrl = "https://teams.microsoft.com/l/entity/" + botId + "/" + entityId + "?conversationType=chat&context=%7B%22subEntityId%22%3A%22allCommands%22%7D";
+        let hardCodedUrl = "https://teams.microsoft.com/l/entity/" + botId + "/" + entityId + "?" + queryParams;
         buttons.push(builder.CardAction.openUrl(session, hardCodedUrl, Strings.all_commands_button));
 
         let newCard = new builder.HeroCard(session)
