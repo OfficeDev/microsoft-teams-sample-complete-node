@@ -71,5 +71,8 @@
     "proactive_channel_msg_sent": "Proactive channel message sent",
     "error_proactive_channel_msg": "Error sending proactive channel message",
     "general_channel_name": "GENERAL",
-    "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
+    "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************",
+
+    "prompt_for_timestamp": "Please enter a timestamp; questions dated on or after that timestamp will be retrieved.",
+    "view_so_question_label": "View question"
 }

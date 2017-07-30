@@ -36,6 +36,7 @@ export const DialogMatches = {
     UpdateTextMsgDialogMatch: /update text message/i,
     UpdateTextMsgSetupDialogMatch: /setup text message/i,
     // *************************** END OF EXAMPLES *********************************
+    SOEShowQuestionsMatch: /soe questions/i,
 
     // Add regex or string intent matches for dialogs
 

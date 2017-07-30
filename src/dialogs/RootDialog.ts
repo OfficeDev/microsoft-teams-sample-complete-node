@@ -36,7 +36,9 @@ import { UpdateTextMsgDialog } from "./examples/teams/UpdateTextMsgDialog";
 import { UpdateTextMsgSetupDialog } from "./examples/teams/UpdateTextMsgSetupDialog";
 // *************************** END OF EXAMPLES *********************************
 
-// Add imports for dialogs
+// Add imports for Stack Overflow Enterprise dialogs
+import { SOELoginDialog } from "./SOELoginDialog";
+import { SOEShowQuestionsDialog } from "./SOEShowQuestionsDialog";
 
 // Main dialog that handles commands
 export class RootDialog extends builder.IntentDialog {
@@ -94,6 +96,8 @@ export class RootDialog extends builder.IntentDialog {
         // *************************** END OF EXAMPLES *********************************
 
         // Add child dialogs
+        new SOELoginDialog(bot);
+        new SOEShowQuestionsDialog(bot);
 
     }
 

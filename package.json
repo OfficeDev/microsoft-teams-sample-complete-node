@@ -1,11 +1,11 @@
 {
-  "name": "example-microsoft-teams",
+  "name": "stack-overflow-enterprise",
   "version": "0.0.1",
-  "description": "Example for Microsoft Teams",
+  "description": "Stack Overflow Enterprise Bot",
   "author": {
-    "name": "Joshua Trick"
+    "name": "Joshua Trick and Bill Bliss"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "main": "app.js",
   "scripts": {
