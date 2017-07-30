@@ -38,6 +38,7 @@ export const DialogIds = {
     UpdateTextMsgSetupDialogId: "UpdateTextMsgSetupDialog",
     // *************************** END OF EXAMPLES *********************************
 
-    // Add entries for dialog ids
-
+    // Stack Overflow Enterprise Dialogs
+    SOELoginDialogId: "SOELoginDialog",
+    SOEShowQuestionsId: "SOEShowQuestions",
 };
