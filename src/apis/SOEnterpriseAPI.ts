@@ -37,7 +37,7 @@ export function renderTags(tags: string[]): string {
     let tagString = "";
     for (let tag of tags) {
         // Markdown in the form: [tag](https://<stackOverflowEnterpriseBaseURI>/questions/tagged/<tag>)
-        tagString += `*[${tag}](https://${SOEnterpriseAPI.soeTenantBase()}/questions/tagged/${tag})* `;
+        tagString += `***[${tag}](https://${SOEnterpriseAPI.soeTenantBase()}/questions/tagged/${tag})*** `;
     }
     return tagString;
 }

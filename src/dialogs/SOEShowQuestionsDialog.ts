@@ -53,7 +53,7 @@ export class SOEShowQuestionsDialog extends TriggerActionDialog {
                             o365card.O365ConnectorCardSection.create(session,
                                 null, // section title
                                 q.body, // section text
-                                q.owner.display_name, // activityTitle
+                                `[${q.owner.display_name}](${q.owner.link})`, // activityTitle
                                 q.owner.profile_image, // activityImage
                                 null, // activitySubtitle
                                 null, // activityText
