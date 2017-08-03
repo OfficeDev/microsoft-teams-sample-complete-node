@@ -10,7 +10,7 @@ export class SetAADObjectId implements builder.IMiddlewareMap {
 
         // let botStorage = await MongoDbAADObjectIdStorage.createConnection();
         // let x = {
-        //     aadObjectId: "f015046f-dccb-4e12-918e-e04bd2d987af",
+        //     aadObjectId: "",
         //     vstsToken: "token",
         //     vstsRefreshToken: "refresh_token",
         // };
@@ -19,10 +19,10 @@ export class SetAADObjectId implements builder.IMiddlewareMap {
         // next();
 
         if (message) {
-            console.log("User data: " + JSON.stringify(session.userData));
+            // console.log("User data: " + JSON.stringify(session.userData));
             if (session.userData.aadObjectId) {
                 // Great! Do nothing.
-                console.log("Did nothing - woo");
+                // console.log("Did nothing - woo");
                 next();
             } else {
                 // casting to keep away typescript errors
@@ -61,9 +61,9 @@ export class SetAADObjectId implements builder.IMiddlewareMap {
 
                                 if (DialogUtils.isEmptyObj(entry)) {
                                     // no response from database so there is no entry from a tab first
-                                    console.log("Should have just saved AAD ID");
+                                    // console.log("Should have just saved AAD ID");
                                 } else {
-                                    console.log("Should have saved AAD ID, tokens, and deleted aadObjectId: entry");
+                                    // console.log("Should have saved AAD ID, tokens, and deleted aadObjectId: entry");
                                     // write data to user data
                                     let vstsAuth = {
                                         token: entry.vstsToken,

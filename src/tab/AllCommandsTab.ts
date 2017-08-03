@@ -2,7 +2,7 @@ import * as express from "express";
 import { DialogMatches } from "../utils/DialogMatches";
 
 export class AllCommandsTab {
-    public static buildTab(): express.RequestHandler {
+    public static buildPage(): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
                 let htmlPage = `<!DOCTYPE html>

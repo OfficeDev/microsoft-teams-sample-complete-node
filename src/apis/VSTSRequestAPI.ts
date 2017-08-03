@@ -19,9 +19,13 @@ export class VSTSRequestAPI {
     }
 
     private isUserValidated(session: builder.Session): boolean {
+        // let isValidated = session.userData &&
+        //     session.userData.vstsAuth &&
+        //     session.userData.vstsAuth.isValidated;
         let isValidated = session.userData &&
             session.userData.vstsAuth &&
-            session.userData.vstsAuth.isValidated;
+            session.userData.vstsAuth.token &&
+            session.userData.vstsAuth.refreshToken;
 
         if (!isValidated) {
             session.send(Strings.need_to_log_in);

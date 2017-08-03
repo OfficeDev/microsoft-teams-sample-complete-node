@@ -40,8 +40,14 @@ export class DeeplinkDialog extends TriggerActionDialog {
         // CONTEXT is a url encoded json object with a subEntityId parameter inside of it – this is how you can pass data to your static tab
         // e.g. %7B%22subEntityId%22%3A%22SUB_ENTITY_ID_DATA%22%7D
         let botId = "28:" + config.get("bot.botId");
-        let staticTabEntityId = "1on1test123";
-        let queryParams = querystring.stringify({ conversationType: "chat" });
+        let staticTabEntityId = "1on1test123"; // this comes from the manifest file
+        let queryParams = querystring.stringify(
+            {
+                conversationType: "chat",
+                // context: "{\"subEntityId\":\"allCommands\"}",
+                context: JSON.stringify({ subEntityId: "stuff" }),
+            },
+        );
         let staticTabHardCodedUrl = "https://teams.microsoft.com/l/entity/" + botId + "/" + staticTabEntityId + "?" + queryParams;
         buttons.push(builder.CardAction.openUrl(session, staticTabHardCodedUrl, Strings.open_static_tab));
 

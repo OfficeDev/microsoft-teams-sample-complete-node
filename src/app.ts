@@ -7,8 +7,12 @@ let config = require("config");
 import { Bot } from "./Bot";
 import { VSTSTokenOAuth2API } from "./apis/VSTSTokenOAuth2API";
 import * as teams from "botbuilder-teams";
+import { LoadingTab } from "./tab/LoadingTab";
 import { DefaultTab } from "./tab/DefaultTab";
 import { AllCommandsTab } from "./tab/AllCommandsTab";
+import { VSTSAuthTab } from "./tab/VSTSAuthTab";
+import { VSTSAuthFlowStartPopUp } from "./tab/VSTSAuthFlowStartPopUp";
+import { VSTSAuthFlowEndPopUp } from "./tab/VSTSAuthFlowEndPopUp";
 import { MongoDbBotStorage } from "./storage/MongoDbBotStorage";
 import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
 import { AADUserValidation } from "./apis/AADUserValidation";
@@ -26,8 +30,14 @@ app.set("port", process.env.PORT || 3978);
 app.use(express.static(path.join(__dirname, "../../public")));
 app.use(express.static(path.join(__dirname, "./public"))); // used for static dialogs
 app.use(favicon(path.join(__dirname, "../../public/assets", "favicon.ico")));
-app.get("/tabDisplay", DefaultTab.buildTab());
-app.get("/allCommands", AllCommandsTab.buildTab());
+
+// Tab urls
+app.get("/loading", LoadingTab.buildPage());
+app.get("/default", DefaultTab.buildPage());
+app.get("/allCommands", AllCommandsTab.buildPage());
+app.get("/vstsAuth", VSTSAuthTab.buildPage());
+app.get("/vstsAuthFlowStart", VSTSAuthFlowStartPopUp.buildPage());
+app.get("/vstsAuthFlowEnd", VSTSAuthFlowEndPopUp.buildPage());
 
 // Create Teams connector for the bot
 let connector = new teams.TeamsChatConnector({

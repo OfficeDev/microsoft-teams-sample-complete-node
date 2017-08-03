@@ -4,7 +4,7 @@ let path = require("path");
 import * as config from "config";
 
 export class DefaultTab {
-    public static buildTab(): express.RequestHandler {
+    public static buildPage(): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
                 let htmlPage = `<!DOCTYPE html>
@@ -54,12 +54,7 @@ export class DefaultTab {
                         $(document).ready(function () {
                             microsoftTeams.initialize();
                             microsoftTeams.registerOnThemeChangeHandler(function(theme) {
-                                document.getElementById("currentTheme").innerHTML = theme;
-                            });
-                            microsoftTeams.getContext((context) => {
-                                if (context.subEntityId && context.subEntityId === 'allCommands') {
-                                    window.location = "${config.get("app.baseUri") + "/allCommands"}";
-                                }
+                                document.getElementById('currentTheme').innerHTML = theme;
                             });
                         });
 
@@ -68,12 +63,12 @@ export class DefaultTab {
                         }
 
                         function getDeeplink() {
-                            microsoftTeams.shareDeepLink({subEntityId: "stuff", subEntityLabel: "stuff2"});
+                            microsoftTeams.shareDeepLink({subEntityId: 'stuff', subEntityLabel: 'stuff2'});
                         }
 
                         function showContext() {
                             microsoftTeams.getContext((context) => {
-                                document.getElementById("contextOutput").innerHTML = JSON.stringify(context);
+                                document.getElementById('contextOutput').innerHTML = JSON.stringify(context);
                             });
                         }
                     </script>
