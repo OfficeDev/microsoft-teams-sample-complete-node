@@ -36,8 +36,12 @@ export class SOEnterpriseRequestAPI {
         return isValidated;
     }
 
-    private async getAccessToken(session: builder.Session): Promise<any> {
+    private async getAccessToken(session: builder.Session, useGlobalKey?: boolean): Promise<any> {
         let args = { key: null };
+        if (useGlobalKey) {
+            args.key = this.soeGlobalApiKey;
+            return args;
+        }
         if (isMessageFromChannel(session.message)) {
             args.key = this.soeGlobalApiKey;
             return args;
@@ -46,10 +50,7 @@ export class SOEnterpriseRequestAPI {
                 args.key = session.userData.soeAPIKey;
                 return args;
             } else {
-                // TODO: Temporary hack to test API call functionality
-                args.key = this.soeGlobalApiKey;
-                return args;
-                // return null;
+                return null;
             }
         }
     }
@@ -61,8 +62,8 @@ export class SOEnterpriseRequestAPI {
     };
 
     // tslint:disable-next-line:member-ordering
-    public async getAsync(url: string, session: builder.Session): Promise<any> {
-        let args = await this.getAccessToken(session);
+    public async getAsync(url: string, session: builder.Session, useGlobalKey?: boolean): Promise<any> {
+        let args = await this.getAccessToken(session, useGlobalKey);
         if (!args) {
             return null;
         }

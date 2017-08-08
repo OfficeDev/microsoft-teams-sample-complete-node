@@ -18,13 +18,13 @@ export class SOEnterpriseAPI {
         this.soeBaseURI =  `https://${SOEnterpriseAPI.soeTenantBase()}/api/${soeApiVersion}/`; // E.g. "https://stackoverflow.microsoft.com/api/2.2/"
     }
 
-    public async getNewQuestions(fromDate: string, session: builder.Session): Promise<any> {
+    public async getNewQuestions(fromDate: string, session: builder.Session, useGlobalKey?: boolean): Promise<any> {
         let args = {
             "fromdate": fromDate,
             "filter": "withbody",
         };
         let url = this.soeBaseURI + "questions?" + querystring.stringify(args);
-        let resp = await this.requestAPI.getAsync(url, session);
+        let resp = await this.requestAPI.getAsync(url, session, useGlobalKey);
         let body = JSON.parse(resp);
         return body;
     }
