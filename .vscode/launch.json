@@ -30,7 +30,8 @@
                 "CHANNEL_STORAGE_TYPE": "",
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": "",
-                "MONGODB_TEMP_TOKENS_COLLECTION": ""
+                "MONGODB_TEMP_TOKENS_COLLECTION": "",
+                "MONGODB_TAG_COLLECTION": ""
             }
         },        
         {

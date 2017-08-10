@@ -37,6 +37,8 @@ export const DialogMatches = {
     UpdateTextMsgSetupDialogMatch: /setup text message/i,
     // *************************** END OF EXAMPLES *********************************
     SOEShowQuestionsMatch: /soe questions/i,
+    PromptForTagsDialogMatch: /setup tags(.*)/i,
+    ChannelDataDialogMatch: /channel data/i,
 
     // Add regex or string intent matches for dialogs
 

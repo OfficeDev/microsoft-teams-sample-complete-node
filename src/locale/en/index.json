@@ -74,5 +74,7 @@
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************",
 
     "prompt_for_timestamp": "Please enter a timestamp; questions dated on or after that timestamp will be retrieved.",
-    "view_so_question_label": "View question"
+    "view_so_question_label": "View question",
+    "tags_confirmation_yes": "Yes",
+    "tags_confirmation_no": "No"
 }

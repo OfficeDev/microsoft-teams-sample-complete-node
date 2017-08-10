@@ -31,6 +31,7 @@
     "mongoDb": {
         "connectionString": "MONGODB_CONNECTION_STRING",
         "botStateCollection": "MONGODB_BOT_STATE_COLLECTION",
-        "tempTokensCollection": "MONGODB_TEMP_TOKENS_COLLECTION"
+        "tempTokensCollection": "MONGODB_TEMP_TOKENS_COLLECTION",
+        "tagCollection": "MONGODB_TAG_COLLECTION"
     }
 }

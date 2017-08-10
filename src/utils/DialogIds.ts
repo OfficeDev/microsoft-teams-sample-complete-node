@@ -41,4 +41,6 @@ export const DialogIds = {
     // Stack Overflow Enterprise Dialogs
     SOELoginDialogId: "SOELoginDialog",
     SOEShowQuestionsId: "SOEShowQuestions",
+    PromptForTagsDialogId: "PromptForTagsDialog",
+    ChannelDataDialogId: "ChannelDataDialog",
 };

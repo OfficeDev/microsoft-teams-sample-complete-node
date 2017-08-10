@@ -1,10 +1,10 @@
 import * as request from "request";
 import * as builder from "botbuilder";
 let http = require("http");
-import { DialogIds } from "../utils/DialogIds";
-import { Strings } from "../locale/locale";
+// import { DialogIds } from "../utils/DialogIds";
+// import { Strings } from "../locale/locale";
 import * as config from "config";
-import { isMessageFromChannel } from "../utils/DialogUtils";
+// import { isMessageFromChannel } from "../utils/DialogUtils";
 import * as querystring from "querystring";
 
 // Callback for HTTP requests
@@ -21,37 +21,43 @@ export class SOEnterpriseRequestAPI {
         this.soeGlobalApiKey = config.get("stackOverflowEnterprise.soeGlobalApiKey");
     }
 
-    private isUserValidated(session: builder.Session): boolean {
-        let isValidated = false;
-        if (session.userData && session.userData.soeAPIKey) {
-            isValidated = true;
-        } else {
-            // do nothing
-        }
-        if (!isValidated) {
-            session.send(Strings.need_to_log_in);
-            // TODO - Implement SOELoginDialog - it exists but is a clone of VSTSLogInDialog
-            session.beginDialog(DialogIds.SOELoginDialogId);
-        }
-        return isValidated;
-    }
+    // COMMENTED OUT TO KEEP TSLINT FROM COMPLAINING
+    // private isUserValidated(session: builder.Session): boolean {
+    //     let isValidated = false;
+    //     if (session.userData && session.userData.soeAPIKey) {
+    //         isValidated = true;
+    //     } else {
+    //         // do nothing
+    //     }
+    //     if (!isValidated) {
+    //         session.send(Strings.need_to_log_in);
+    //         // TODO - Implement SOELoginDialog - it exists but is a clone of VSTSLogInDialog
+    //         session.beginDialog(DialogIds.SOELoginDialogId);
+    //     }
+    //     return isValidated;
+    // }
 
     private async getAccessToken(session: builder.Session): Promise<any> {
+        // TEMPORARY HACK TO KEEP SYSTEM WORKING
         let args = { key: null };
-        if (isMessageFromChannel(session.message)) {
-            args.key = this.soeGlobalApiKey;
-            return args;
-        } else {
-            if (this.isUserValidated(session)) {
-                args.key = session.userData.soeAPIKey;
-                return args;
-            } else {
-                // TODO: Temporary hack to test API call functionality
-                args.key = this.soeGlobalApiKey;
-                return args;
-                // return null;
-            }
-        }
+        args.key = this.soeGlobalApiKey;
+        return args;
+
+        // let args = { key: null };
+        // if (isMessageFromChannel(session.message)) {
+        //     args.key = this.soeGlobalApiKey;
+        //     return args;
+        // } else {
+        //     if (this.isUserValidated(session)) {
+        //         args.key = session.userData.soeAPIKey;
+        //         return args;
+        //     } else {
+        //         // TODO: Temporary hack to test API call functionality
+        //         args.key = this.soeGlobalApiKey;
+        //         return args;
+        //         // return null;
+        //     }
+        // }
     }
 
     // Make a GET request to API.

@@ -64,12 +64,14 @@ export class O365ConnectorCard implements IIsAttachment {
         return this;
     }
 
-    public potentialAction(list: msTeams.O365ConnectorCardActionBase[]|IIsO365ConnectorCardActionBase[]): this {
+    // public potentialAction(list: msTeams.O365ConnectorCardActionBase[]|IIsO365ConnectorCardActionBase[]): this {
+    public potentialAction(list: any[]|IIsO365ConnectorCardActionBase[]): this {
         this.data.content.potentialAction = [];
         if (list) {
             for (let action of list) {
                 let obj = (action as IIsO365ConnectorCardActionBase).toAction ?
-                        (action as IIsO365ConnectorCardActionBase).toAction() : (action as msTeams.O365ConnectorCardActionBase);
+                        // (action as IIsO365ConnectorCardActionBase).toAction() : (action as msTeams.O365ConnectorCardActionBase);
+                        (action as IIsO365ConnectorCardActionBase).toAction() : (action as any);
                 this.data.content.potentialAction.push(o365ActionToPayload(obj));
             }
         }
@@ -82,7 +84,8 @@ export class O365ConnectorCard implements IIsAttachment {
 }
 
 export class O365ConnectorCardSection implements IIsO365ConnectorCardSection {
-    private data: msTeams.O365ConnectorCardSection = {};
+    // private data: msTeams.O365ConnectorCardSection = {};
+    private data: any = {};
 
     public static create(session: Session, title: string, text?: string, activityTitle?: string, activityImage?: string, activitySubtitle?: string, activityText?: string, images?: string|string[], facts?: string[]): O365ConnectorCardSection {
         // Helper function to convert 1D array to an ND array
@@ -181,12 +184,14 @@ export class O365ConnectorCardSection implements IIsO365ConnectorCardSection {
         return this;
     }
 
-    public potentialAction(list: msTeams.O365ConnectorCardActionBase[]|IIsO365ConnectorCardActionBase[]): this {
+    // public potentialAction(list: msTeams.O365ConnectorCardActionBase[]|IIsO365ConnectorCardActionBase[]): this {
+    public potentialAction(list: any[]|IIsO365ConnectorCardActionBase[]): this {
         this.data.potentialAction = [];
         if (list) {
             for (let action of list) {
                 let obj = (action as IIsO365ConnectorCardActionBase).toAction ?
-                        (action as IIsO365ConnectorCardActionBase).toAction() : (action as msTeams.O365ConnectorCardActionBase);
+                        // (action as IIsO365ConnectorCardActionBase).toAction() : (action as msTeams.O365ConnectorCardActionBase);
+                        (action as IIsO365ConnectorCardActionBase).toAction() : (action as any);
                 this.data.potentialAction.push(o365ActionToPayload(obj));
             }
         }
@@ -199,7 +204,8 @@ export class O365ConnectorCardSection implements IIsO365ConnectorCardSection {
 }
 
 export class O365ConnectorCardFact implements IIsO365ConnectorCardFact {
-    private data: msTeams.O365ConnectorCardFact = { name: "", value: "" };
+    // private data: msTeams.O365ConnectorCardFact = { name: "", value: "" };
+    private data: any = { name: "", value: "" };
 
     public static create(session: Session, name: string, value: string): O365ConnectorCardFact {
         return new O365ConnectorCardFact(session).name(name).value(value);
@@ -226,7 +232,8 @@ export class O365ConnectorCardFact implements IIsO365ConnectorCardFact {
 }
 
 export class O365ConnectorCardImage implements IIsO365ConnectorCardImage {
-    private data: msTeams.O365ConnectorCardImage = { image: "" };
+    // private data: msTeams.O365ConnectorCardImage = { image: "" };
+    private data: any = { image: "" };
 
     public static create(session: Session, url: string): O365ConnectorCardImage {
         return new O365ConnectorCardImage(session).image(url);
@@ -248,7 +255,8 @@ export class O365ConnectorCardImage implements IIsO365ConnectorCardImage {
 }
 
 export abstract class O365ConnectorCardActionBase implements IIsO365ConnectorCardActionBase {
-    protected data: msTeams.O365ConnectorCardActionBase = {} as msTeams.O365ConnectorCardActionBase;
+    // protected data: msTeams.O365ConnectorCardActionBase = {} as msTeams.O365ConnectorCardActionBase;
+    protected data: any = {} as any;
 
     constructor(protected session?: Session) {
         this.data.type = this.type;
@@ -270,7 +278,8 @@ export abstract class O365ConnectorCardActionBase implements IIsO365ConnectorCar
 
     protected abstract get type(): string;
 
-    public toAction(): msTeams.O365ConnectorCardActionBase {
+    // public toAction(): msTeams.O365ConnectorCardActionBase {
+    public toAction(): any {
         return this.data;
     }
 }
@@ -282,7 +291,8 @@ export class O365ConnectorCardViewAction extends O365ConnectorCardActionBase {
 
     public target(targetUrl: string): this {
         if (targetUrl) {
-            (this.data as msTeams.O365ConnectorCardViewAction).target = [targetUrl];
+            // (this.data as msTeams.O365ConnectorCardViewAction).target = [targetUrl];
+            (this.data as any).target = [targetUrl];
         }
         return this;
     }
@@ -301,7 +311,8 @@ export function fmtText(session: Session, prompts: string|string[], args?: any[]
     return args && args.length > 0 ? sprintf.vsprintf(fmt, args) : fmt;
 }
 
-export function o365ActionToPayload(obj: msTeams.O365ConnectorCardActionBase): msTeams.O365ConnectorCardActionBase {
+// export function o365ActionToPayload(obj: msTeams.O365ConnectorCardActionBase): msTeams.O365ConnectorCardActionBase {
+export function o365ActionToPayload(obj: any): any {
     if (obj.type) {
         obj["@type"] = obj.type;
         delete obj.type;
@@ -332,5 +343,6 @@ interface IIsO365ConnectorCardImage {
 }
 
 export interface IIsO365ConnectorCardActionBase {
-    toAction(): msTeams.O365ConnectorCardActionBase;
+    // toAction(): msTeams.O365ConnectorCardActionBase;
+    toAction(): any;
 }

@@ -3,6 +3,7 @@ let config = require("config");
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
+import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
@@ -34,6 +35,7 @@ export class Bot extends builder.UniversalBot {
 
             // set on "botbuilder" (after session created)
             new StripBotAtMentions(),
+            new LoadBotChannelData(this.get("channelStorage")),
         );
 
         // Handle invoke events
