@@ -61,9 +61,7 @@ export class RunNotificationJob {
     private static async timestampNotification(bot: builder.UniversalBot, req: any, res: any, next: any): Promise<void> {
         let timestamp = req.query.timestamp;
         let soeAPI = new SOEnterpriseAPI();
-        // let body = await soeAPI.getNewQuestions(timestamp, session);
-        // null as session for now with hack to always use global credentials
-        let body = await soeAPI.getNewQuestions(timestamp, null);
+        let body = await soeAPI.getNewQuestions(timestamp, null, true);
         if (!body) {
             RunNotificationJob.respondWithError(req, res, next);
             return;
