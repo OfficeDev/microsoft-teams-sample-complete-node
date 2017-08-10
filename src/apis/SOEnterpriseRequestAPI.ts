@@ -36,7 +36,7 @@ export class SOEnterpriseRequestAPI {
         return isValidated;
     }
 
-    private async getAccessToken(session: builder.Session, useGlobalKey?: boolean): Promise<any> {      
+    private async getAccessToken(session: builder.Session, useGlobalKey?: boolean): Promise<any> {
         let args = { key: null };
         if (useGlobalKey) {
             args.key = this.soeGlobalApiKey;
