@@ -35,7 +35,7 @@ export class SOEShowQuestionsDialog extends TriggerActionDialog {
     private static async showQuestions(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let timestamp = args.response.trim();
         let soeAPI = new SOEnterpriseAPI();
-        let body = await soeAPI.getNewQuestions(timestamp, session);
+        let body = await soeAPI.getNewQuestions(timestamp, session, true);
         if (!body) {
             session.endDialog();
             // return is needed because endDialog does not quit out of function
