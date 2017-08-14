@@ -34,6 +34,8 @@ export class ProactiveMsgTo1to1Dialog extends TriggerActionDialog {
             if (!err) {
                 // create a new event based on the incoming message, but change
                 // the address to be the new result address
+                // this is done so the new session has the same locale setting as the original
+                // message
                 let createdEvent = { ...session.message, address: resultAddress };
                 // using this template and base trigger dialog, the bot is always present in args.constructorArgs.bot
                 let sessionFor1to1 = await loadSessionAsync(args.constructorArgs.bot, createdEvent);
