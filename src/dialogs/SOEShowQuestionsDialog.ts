@@ -1,10 +1,11 @@
 import * as builder from "botbuilder";
+import * as msTeams from "botbuilder-teams";
 import { TriggerActionDialog } from "../utils/TriggerActionDialog";
 import { DialogIds } from "../utils/DialogIds";
 import { DialogMatches } from "../utils/DialogMatches";
 import { Strings } from "../locale/locale";
 import { SOEnterpriseAPI, renderTags } from "../apis/SOEnterpriseAPI";
-import * as o365card from "../utils/O365ConnectorCard";
+import { O365ConnectorCardSectionNew } from "../utils/O365ConnectorCardSectionNew";
 
 export class SOEShowQuestionsDialog extends TriggerActionDialog {
 
@@ -47,10 +48,10 @@ export class SOEShowQuestionsDialog extends TriggerActionDialog {
             let msg = new builder.Message(session)
                 .textFormat(builder.TextFormat.markdown)
                 .attachments([
-                    new o365card.O365ConnectorCard(session)
+                    new msTeams.O365ConnectorCard(session)
                         .title(q.title)
                         .sections(
-                            o365card.O365ConnectorCardSection.create(session,
+                            O365ConnectorCardSectionNew.create(session,
                                 null, // section title
                                 q.body, // section text
                                 `[${q.owner.display_name}](${q.owner.link})`, // activityTitle
@@ -63,7 +64,7 @@ export class SOEShowQuestionsDialog extends TriggerActionDialog {
                             )
                         )
                         .potentialAction([
-                            new o365card.O365ConnectorCardViewAction(session)
+                            new msTeams.O365ConnectorCardViewAction(session)
                                 .name(Strings.view_so_question_label)
                                 .target(q.link),
                         ]),
