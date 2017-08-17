@@ -3,7 +3,7 @@ import * as config from "config";
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
-import { SetAADObjectId } from "./middleware/SetAADObjectId";
+// import { SetAADObjectId } from "./middleware/SetAADObjectId";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
@@ -37,7 +37,7 @@ export class Bot extends builder.UniversalBot {
 
             // set on "botbuilder" (after session created)
             new StripBotAtMentions(),
-            new SetAADObjectId(),
+            // new SetAADObjectId(),
             new LoadBotChannelData(this.get("channelStorage")),
         );
 
