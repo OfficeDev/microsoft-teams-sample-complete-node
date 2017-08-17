@@ -7,12 +7,13 @@ let config = require("config");
 import { Bot } from "./Bot";
 import { VSTSTokenOAuth2API } from "./apis/VSTSTokenOAuth2API";
 import * as teams from "botbuilder-teams";
-import { LoadingTab } from "./tab/LoadingTab";
-import { DefaultTab } from "./tab/DefaultTab";
-import { AllCommandsTab } from "./tab/AllCommandsTab";
-import { VSTSAuthTab } from "./tab/VSTSAuthTab";
-import { VSTSAuthFlowStartPopUp } from "./tab/VSTSAuthFlowStartPopUp";
-import { VSTSAuthFlowEndPopUp } from "./tab/VSTSAuthFlowEndPopUp";
+import { LoadingTab } from "./pages/LoadingTab";
+import { DefaultTab } from "./pages/DefaultTab";
+import { AllCommandsTab } from "./pages/AllCommandsTab";
+import { VSTSAuthTab } from "./pages/VSTSAuthTab";
+import { VSTSAuthFlowStartPopUp } from "./pages/VSTSAuthFlowStartPopUp";
+import { VSTSAuthFlowEndPopUp } from "./pages/VSTSAuthFlowEndPopUp";
+import { ComposeExtensionSettingsPopUp } from "./pages/ComposeExtensionSettingsPopUp";
 import { MongoDbBotStorage } from "./storage/MongoDbBotStorage";
 import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
 import { AADUserValidation } from "./apis/AADUserValidation";
@@ -31,13 +32,14 @@ app.use(express.static(path.join(__dirname, "../../public")));
 app.use(express.static(path.join(__dirname, "./public"))); // used for static dialogs
 app.use(favicon(path.join(__dirname, "../../public/assets", "favicon.ico")));
 
-// Tab urls
-app.get("/loading", LoadingTab.buildPage());
-app.get("/default", DefaultTab.buildPage());
-app.get("/allCommands", AllCommandsTab.buildPage());
-app.get("/vstsAuth", VSTSAuthTab.buildPage());
-app.get("/vstsAuthFlowStart", VSTSAuthFlowStartPopUp.buildPage());
-app.get("/vstsAuthFlowEnd", VSTSAuthFlowEndPopUp.buildPage());
+// Tab and Popup urls
+app.get("/loading", LoadingTab.getRequestHandler());
+app.get("/default", DefaultTab.getRequestHandler());
+app.get("/allCommands", AllCommandsTab.getRequestHandler());
+app.get("/vstsAuth", VSTSAuthTab.getRequestHandler());
+app.get("/vstsAuthFlowStart", VSTSAuthFlowStartPopUp.getRequestHandler());
+app.get("/vstsAuthFlowEnd", VSTSAuthFlowEndPopUp.getRequestHandler());
+app.get("/composeExtensionSettings", ComposeExtensionSettingsPopUp.getRequestHandler());
 
 // Create Teams connector for the bot
 let connector = new teams.TeamsChatConnector({

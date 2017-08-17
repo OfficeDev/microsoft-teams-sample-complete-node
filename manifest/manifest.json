@@ -34,7 +34,7 @@
   ],
   "staticTabs": [
     {
-      "contentUrl": "BASE_URI/tabDisplay",
+      "contentUrl": "BASE_URI/loading",
       "entityId": "1on1test123",
       "name": "Bot Info",
       "scopes": [
@@ -147,6 +147,7 @@
         "personal",
         "team"
       ],
+      "canUpdateConfiguration": true,
       "commands": [
         {
           "id": "search123",

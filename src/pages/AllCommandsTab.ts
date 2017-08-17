@@ -2,7 +2,8 @@ import * as express from "express";
 import { DialogMatches } from "../utils/DialogMatches";
 
 export class AllCommandsTab {
-    public static buildPage(): express.RequestHandler {
+
+    public static getRequestHandler(): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
                 let htmlPage = `<!DOCTYPE html>
@@ -37,11 +38,10 @@ export class AllCommandsTab {
 
                 res.send(htmlPage);
             } catch (e) {
-                // Don't log expected errors - error is probably from there not being example dialogs
                 res.send(`<html>
                     <body>
                     <p>
-                        Sorry.  There was an error.
+                        Sorry. There was an error.
                     </p>
                     <br>
                     <img src="/tab/error_generic.png" alt="default image" />

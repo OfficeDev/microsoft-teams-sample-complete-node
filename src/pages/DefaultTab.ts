@@ -4,7 +4,8 @@ let path = require("path");
 import * as config from "config";
 
 export class DefaultTab {
-    public static buildPage(): express.RequestHandler {
+
+    public static getRequestHandler(): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
                 let htmlPage = `<!DOCTYPE html>
@@ -81,7 +82,7 @@ export class DefaultTab {
                 res.send(`<html>
                     <body>
                     <p>
-                        Sorry.  There are no example dialogs to display.
+                        Sorry. There are no example dialogs to display.
                     </p>
                     <br>
                     <img src="/tab/error_generic.png" alt="default image" />
