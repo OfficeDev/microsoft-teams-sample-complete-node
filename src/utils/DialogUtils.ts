@@ -158,3 +158,30 @@ function createAddressFromResponse(address: builder.IChatConnectorAddress, respo
     }
     return result;
 }
+
+// Get the channel id in the event
+export function getChannelId(event: builder.IEvent): string {
+    let sourceEvent = event.sourceEvent;
+    if (sourceEvent) {
+        if (sourceEvent.teamsChannelId) {
+            return sourceEvent.teamsChannelId;
+        } else if (sourceEvent.channel) {
+            return sourceEvent.channel.id;
+        }
+    }
+
+    return "";
+}
+
+// Get the team id in the event
+export function getTeamId(event: builder.IEvent): string {
+    let sourceEvent = event.sourceEvent;
+    if (sourceEvent) {
+        if (sourceEvent.team) {
+            return sourceEvent.team.id;
+        } else if (sourceEvent.teamsTeamId) {
+            return sourceEvent.teamsTeamId;
+        }
+    }
+    return "";
+}

@@ -3,27 +3,18 @@ import * as express from "express";
 // let path = require("path");
 import * as builder from "botbuilder";
 import * as config from "config";
-import { AADRequestAPI } from "./AADRequestAPI";
+// import { AADRequestAPI } from "./AADRequestAPI";
 import { MongoDbTempTokensStorage } from "../storage/MongoDbTempTokensStorage";
+import { MongoDbAADObjectIdStorage } from "../storage/MongoDbAADObjectIdStorage";
+import { AADAPI } from "./AADAPI";
+import { isEmptyObj } from "../utils/DialogUtils";
 
 export class AADUserValidation {
     public static validateUser(bot: builder.UniversalBot): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
-                let clientId = config.get("bot.botId");
-                // let clientSecret = config.get("bot.botPassword");
-                // let authorityHostUrl = "https://login.windows.net";
-                // let tenant = "####";
-                // let authorityUrl = authorityHostUrl + "/" + tenant;
-                let redirectUri = config.get("app.baseUri") + "/api/success";
-                // let templateAuthzUrl = "https://login.microsoftonline.com/" + tenant + "/oauth2/v2.0/authorize?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri + "&state=<state>&scope=openid%20profile";
-                let templateAuthzUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri + "&state=<state>&scope=openid%20profile";
-
-                let createAuthorizationUrl = (state) => {
-                    return templateAuthzUrl.replace("<state>", state);
-                };
-
-                let authorizationUrl = createAuthorizationUrl(req.query.validationNumb);
+                let aadAPI = new AADAPI();
+                let authorizationUrl = await aadAPI.getLoginURL(req.query.validationNumb);
                 res.redirect(authorizationUrl);
             } catch (e) {
                 // Don't log expected errors - error is probably from there not being example dialogs
@@ -45,27 +36,6 @@ export class AADUserValidation {
     public static success(bot: builder.UniversalBot): express.RequestHandler {
         return async function (req: any, res: any, next: any): Promise<void> {
             try {
-                let cert = "####";
-                // let finalCert = (cert) => {
-                let beginCert = "-----BEGIN CERTIFICATE-----";
-                let endCert = "-----END CERTIFICATE-----";
-                cert = cert.replace("\n", "");
-                cert = cert.replace(beginCert, "");
-                cert = cert.replace(endCert, "");
-                let result = beginCert;
-                while (cert.length > 0) {
-                    if (cert.length > 64) {
-                        result += "\n" + cert.substring(0, 64);
-                        cert = cert.substring(64, cert.length);
-                    } else {
-                        result += "\n" + cert;
-                        cert = "";
-                    }
-                }
-                if (result[result.length ] !== "\n") {
-                    result += "\n";
-                }
-                result += endCert + "\n";
                     // return result
                 // }
 
@@ -88,23 +58,8 @@ export class AADUserValidation {
 
                 await tempTokensDbConnection.close();
 
-                let clientId = config.get("bot.botId");
-                let clientSecret = config.get("bot.botPassword");
-                // let authorityHostUrl = "https://login.windows.net";
-                // let tenant = "####";
-                // let authorityUrl = authorityHostUrl + "/" + tenant;
-                let redirectUri = config.get("app.baseUri") + "/api/success";
-
-                let args = {
-                    grant_type: "authorization_code",
-                    client_id: clientId,
-                    client_secret: clientSecret,
-                    redirect_uri: redirectUri,
-                    code: req.query.code,
-                    scope: "openid profile",
-                };
-                // let postResultData = await new AADRequestAPI().postAsync("https://login.microsoftonline.com/" + tenant + "/oauth2/v2.0/token", args);
-                let postResultData = await new AADRequestAPI().postAsync("https://login.microsoftonline.com/common/oauth2/v2.0/token", args);
+                let aadAPI = new AADAPI();
+                let validatedAADInfo = await aadAPI.getValidatedAADInformation(req.query.code);
 
                 let htmlPage = `
                     <html>
@@ -121,22 +76,59 @@ export class AADUserValidation {
                     "<br><br>Query: " +
                     JSON.stringify(req.query);
 
-                htmlPage += "<br><br>PostResultData: " +
-                    JSON.stringify(postResultData);
+                htmlPage += "<br><br>validatedAADInfo: " +
+                    JSON.stringify(validatedAADInfo);
 
                 htmlPage += "<br><br>Cleaned Cert: " +
-                    result;
+                    // result;
+                    null;
 
-                htmlPage += "<br><br>Entry in DB: " +
+                htmlPage += "<br><br>Entry in DB:<br>" +
                     JSON.stringify(tempTokensEntry);
+
+                htmlPage += "<br><br>Token:<br>" +
+                    tempTokensEntry.token;
+
+                htmlPage += "<br><br>RefreshToken:<br>" +
+                    tempTokensEntry.refreshToken;
+
+                htmlPage += "<br><br>AAD Object Id:<br>" +
+                    (validatedAADInfo as any).oid;
 
                 // https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
                 // https://login.microsoftonline.com/####/v2.0/.well-known/openid-configuration
 
                 htmlPage += `
                         </p>
+                        <a href="${ config.get("app.baseUri") + "/vstsAuthFlowEnd" }">Success</a>
                     </body>
                     </html>`;
+
+                let aadObjectId = (validatedAADInfo as any).oid;
+                let vstsToken = tempTokensEntry.token;
+                let vstsRefreshToken = tempTokensEntry.refreshToken;
+
+                let botStateDb = await MongoDbAADObjectIdStorage.createConnection();
+                let userData = await botStateDb.getEntryByAADObjectId(aadObjectId);
+
+                if (isEmptyObj(userData)) {
+                    botStateDb.saveTokensByAADObjectId(
+                        {
+                            aadObjectId: aadObjectId,
+                            vstsToken: vstsToken,
+                            vstsRefreshToken: vstsRefreshToken,
+                        },
+                    );
+                } else {
+                    let vstsAuth = {
+                        token: vstsToken,
+                        refreshToken: vstsRefreshToken,
+                    };
+                    userData.vstsAuth = vstsAuth;
+                    botStateDb.saveBotEntry(userData);
+                }
+
+                botStateDb.close();
 
                 res.send(htmlPage);
             } catch (e) {

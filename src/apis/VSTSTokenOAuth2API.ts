@@ -38,10 +38,10 @@ export class VSTSTokenOAuth2API {
 
                 let auth = new VSTSTokenOAuth2API();
 
-                // Change to create an actual random number
-                let randomValidationNumber = "4444";
+                // change to be more "random" and robust than this
+                let randomValidationNumber = Math.floor((Math.random() * 1000000) + 1);
 
-                await auth.tempSaveTokens(code, randomValidationNumber);
+                await auth.tempSaveTokens(code, randomValidationNumber.toString());
 
                 // res.send(session.gettext(Strings.please_return_to_teams, randomValidationNumber));
                 res.redirect(config.get("app.baseUri") + "/api/validateUser?validationNumb=" + randomValidationNumber);
@@ -167,7 +167,7 @@ export class VSTSTokenOAuth2API {
                 "&client_assertion=" + config.get("vstsApp.appSecret") +
                 "&grant_type=refresh_token" +
                 "&assertion=" + args.vsts_refresh_token +
-                "&redirect_uri=" + config.get("app.baseUri") + "/api/oauthCallback";
+                "&redirect_uri=" + config.get("app.baseUri") + "/api/VSTSOauthCallback";
         }
 
         let requestCallback = function (err: any, response: any, body: any): void {

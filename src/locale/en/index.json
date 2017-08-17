@@ -5,6 +5,11 @@
     "need_to_log_in": "I'm sorry. In order to use this functionality you must log in.",
     "tokens_set_confirmation": "Tokens set",
     "tokens_refreshed_confirmation": "Tokens refreshed",
+    "compose_extension_reset_keyword": "reset",
+    "compose_extension_reset_message": "Your compose extension state has been reset",
+    "compose_extension_setting_keyword": "setting",
+    "compose_extension_settings_keyword": "settings",
+    "compose_extension_directions": "This Compose Extension is used to make queries to Wikipedia. To change your settings either enter the work 'settings' or change your settings on the settings menu option. To reset your configuration, simply enter the word 'reset'.",
     "start_of_example_string_responses": "******************************* EVERYTHING BELOW HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************",
     "default_title": "Title",
     "default_subtitle": "Subtitle",
@@ -71,5 +76,7 @@
     "proactive_channel_msg_sent": "Proactive channel message sent",
     "error_proactive_channel_msg": "Error sending proactive channel message",
     "general_channel_name": "GENERAL",
+    "channel_data_testNumb": "Channel Data testNumb: %s",
+    "conversation_data_testNumb": "Conversation Data testNumb: %s",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }

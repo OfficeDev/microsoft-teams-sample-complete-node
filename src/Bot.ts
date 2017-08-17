@@ -1,11 +1,14 @@
 import * as builder from "botbuilder";
-let config = require("config");
+import * as config from "config";
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
+import { SetAADObjectId } from "./middleware/SetAADObjectId";
+import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
+import { ComposeExtensionHandlers } from "./composeExtension/ComposeExtensionHandlers";
 
 // =========================================================
 // Bot Setup
@@ -34,89 +37,67 @@ export class Bot extends builder.UniversalBot {
 
             // set on "botbuilder" (after session created)
             new StripBotAtMentions(),
+            new SetAADObjectId(),
+            new LoadBotChannelData(this.get("channelStorage")),
         );
 
-        // Handle invoke events
-        this._connector.onInvoke((event, callback) => { this.invokeHandler(event, callback); });
-        this._connector.onQuery("search123", (event, query, callback) => { this.composeExtensionHandler(event, query, callback); });
-        this.on("conversationUpdate", (event) => { this.conversationUpdateHandler(event); });
+        // setup invoke payload handler
+        this._connector.onInvoke(this.getInvokeHandler(this));
+
+        // setup conversation update handler for things such as a memberAdded event
+        this.on("conversationUpdate", this.getConversationUpdateHandler(this));
+
+        // setup compose extension handlers
+        // onQuery is for events that come through the compose extension itself including
+        // config and auth responses from popups that were started in the compose extension
+        // onQuerySettingsUrl is only used when the user selects "Settings" from the three dot option
+        // next to the compose extension's name on the list of compose extensions
+        // onSettingsUpdate is only used for the response from the popup created by the
+        // onQuerySettingsUrl event
+        this._connector.onQuery("search123", ComposeExtensionHandlers.getOnQueryHandler(this));
+        this._connector.onQuerySettingsUrl(ComposeExtensionHandlers.getOnQuerySettingsUrlHandler());
+        this._connector.onSettingsUpdate(ComposeExtensionHandlers.getOnSettingsUpdateHandler(this));
     }
 
     // Handle incoming invoke
-    private async invokeHandler(event: builder.IEvent, callback: (err: Error, body: any, status?: number) => void): Promise<void> {
-        let session = await loadSessionAsync(this, event);
-        if (session) {
-            // Clear the stack on invoke, as many builtin dialogs don't play well with invoke
-            // Invoke messages should carry the necessary information to perform their action
-            session.clearDialogStack();
+    private getInvokeHandler(bot: builder.UniversalBot): (event: builder.IEvent, callback: (err: Error, body: any, status?: number) => void) => void {
+        return async function (
+            event: builder.IEvent,
+            callback: (err: Error, body: any, status?: number) => void,
+        ): Promise<void>
+        {
+            let session = await loadSessionAsync(bot, event);
+            if (session) {
+                // Clear the stack on invoke, as many builtin dialogs don't play well with invoke
+                // Invoke messages should carry the necessary information to perform their action
+                session.clearDialogStack();
 
-            let payload = (event as any).value;
+                let payload = (event as any).value;
 
-            // Invokes don't participate in middleware
-            // If payload has an address, then it is from a button to update a message so we do not what to send typing
-            if (!payload.address) {
-                session.sendTyping();
+                // Invokes don't participate in middleware
+                // If payload has an address, then it is from a button to update a message so we do not what to send typing
+                if (!payload.address) {
+                    session.sendTyping();
+                }
+
+                if (payload && payload.dialog) {
+                    session.beginDialog(payload.dialog, payload);
+                }
             }
-
-            if (payload && payload.dialog) {
-                session.beginDialog(payload.dialog, payload);
-            }
-        }
-        callback(null, "", 200);
-    }
-
-    private async composeExtensionHandler(event: builder.IEvent, query: teams.ComposeExtensionQuery, callback: (err: Error, result: teams.IComposeExtensionResponse, statusCode: number) => void): Promise<void> {
-        let manifestInitialRun = "initialRun";
-        let manifestParameterName = "query";
-
-        if (query.parameters[0].name !== manifestInitialRun && query.parameters[0].name !== manifestParameterName) {
-            return callback(new Error("Parameter mismatch in manifest"), null, 500);
-        }
-
-        try {
-            let session = await loadSessionAsync(this, event);
-            let title = "";
-
-            // parameters should be identical to manifest
-            if (query.parameters[0].name === manifestInitialRun) {
-                title = session.gettext(Strings.initial_run_title);
-            } else if (query.parameters[0].name === manifestParameterName) {
-                title = query.parameters[0].value;
-            }
-
-            let cards = Array<builder.IAttachment>();
-            for (let i = 0; i < 3; i++) {
-                let card = new builder.ThumbnailCard()
-                    .title(title + " " + (i + 1))
-                    .images([
-                        new builder.CardImage(session)
-                            .url(config.get("app.baseUri") + "/assets/computer_person.jpg")
-                            .alt(session.gettext(Strings.img_default)),
-                    ])
-                    .text(session.gettext(Strings.default_text))
-                    .buttons([
-                        builder.CardAction.openUrl(session, "https://www.bing.com", Strings.go_to_bing_button),
-                    ]);
-                cards.push(card.toAttachment());
-            }
-
-            let response = teams.ComposeExtensionResponse.result("list").attachments(cards);
-
-            return callback(null, response.toResponse(), 200);
-        }
-        catch (e) {
-            callback(e, null, 500);
-        }
+            callback(null, "", 200);
+        };
     }
 
     // set incoming event to any because membersAdded is not a field in builder.IEvent
-    private async conversationUpdateHandler(event: any): Promise<void> {
-        let session = await loadSessionAsync(this, event);
+    private getConversationUpdateHandler(bot: builder.UniversalBot): (event: any) => void {
+        return async function(event: any): Promise<void> {
+            let session = await loadSessionAsync(bot, event);
 
-        if (event.membersAdded && event.membersAdded[0].id && event.membersAdded[0].id.endsWith(config.get("bot.botId"))) {
-            session.send(Strings.bot_introduction); // probably only works in Teams
-        } else {
-            session.send(Strings.bot_welcome_to_new_person);
-        }
+            if (event.membersAdded && event.membersAdded[0].id && event.membersAdded[0].id.endsWith(config.get("bot.botId"))) {
+                session.send(Strings.bot_introduction); // probably only works in Teams
+            } else {
+                session.send(Strings.bot_welcome_to_new_person);
+            }
+        };
     }
 }

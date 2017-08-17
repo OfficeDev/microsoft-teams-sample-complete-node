@@ -49,19 +49,19 @@ export class AADRequestAPI {
 
     // Make a GET request to API.
     // Syntax: .get(uri, [query], callback)
-    private get(url: string, argsOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
-        this.request("GET", url, argsOrCallback, callback);
+    private get(url: string, headers: any, bodyOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
+        this.request("GET", url, headers, bodyOrCallback, callback);
     };
 
     // tslint:disable-next-line:member-ordering
-    public async getAsync(url: string, args: any): Promise<any> {
+    public async getAsync(url: string, headers: any, body: any): Promise<any> {
         // let args = await this.getAccessToken(session);
         // if (!args) {
         //     return null;
         // }
 
         return new Promise((resolve, reject) => {
-            this.get(url, args, (err, result) => {
+            this.get(url, headers, body, (err, result) => {
                 if (!err) {
                     resolve(result);
                 } else {
@@ -73,19 +73,19 @@ export class AADRequestAPI {
 
     // Make a DELETE request to API.
     // Syntax: .delete(uri, [query], callback)
-    private del(url: string, argsOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
-        this.request("DELETE", url, argsOrCallback, callback);
+    private del(url: string, headers: any, bodyOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
+        this.request("DELETE", url, headers, bodyOrCallback, callback);
     };
 
     // tslint:disable-next-line:member-ordering
-    public async delAsync(url: string, args: any): Promise<any> {
+    public async delAsync(url: string, headers: any, body: any): Promise<any> {
         // let args = await this.getAccessToken(session);
         // if (!args) {
         //     return null;
         // }
 
         return new Promise((resolve, reject) => {
-            this.del(url, args, (err, result) => {
+            this.del(url, headers, body, (err, result) => {
                 if (!err) {
                     resolve(result);
                 } else {
@@ -97,19 +97,19 @@ export class AADRequestAPI {
 
     // Make a POST request to API.
     // Syntax: .post(uri, [query], callback)
-    private post(url: string, argsOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
-        this.request("POST", url, argsOrCallback, callback);
+    private post(url: string, headers: any, bodyOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
+        this.request("POST", url, headers, bodyOrCallback, callback);
     };
 
     // tslint:disable-next-line:member-ordering
-    public async postAsync(url: string, args: any): Promise<any> {
+    public async postAsync(url: string, headers: any, body: any): Promise<any> {
         // let args = await this.getAccessToken(session);
         // if (!args) {
         //     return null;
         // }
 
         return new Promise((resolve, reject) => {
-            this.post(url, args, (err, result) => {
+            this.post(url, headers, body, (err, result) => {
                 if (!err) {
                     resolve(result);
                 } else {
@@ -121,19 +121,19 @@ export class AADRequestAPI {
 
     // Make a PUT request to API.
     // Syntax: .put(uri, [query], callback)
-    private put(url: string, argsOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
-        this.request("PUT", url, argsOrCallback, callback);
+    private put(url: string, headers: any, bodyOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
+        this.request("PUT", url, headers, bodyOrCallback, callback);
     };
 
     // tslint:disable-next-line:member-ordering
-    public async putAsync(url: string, args: any): Promise<any> {
+    public async putAsync(url: string, headers: any, body: any): Promise<any> {
         // let args = await this.getAccessToken(session);
         // if (!args) {
         //     return null;
         // }
 
         return new Promise((resolve, reject) => {
-            this.put(url, args, (err, result) => {
+            this.put(url, headers, body, (err, result) => {
                 if (!err) {
                     resolve(result);
                 } else {
@@ -145,34 +145,32 @@ export class AADRequestAPI {
 
     // Make a request to API.
     // Syntax: .request(method, uri, [query], callback)
-    private request(method: string, url: string, argsOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
-        let args: any;
+    private request(method: string, url: string, headers: any, bodyOrCallback?: any | RequestCallback, callback?: RequestCallback): void {
+        let body: any;
 
         if (callback) {
-            args = argsOrCallback;
+            body = bodyOrCallback;
         } else {
-            callback = argsOrCallback;
-            args = {};
+            callback = bodyOrCallback;
+            body = {};
         }
 
         let options: request.Options = {
             url: url,
             method: method,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            form: args,
+            headers: headers,
+            form: body,
         };
 
-        let requestCallback = function (err: any, response: any, body: any): void {
+        let requestCallback = function (err: any, response: any, responseBody: any): void {
             if (!err && response.statusCode >= 400) {
-                err = new Error(body);
+                err = new Error(responseBody);
                 err.statusCode = response.statusCode;
-                err.responseBody = body;
+                err.responseBody = responseBody;
                 err.statusMessage = http.STATUS_CODES[response.statusCode];
             }
 
-            callback(err, body);
+            callback(err, responseBody);
         };
 
         switch (method.toLowerCase())

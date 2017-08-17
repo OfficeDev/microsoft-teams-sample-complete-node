@@ -4,7 +4,12 @@ var microsoftTeams;
 $(document).ready(function () {
     microsoftTeams.initialize();
     microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
-      microsoftTeams.settings.setSettings({ suggestedDisplayName: "Bot Info", contentUrl: createTabUrl(), entityId: "test123" });
+        microsoftTeams.settings.setSettings({
+            suggestedDisplayName: "Bot Info",
+            contentUrl: createTabUrl(),
+            entityId: "test123",
+            websiteUrl: createTabUrl(),
+        });
       saveEvent.notifySuccess();
     });
 
@@ -12,5 +17,5 @@ $(document).ready(function () {
 });
 
 function createTabUrl() {
-    return window.location.protocol + "//" + window.location.host + "/tabDisplay";
+    return window.location.protocol + "//" + window.location.host + "/default";
 }
