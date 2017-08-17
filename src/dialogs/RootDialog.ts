@@ -8,7 +8,6 @@ import { ResetUserStateDialog } from "./examples/auth/ResetUserStateDialog";
 import { VSTSAPICallDialog } from "./examples/auth/VSTSAPICallDialog";
 import { VSTSAuthValidateUserDialog } from "./examples/auth/VSTSAuthValidateUserDialog";
 import { VSTSLogInDialog } from "./examples/auth/VSTSLogInDialog";
-import { AnimatedGifDialog } from "./examples/basic/AnimatedGifDialog";
 import { DeeplinkDialog } from "./examples/basic/DeeplinkDialog";
 import { GetLastDialogUsedDialog } from "./examples/basic/GetLastDialogUsedDialog";
 import { HelloDialog } from "./examples/basic/HelloDialog";
@@ -65,7 +64,6 @@ export class RootDialog extends builder.IntentDialog {
         new VSTSAPICallDialog(bot);
         new VSTSAuthValidateUserDialog(bot);
         new VSTSLogInDialog(bot);
-        new AnimatedGifDialog(bot);
         new DeeplinkDialog(bot);
         new GetLastDialogUsedDialog(bot);
         new HelloDialog(bot);
