@@ -25,6 +25,7 @@ import { QuizQ1Dialog } from "./examples/moderate/QuizQ1Dialog";
 import { QuizQ2Dialog } from "./examples/moderate/QuizQ2Dialog";
 import { QuizQ3Dialog } from "./examples/moderate/QuizQ3Dialog";
 import { AtMentionDialog } from "./examples/teams/AtMentionDialog";
+import { ChannelDataDialog } from "./examples/teams/ChannelDataDialog";
 import { DeeplinkDialog } from "./examples/teams/DeeplinkDialog";
 import { FetchRosterDialog } from "./examples/teams/FetchRosterDialog";
 import { ProactiveMsgTo1to1Dialog } from "./examples/teams/ProactiveMsgTo1to1Dialog";
@@ -64,7 +65,6 @@ export class RootDialog extends builder.IntentDialog {
         new VSTSAPICallDialog(bot);
         new VSTSAuthValidateUserDialog(bot);
         new VSTSLogInDialog(bot);
-        new DeeplinkDialog(bot);
         new GetLastDialogUsedDialog(bot);
         new HelloDialog(bot);
         new HelpDialog(bot);
@@ -82,6 +82,8 @@ export class RootDialog extends builder.IntentDialog {
         new QuizQ2Dialog(bot);
         new QuizQ3Dialog(bot);
         new AtMentionDialog(bot);
+        new ChannelDataDialog(bot);
+        new DeeplinkDialog(bot);
         new FetchRosterDialog(bot);
         new ProactiveMsgTo1to1Dialog(bot);
         new ProactiveMsgToChannelDialog(bot);

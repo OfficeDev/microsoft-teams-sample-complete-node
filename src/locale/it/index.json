@@ -76,5 +76,7 @@
     "proactive_channel_msg_sent": "Proactive channel message sent (it)",
     "error_proactive_channel_msg": "Error sending proactive channel message (it)",
     "general_channel_name": "GENERALE",
+    "channel_data_testNumb": "Channel Data testNumb: %s (it)",
+    "conversation_data_testNumb": "Conversation Data testNumb: %s (it)",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }
