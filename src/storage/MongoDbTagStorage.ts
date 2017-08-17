@@ -3,7 +3,7 @@ import * as config from "config";
 
 // tslint:disable-next-line:variable-name
 export interface TagEntry {
-    _id: string;
+    _id: string; // make sure it is lower case
     conversationEntries: ConversationEntry[];
 };
 
@@ -39,6 +39,7 @@ export class MongoDbTagStorage {
             return ({} as any);
         }
 
+        _id = _id.toLowerCase();
         let filter = { "_id": _id };
         let tagEntry = await this.tagCollection.findOne(filter);
 
@@ -58,6 +59,7 @@ export class MongoDbTagStorage {
             return;
         }
 
+        tagEntry._id = tagEntry._id.toLowerCase();
         let filter = { "_id": tagEntry._id };
 
         await this.tagCollection.updateOne(filter, tagEntry, { upsert: true });
@@ -69,6 +71,7 @@ export class MongoDbTagStorage {
             return;
         }
 
+        _id = _id.toLowerCase();
         let filter = { "_id": _id };
 
         await this.tagCollection.deleteMany(filter);

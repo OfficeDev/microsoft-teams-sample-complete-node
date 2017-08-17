@@ -3,13 +3,18 @@ import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
 import { DialogIds } from "../../../utils/DialogIds";
 import { DialogMatches } from "../../../utils/DialogMatches";
 import { Strings } from "../../../locale/locale";
+import { ChannelData } from "../../../utils/ChannelData";
 
 export class UpdateTextMsgDialog extends TriggerActionDialog {
 
     private static async updateTextMessage(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        if (session.conversationData.lastTextMessage) {
+        let channelData = ChannelData.get(session);
+
+        // if (session.conversationData.lastTextMessage) {
+        if (channelData.lastTextMessage) {
             let msg = new builder.Message(session)
-                .address(session.conversationData.lastTextMessage)
+                // .address(session.conversationData.lastTextMessage)
+                .address(channelData.lastTextMessage)
                 .text(Strings.updated_text_msg);
 
             session.connector.update(msg.toMessage(), (err, address) => {

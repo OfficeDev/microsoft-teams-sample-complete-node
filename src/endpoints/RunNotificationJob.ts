@@ -27,7 +27,7 @@ export class RunNotificationJob {
 
     private static async tagNameNotification(bot: builder.UniversalBot, req: any, res: any, next: any): Promise<void> {
         let tagStorage = await MongoDbTagStorage.createConnection();
-        let tagEntry = await tagStorage.getTagAsync(req.query.tag);
+        let tagEntry = await tagStorage.getTagAsync(req.query.tag.toLowerCase());
         await tagStorage.close();
 
         for (let i = 0; i < tagEntry.conversationEntries.length; i++) {

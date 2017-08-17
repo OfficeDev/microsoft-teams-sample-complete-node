@@ -12,7 +12,7 @@ export const DialogIds = {
     AnimatedGifDialogId: "AnimatedGifDialog",
     DeeplinkDialogId: "DeeplinkDialog",
     HelloDialogId: "HelloDialog",
-    HelpDialogId: "HelpDialog",
+
     HeroCardDialogId: "HeroCardDialog",
     MultiDialogId: "MultiDialog",
     MultiDialog2Id: "MultiDialog2",
@@ -41,6 +41,7 @@ export const DialogIds = {
     // Stack Overflow Enterprise Dialogs
     SOELoginDialogId: "SOELoginDialog",
     SOEShowQuestionsId: "SOEShowQuestions",
-    PromptForTagsDialogId: "PromptForTagsDialog",
+    EnterTagsDialogId: "EnterTagsDialog",
     ChannelDataDialogId: "ChannelDataDialog",
+    HelpDialogId: "HelpDialog",
 };

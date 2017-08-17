@@ -13,30 +13,13 @@ export function loadSessionAsync_New (bot: builder.UniversalBot, eventOrConversa
     let address: builder.IChatConnectorAddress = null;
     if (typeof(eventOrConversationId) === "string") {
         // eventOrConversationId is a conversationId
-        // if conversationId is passed in, then need to pass locale to get localization
+        // if conversationId is passed in, then need to pass in an optional locale in order to get localization
         // if conversationId is passed in, then serviceUrl is not optional
         if (!serviceUrl) {
             return null;
         }
 
         let conversationId = eventOrConversationId;
-        // "address": {
-        //     "id": "1496195150421",
-        //     "channelId": "msteams",
-        //     "user": {
-        //         "id": "29: 1tfHZU3xVny8-kZpmPHICvJBAm-Oi0Np4rcuM1fruLtPfon0GQZY2i_JujBTaixm1UIx6roKIh7ffkAS0QQVacg",
-        //         "name": "Joshua Trick"
-        //     },
-        //     "conversation": {
-        //         "isGroup": true,
-        //         "id": "19:a01dedcabd8e470587b12283a195050f@thread.skype;messageid=1496195150421"
-        //     },
-        //     "bot": {
-        //         "id": "28: 197fd55c-d711-47d7-ae1b-61244d8d3230",
-        //         "name": "Bot Template"
-        //     },
-        //     "serviceUrl": "https: //smba.trafficmanager.net/amer-client-ss.msg/"
-        // }
         address = {
             channelId: "msteams",
             user: {
