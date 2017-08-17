@@ -3,7 +3,6 @@ import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
 import { DialogIds } from "../../../utils/DialogIds";
 import { DialogMatches } from "../../../utils/DialogMatches";
 import { Strings } from "../../../locale/locale";
-// import * as teams from "botbuilder-teams";
 
 export class O365ConnectorCardDialog extends TriggerActionDialog {
 
@@ -16,8 +15,6 @@ export class O365ConnectorCardDialog extends TriggerActionDialog {
         o365Card.contentType = "application/vnd.microsoft.teams.card.o365connector";
 
         // this is the default example's content
-        // let o365ConnectorCardContent: teams.O365ConnectorCard = {
-        // Changed because botbuilder-teams changed and is breaking typing
         let o365ConnectorCardContent: any = {
             title: session.gettext(Strings.default_title),
             sections: [

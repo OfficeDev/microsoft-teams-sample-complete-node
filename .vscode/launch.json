@@ -20,6 +20,7 @@
                 "MICROSOFT_APP_PASSWORD": "aacgLfhnqWUPADqdcgHyQpd",
                 "STACK_OVERFLOW_ENTERPRISE_TENANT": "stackoverflow.microsoft.com",
                 "STACK_OVERFLOW_ENTERPRISE_GLOBAL_API_KEY": "YeZL9A8JCP9rphCwRFZ26A((",
+                "OFFICE_365_TENANT_ID": "",
                 "LUIS_ENDPOINT_URI": "",
                 "EXTERNAL_APP_CONSUMER_KEY": "",
                 "EXTERNAL_APP_CONSUMER_SECRET": "",
