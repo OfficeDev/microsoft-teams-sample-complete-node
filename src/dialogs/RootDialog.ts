@@ -12,9 +12,11 @@ import { GetLastDialogUsedDialog } from "./examples/basic/GetLastDialogUsedDialo
 import { HelloDialog } from "./examples/basic/HelloDialog";
 import { HelpDialog } from "./examples/basic/HelpDialog";
 import { HeroCardDialog } from "./examples/basic/HeroCardDialog";
+import { MessageBackReceiverDialog } from "./examples/basic/MessageBackReceiverDialog";
 import { MultiDialog } from "./examples/basic/MultiDialog";
 import { O365ConnectorCardDialog } from "./examples/basic/O365ConnectorCardDialog";
 import { ThumbnailCardDialog } from "./examples/basic/ThumbnailCardDialog";
+import { TimezoneDialog } from "./examples/basic/TimezoneDialog";
 import { BeginDialogFlowDialog } from "./examples/moderate/BeginDialogFlowDialog";
 import { ConstructorArgsDialog } from "./examples/moderate/ConstructorArgsDialog";
 import { ListNamesDialog } from "./examples/moderate/ListNamesDialog";
@@ -69,9 +71,11 @@ export class RootDialog extends builder.IntentDialog {
         new HelloDialog(bot);
         new HelpDialog(bot);
         new HeroCardDialog(bot);
+        new MessageBackReceiverDialog(bot);
         new MultiDialog(bot);
         new O365ConnectorCardDialog(bot);
         new ThumbnailCardDialog(bot);
+        new TimezoneDialog(bot);
         new BeginDialogFlowDialog(bot);
         new ConstructorArgsDialog(bot, "12345");
         new ListNamesDialog(bot);

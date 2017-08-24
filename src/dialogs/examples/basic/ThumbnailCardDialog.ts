@@ -36,6 +36,12 @@ export class ThumbnailCardDialog extends TriggerActionDialog {
 
             buttons.push(builder.CardAction.imBack(session, session.gettext(Strings.hello_imback), Strings.imback_button_hello_dialog));
 
+            let messageBackButtonValue = JSON.stringify({ anything: "abc12345" });
+            let messageBackButton = builder.CardAction.messageBack(session, messageBackButtonValue, Strings.messageBack_button_title)
+                .displayText(Strings.messageBack_button_display_text)
+                .text(Strings.messageBack_button_text); // this matches match for MessageBackReceiverDialog
+            buttons.push(messageBackButton);
+
             let newCard = new builder.ThumbnailCard(session)
                 .title(Strings.default_title)
                 .subtitle(Strings.default_subtitle)
