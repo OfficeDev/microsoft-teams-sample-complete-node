@@ -14,14 +14,15 @@
     "debug": "node ./build/src/app.js"
   },
   "engines": {
-    "node": ">=6.9.1"
+    "node": ">=6.9.1",
+    "npm": "4.1.2"
   },
   "dependencies": {
     "assert": "^1.4.1",
     "async": "^2.4.0",
     "bluebird": "^3.4.7",
-    "botbuilder": "^3.9.0",
-    "botbuilder-teams": "^0.1.4",
+    "botbuilder": "^3.9.1",
+    "botbuilder-teams": "^0.1.6",
     "chrono-node": "^1.2.5",
     "config": "^1.25.1",
     "crypto": "0.0.3",

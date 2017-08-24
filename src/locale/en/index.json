@@ -37,7 +37,7 @@
     "invoke_button_hello_dialog": "Invoke HelloDialog",
     "imback_button_hello_dialog": "ImBack 'hello'",
     "hello_imback": "hello",
-    "deeplink_card_text": "NOTE: Deeplinks to configurable tabs only work if the tab has been added<br>If you do not see the button for the deeplink to the configurable tab, make this call in a channel that has the configurable tab.",
+    "deeplink_card_text": "<div><a href=\"%s\">Deeplink to Static Tab</a></div><br>NOTE: Deeplinks to configurable tabs only work if the tab has been added<br>If you do not see the button for the deeplink to the configurable tab, make this call in a channel that has the configurable tab.",
     "open_configurable_tab": "Open Configurable Tab",
     "open_static_tab": "Open Static Tab",
     "img_default": "This is an image",
@@ -78,5 +78,14 @@
     "general_channel_name": "GENERAL",
     "channel_data_testNumb": "Channel Data testNumb: %s",
     "conversation_data_testNumb": "Conversation Data testNumb: %s",
+    "timezone_error_msg": "Error in finding timezone information",
+    "timezone_msg": "Field \"timestamp\": %s<br>Field \"localTimestamp\": %s",
+    "messageBack_button_title": "MessageBack",
+    "messageBack_button_display_text": "You pressed the messageBack button",
+    "messageBack_button_text": "incoming message from messageBack button",
+    "messageBack_receiver_msg": "Received the messageBack button press",
+    "messageBack_receiver_incoming_text": "Incoming \"text\" field: \"%s\"",
+    "messageBack_receiver_payload": "Incoming payload in \"value\" field: %s",
+    "messageBack_receiver_no_payload": "No incoming payload",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }
