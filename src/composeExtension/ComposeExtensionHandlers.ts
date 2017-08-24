@@ -265,7 +265,9 @@ function parseSettingsAndSave(state: any, session: builder.Session): void {
 
 // create a response to prompt for a configuration
 function getConfigResponse(): teams.IComposeExtensionResponse {
-    let hardCodedUrl = config.get("app.baseUri") + "/composeExtensionSettings";
+    // the width and height parameters are optional, but will be used to try and create a popup of that size
+    // if that size popup cannot be created, as in this example, then Teams will create the largest allowed popup
+    let hardCodedUrl = config.get("app.baseUri") + "/composeExtensionSettings?width=5000&height=5000";
     let response = teams.ComposeExtensionResponse.config().actions([
         builder.CardAction.openUrl(null, hardCodedUrl, "Config"),
     ]).toResponse();
