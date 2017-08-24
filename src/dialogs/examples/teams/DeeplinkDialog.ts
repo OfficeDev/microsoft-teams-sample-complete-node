@@ -44,7 +44,6 @@ export class DeeplinkDialog extends TriggerActionDialog {
         let queryParams = querystring.stringify(
             {
                 conversationType: "chat",
-                // context: "{\"subEntityId\":\"allCommands\"}",
                 context: JSON.stringify({ subEntityId: "stuff" }),
             },
         );
@@ -52,7 +51,7 @@ export class DeeplinkDialog extends TriggerActionDialog {
         buttons.push(builder.CardAction.openUrl(session, staticTabHardCodedUrl, Strings.open_static_tab));
 
         let newCard = new builder.HeroCard(session)
-            .text(Strings.deeplink_card_text)
+            .text(Strings.deeplink_card_text, staticTabHardCodedUrl)
             .buttons(buttons);
 
         session.send(new builder.Message(session)
