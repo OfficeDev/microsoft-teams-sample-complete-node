@@ -32,6 +32,7 @@
         "connectionString": "MONGODB_CONNECTION_STRING",
         "botStateCollection": "MONGODB_BOT_STATE_COLLECTION",
         "tempTokensCollection": "MONGODB_TEMP_TOKENS_COLLECTION",
-        "tagCollection": "MONGODB_TAG_COLLECTION"
+        "tagCollection": "MONGODB_TAG_COLLECTION",
+        "soeQuestionCollection": "MONGODB_SOE_QUESTION_COLLECTION"
     }
 }

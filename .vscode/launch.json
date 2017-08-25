@@ -32,7 +32,8 @@
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": "",
                 "MONGODB_TEMP_TOKENS_COLLECTION": "",
-                "MONGODB_TAG_COLLECTION": ""
+                "MONGODB_TAG_COLLECTION": "",
+                "MONGODB_SOE_QUESTION_COLLECTION": ""
             }
         },        
         {
@@ -87,6 +88,8 @@
                 "MONGODB_CONNECTION_STRING": "",
                 "MONGODB_BOT_STATE_COLLECTION": "",
                 "MONGODB_TEMP_TOKENS_COLLECTION": "",
+                "MONGODB_TAG_COLLECTION": "",
+                "MONGODB_SOE_QUESTION_COLLECTION": "",
                 "http_proxy": "http://localhost:8888",
                 "no_proxy": "login.microsoftonline.com",
                 "NODE_TLS_REJECT_UNAUTHORIZED": "0"

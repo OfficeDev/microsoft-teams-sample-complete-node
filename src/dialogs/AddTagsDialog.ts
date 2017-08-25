@@ -4,14 +4,29 @@ import { DialogIds } from "../utils/DialogIds";
 import { DialogMatches } from "../utils/DialogMatches";
 import { Strings } from "../locale/locale";
 import { isMessageFromChannel, getLocaleFromEvent } from "../utils/DialogUtils";
-import { MongoDbTagStorage, ConversationEntry } from "../storage/MongoDbTagStorage";
+import { ChannelData } from "../utils/ChannelData";
+import { NotificationEntry } from "../storage/MongoDbTagStorage";
+import { SOEBot } from "../SOEBot";
 
-export class EnterTagsDialog extends TriggerActionDialog {
+export class AddTagsDialog extends TriggerActionDialog {
 
     private static async promptForTags(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        let tagInputString = args.intent.matched[1].trim();
+        // set the bot in dialogData for later waterfall steps because prompts erase the args
+        // session.dialogData.bot = args.constructorArgs.bot;
+
+        let tagInputString = null;
+        if (args && args.intent && args.intent.matched && args.intent.matched[1]) {
+            tagInputString = args.intent.matched[1].trim();
+        }
+        let tagInputStringFromSettingsCard = null;
+        if (args.tagInputStringFromSettingsCard) {
+            tagInputStringFromSettingsCard = args.tagInputStringFromSettingsCard.trim();
+        }
+
         if (tagInputString) {
             next({ response: tagInputString });
+        } else if (tagInputStringFromSettingsCard) {
+            next({ response: tagInputStringFromSettingsCard });
         } else {
             builder.Prompts.text(session, "Enter tags");
         }
@@ -25,11 +40,16 @@ export class EnterTagsDialog extends TriggerActionDialog {
             return;
         }
 
-        let unfilteredTags = tagInputString.split(/,\s*|;\s*|s+/);
+        let unfilteredTags = tagInputString.split(/,\s*|;\s*|\s+/);
 
-        // need to filter to get rid of any duplicates
+        // need to filter to get rid of any undesirable entries
         let tags = new Array<string>();
         for (let currUnfilteredTag of unfilteredTags) {
+            // do not add null, undefined, or an empty string to the list
+            if (!currUnfilteredTag) {
+                continue;
+            }
+
             // have to do this iteration rather than using indexOf to test for tag name capitalization inconsistency
             let tagAlreadyEntered = false;
             for (let currTag of tags) {
@@ -64,10 +84,13 @@ export class EnterTagsDialog extends TriggerActionDialog {
             }
 
             let conversationIdToNotify = null;
+            let isChannel = false;
             if (isMessageFromChannel(session.message)) {
                 conversationIdToNotify = session.message.sourceEvent.channel.id;
+                isChannel = true;
             } else {
                 conversationIdToNotify = session.message.address.conversation.id;
+                isChannel = false;
             }
 
             // casting to keep away typescript error
@@ -76,36 +99,45 @@ export class EnterTagsDialog extends TriggerActionDialog {
 
             let locale = getLocaleFromEvent(session.message);
 
-            let tagStorage = await MongoDbTagStorage.createConnection();
+            // let tagStorage = await MongoDbTagStorage.createConnection();
+            let tagStorage = (session.library as SOEBot).getTagStorage();
+            // don't need to await because it is loaded to the session in middleware
+            let channelData = ChannelData.get(session);
+            if (!channelData.followedTags) {
+                channelData.followedTags = [];
+            }
             let messageText = "Tags Successfully Set up:<br>";
             for (let currTag of tags) {
                 let tagEntry = await tagStorage.getTagAsync(currTag);
 
-                let newConversationEntry: ConversationEntry = {
+                let newNotificationEntry: NotificationEntry = {
                     conversationId: conversationIdToNotify,
                     serviceUrl: msgServiceUrl,
                     locale: locale,
+                    isChannel: isChannel,
                 };
 
                 // check to make sure conversation.id is not already following the current tag
                 let conversationIdAlreadyFollows = false;
-                for (let currConversationEntry of tagEntry.conversationEntries) {
-                    if (newConversationEntry.conversationId === currConversationEntry.conversationId) {
+                for (let currNotificationEntry of tagEntry.notificationEntries) {
+                    if (newNotificationEntry.conversationId === currNotificationEntry.conversationId) {
                         conversationIdAlreadyFollows = true;
                         break;
                     }
                 }
 
                 if (!conversationIdAlreadyFollows) {
-                    tagEntry.conversationEntries.push(newConversationEntry);
+                    tagEntry.notificationEntries.push(newNotificationEntry);
                     await tagStorage.saveTagAsync(tagEntry);
+                    channelData.followedTags.push(tagEntry._id);
                     messageText += "**" + currTag + "**<br>";
                 } else {
                     messageText += "**" + currTag + "** - already been following<br>";
                 }
             }
 
-            await tagStorage.close();
+            // await tagStorage.close();
+            await ChannelData.saveToStorage(session, (session.library as SOEBot).get("channelStorage"));
 
             session.send(messageText);
         } else {
@@ -118,12 +150,15 @@ export class EnterTagsDialog extends TriggerActionDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.EnterTagsDialogId,
-            DialogMatches.EnterTagsDialogMatch, // match is /setup tags(.*)/i
+            DialogIds.AddTagsDialogId,
             [
-                EnterTagsDialog.promptForTags,
-                EnterTagsDialog.getTags,
-                EnterTagsDialog.confirmTags,
+                DialogMatches.AddTagsDialogMatch, // match is /follow tags?(.*)/i
+                DialogMatches.AddTagsDialogMatch2, // match is /add tags?(.*)/i,
+            ],
+            [
+                AddTagsDialog.promptForTags,
+                AddTagsDialog.getTags,
+                AddTagsDialog.confirmTags,
             ],
         );
     }

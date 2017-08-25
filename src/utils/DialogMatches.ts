@@ -51,7 +51,16 @@ export const DialogMatches = {
 
     // Add regex or string intent matches for dialogs
     SOEShowQuestionsMatch: /soe questions/i,
-    EnterTagsDialogMatch: /setup tags(.*)/i,
+    AddTagsDialogMatch: /follow tags?(.*)/i,
+    AddTagsDialogMatch2: /add tags?(.*)/i,
     ChannelDataDialogMatch: /channel data/i,
     HelpDialogMatch: regexCreator("help"),
+    RemoveTagsDialogMatch: /unfollow tags?(.*)/i,
+    RemoveTagsDialogMatch2: /remove tags?(.*)/i,
+    Send_Simple_Tag_Notification_Dialog_Intent: "Send_Simple_Tag_Notification_Dialog_Intent",
+    Send_SOE_Question_Notification_Dialog_Intent: "Send_SOE_Question_Notification_Dialog_Intent",
+    Update_SOE_Question_Notification_Dialog_Intent: "Update_SOE_Question_Notification_Dialog_Intent",
+    SettingsDialogMatch: /show followed tags/i,
+    SettingsDialogMatch2: regexCreator("settings?"),
+    SettingsDialogMatch3: regexCreator("config"),
 };

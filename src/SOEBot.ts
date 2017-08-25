@@ -6,13 +6,59 @@ import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
+import { DialogIds } from "./utils/DialogIds";
 import * as teams from "botbuilder-teams";
+import { MongoDbTagStorage } from "./storage/MongoDbTagStorage";
+import { MongoDbSOEQuestionStorage } from "./storage/MongoDbSOEQuestionStorage";
 
 // =========================================================
 // Bot Setup
 // =========================================================
 
-export class Bot extends builder.UniversalBot {
+export class SOEBot extends builder.UniversalBot {
+
+    private static getOnO365ConnectorCardActionHandler(bot: builder.UniversalBot): (event: builder.IEvent, query: teams.IO365ConnectorCardActionQuery, callback: (err: Error, result: any, statusCode: number) => void) => void {
+        return async function (
+            event: builder.IEvent,
+            query: teams.IO365ConnectorCardActionQuery,
+            callback: (err: Error, result: any, statusCode: number) => void,
+        ): Promise<void>
+        {
+            let session = await loadSessionAsync(bot, event);
+            if (query.actionId && query.actionId === "removeTags" && query.body) {
+                let body = JSON.parse(query.body);
+                session.beginDialog(DialogIds.RemoveTagsDialogId, { tagInputStringFromSettingsCard: body.tagInputStringFromSettingsCard });
+            } else if (query.actionId && query.actionId === "addTags" && query.body) {
+                let body = JSON.parse(query.body);
+                session.beginDialog(DialogIds.AddTagsDialogId, { tagInputStringFromSettingsCard: body.tagInputStringFromSettingsCard });
+            } else {
+                let userName = event.address.user.name;
+                let body = JSON.parse(query.body);
+                let msg = new builder.Message()
+                    .address(event.address)
+                    .summary("Thanks for your input!")
+                    .textFormat("xml")
+                    .text(`<h2>Thanks, ${userName}!
+                        </h2><br>
+                        <h3>Your input action ID:</h3><br>
+                        <pre>${query.actionId}</pre><br>
+                        <h3>Your input body:</h3><br>
+                        <pre>${JSON.stringify(body, null, 2)}</pre>
+                    `);
+                session.send(msg);
+            }
+
+            callback(null, null, 200);
+        };
+    }
+
+    public getTagStorage(): MongoDbTagStorage {
+        return this.get("tagStorage");
+    }
+
+    public getSOEQuestionStorage(): MongoDbSOEQuestionStorage {
+        return this.get("soeQuestionStorage");
+    }
 
     constructor(
         private _connector: teams.TeamsChatConnector,
@@ -42,6 +88,8 @@ export class Bot extends builder.UniversalBot {
         this._connector.onInvoke((event, callback) => { this.invokeHandler(event, callback); });
         this._connector.onQuery("search123", (event, query, callback) => { this.composeExtensionHandler(event, query, callback); });
         this.on("conversationUpdate", (event) => { this.conversationUpdateHandler(event); });
+
+        this._connector.onO365ConnectorCardAction(SOEBot.getOnO365ConnectorCardActionHandler(this));
     }
 
     // Handle incoming invoke

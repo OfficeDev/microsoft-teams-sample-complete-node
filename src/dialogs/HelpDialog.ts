@@ -16,7 +16,7 @@ export class HelpDialog extends TriggerActionDialog {
     ) {
         super(bot,
             DialogIds.HelpDialogId,
-            DialogMatches.HelpDialogMatch,
+            DialogMatches.HelpDialogMatch, // match is regexCreator("help")
             HelpDialog.step1,
         );
     }

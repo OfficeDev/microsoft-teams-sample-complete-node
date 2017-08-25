@@ -4,14 +4,15 @@ import * as config from "config";
 // tslint:disable-next-line:variable-name
 export interface TagEntry {
     _id: string; // make sure it is lower case
-    conversationEntries: ConversationEntry[];
+    notificationEntries: NotificationEntry[];
 };
 
 // tslint:disable-next-line:variable-name
-export interface ConversationEntry {
+export interface NotificationEntry {
     conversationId: string;
     serviceUrl: string;
     locale: string;
+    isChannel: boolean;
 };
 
 /** Replacable storage system. */
@@ -20,11 +21,20 @@ export class MongoDbTagStorage {
     private mongoDb: mongodb.Db;
     private tagCollection: mongodb.Collection;
 
-    public static async createConnection(): Promise<MongoDbTagStorage> {
+    // public static async createConnection(): Promise<MongoDbTagStorage> {
+    //     let collectionName = config.get("mongoDb.tagCollection");
+    //     let connectionString = config.get("mongoDb.connectionString");
+    //     let resultMongoDbTagStorage = new MongoDbTagStorage(collectionName, connectionString);
+    //     await resultMongoDbTagStorage.initialize();
+    //     return resultMongoDbTagStorage;
+    // }
+
+    public static createConnection(): MongoDbTagStorage {
         let collectionName = config.get("mongoDb.tagCollection");
         let connectionString = config.get("mongoDb.connectionString");
         let resultMongoDbTagStorage = new MongoDbTagStorage(collectionName, connectionString);
-        await resultMongoDbTagStorage.initialize();
+        // await resultMongoDbTagStorage.initialize();
+        resultMongoDbTagStorage.initialize();
         return resultMongoDbTagStorage;
     }
 
@@ -48,7 +58,7 @@ export class MongoDbTagStorage {
         } else {
             return {
                 _id: _id,
-                conversationEntries: [],
+                notificationEntries: [],
             };
         }
     }
@@ -66,7 +76,7 @@ export class MongoDbTagStorage {
     }
 
     // Deletes data from storage
-    public async deleteTempTokensAsync(_id: string): Promise<void> {
+    public async deleteTagAsync(_id: string): Promise<void> {
         if (!this.tagCollection) {
             return;
         }

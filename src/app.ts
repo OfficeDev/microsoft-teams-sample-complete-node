@@ -3,8 +3,8 @@ let express = require("express");
 let favicon = require("serve-favicon");
 let http = require("http");
 let path = require("path");
-let config = require("config");
-import { Bot } from "./Bot";
+import * as config from "config";
+import { SOEBot } from "./SOEBot";
 import { VSTSTokenOAuth2API } from "./apis/VSTSTokenOAuth2API";
 import * as teams from "botbuilder-teams";
 import { DefaultTab } from "./endpoints/DefaultTab";
@@ -13,6 +13,8 @@ import { RunNotificationJob } from "./endpoints/RunNotificationJob";
 import { MongoDbBotStorage } from "./storage/MongoDbBotStorage";
 import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
 import { AADUserValidation } from "./apis/AADUserValidation";
+import { MongoDbTagStorage } from "./storage/MongoDbTagStorage";
+import { MongoDbSOEQuestionStorage } from "./storage/MongoDbSOEQuestionStorage";
 
 // Configure instrumentation - tooling with Azure
 // let appInsights = require("applicationinsights");
@@ -38,18 +40,24 @@ let connector = new teams.TeamsChatConnector({
 
 // Create storage for the bot
 let channelStorage = null;
+let tagStorage = null;
+let soeQuestionStorage = null;
 let botStorage = null;
 if (config.get("channelStorageType") === "mongoDb") {
     channelStorage = new MongoDbBotChannelStorage(config.get("mongoDb.botStateCollection"), config.get("mongoDb.connectionString"));
+    tagStorage = MongoDbTagStorage.createConnection();
+    soeQuestionStorage = MongoDbSOEQuestionStorage.createConnection();
     botStorage = new MongoDbBotStorage(config.get("mongoDb.botStateCollection"), config.get("mongoDb.connectionString"));
 };
 
 let botSettings = {
     channelStorage: channelStorage,
+    tagStorage: tagStorage,
+    soeQuestionStorage: soeQuestionStorage,
     storage: botStorage,
 };
 
-let bot = new Bot(connector, botSettings);
+let bot = new SOEBot(connector, botSettings);
 
 // Configure bot routes
 app.post("/api/messages", connector.listen());

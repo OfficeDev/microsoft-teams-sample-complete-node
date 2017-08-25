@@ -39,9 +39,14 @@ import { UpdateTextMsgSetupDialog } from "./examples/teams/UpdateTextMsgSetupDia
 // Add imports for Stack Overflow Enterprise dialogs
 import { SOELoginDialog } from "./SOELoginDialog";
 import { SOEShowQuestionsDialog } from "./SOEShowQuestionsDialog";
-import { EnterTagsDialog } from "./EnterTagsDialog";
+import { AddTagsDialog } from "./AddTagsDialog";
 import { ChannelDataDialog } from "./ChannelDataDialog";
 import { HelpDialog } from "./HelpDialog";
+import { RemoveTagsDialog } from "./RemoveTagsDialog";
+import { SendSimpleTagNotificationDialog } from "./SendSimpleTagNotificationDialog";
+import { SendSOEQuestionNotificationDialog } from "./SendSOEQuestionNotificationDialog";
+import { UpdateSOEQuestionNotificationDialog } from "./UpdateSOEQuestionNotificationDialog";
+import { SettingsDialog } from "./SettingsDialog";
 
 // Main dialog that handles commands
 export class RootDialog extends builder.IntentDialog {
@@ -101,9 +106,14 @@ export class RootDialog extends builder.IntentDialog {
         // Add child dialogs
         new SOELoginDialog(bot);
         new SOEShowQuestionsDialog(bot);
-        new EnterTagsDialog(bot);
+        new AddTagsDialog(bot);
         new ChannelDataDialog(bot);
         new HelpDialog(bot);
+        new RemoveTagsDialog(bot);
+        new SendSimpleTagNotificationDialog(bot);
+        new SendSOEQuestionNotificationDialog(bot);
+        new UpdateSOEQuestionNotificationDialog(bot);
+        new SettingsDialog(bot);
     }
 
     // Handle unrecognized input

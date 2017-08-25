@@ -41,7 +41,12 @@ export const DialogIds = {
     // Stack Overflow Enterprise Dialogs
     SOELoginDialogId: "SOELoginDialog",
     SOEShowQuestionsId: "SOEShowQuestions",
-    EnterTagsDialogId: "EnterTagsDialog",
+    AddTagsDialogId: "AddTagsDialog",
     ChannelDataDialogId: "ChannelDataDialog",
     HelpDialogId: "HelpDialog",
+    RemoveTagsDialogId: "RemoveTagsDialog",
+    SendSimpleTagNotificationDialogId: "SendSimpleTagNotificationDialog",
+    SendSOEQuestionNotificationDialogId: "SendSOEQuestionNotificationDialog",
+    UpdateSOEQuestionNotificationDialogId: "UpdateSOEQuestionNotificationDialog",
+    SettingsDialogId: "SettingsDialog",
 };
