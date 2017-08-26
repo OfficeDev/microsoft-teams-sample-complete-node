@@ -46,7 +46,7 @@
             },
             {
               "title": "settings",
-              "description": "Used to see the settings for this conversation"
+              "description": "Used to view and setup the settings for this conversation"
             }
           ]
         },
@@ -65,7 +65,7 @@
             },
             {
               "title": "settings",
-              "description": "Used to see the settings for this conversation"
+              "description": "Used to view and setup the settings for this conversation"
             }
           ]
         }
