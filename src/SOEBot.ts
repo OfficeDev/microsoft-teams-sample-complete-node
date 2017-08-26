@@ -5,7 +5,7 @@ import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSettin
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { Strings } from "./locale/locale";
-import { loadSessionAsync } from "./utils/DialogUtils";
+import { loadSessionAsync, getTenantId } from "./utils/DialogUtils";
 import { DialogIds } from "./utils/DialogIds";
 import * as teams from "botbuilder-teams";
 import { MongoDbTagStorage } from "./storage/MongoDbTagStorage";
@@ -30,7 +30,12 @@ export class SOEBot extends builder.UniversalBot {
                 session.beginDialog(DialogIds.RemoveTagsDialogId, { tagInputStringFromSettingsCard: body.tagInputStringFromSettingsCard });
             } else if (query.actionId && query.actionId === "addTags" && query.body) {
                 let body = JSON.parse(query.body);
-                session.beginDialog(DialogIds.AddTagsDialogId, { tagInputStringFromSettingsCard: body.tagInputStringFromSettingsCard });
+                session.beginDialog(DialogIds.AddTagsDialogId,
+                    {
+                        tagInputStringFromSettingsCard: body.tagInputStringFromSettingsCard,
+                        tenantId: getTenantId(event),
+                    },
+                );
             } else {
                 let userName = event.address.user.name;
                 let body = JSON.parse(query.body);

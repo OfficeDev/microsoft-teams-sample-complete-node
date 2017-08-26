@@ -246,5 +246,18 @@ export function getTeamId(event: builder.IEvent): string {
             return sourceEvent.teamsTeamId;
         }
     }
+
+    return "";
+}
+
+export function getTenantId(obj: builder.IMessage|builder.IEvent): string {
+    if (obj &&
+        obj.sourceEvent &&
+        obj.sourceEvent.tenant &&
+        obj.sourceEvent.tenant.id)
+    {
+        return obj.sourceEvent.tenant.id;
+    }
+
     return "";
 }

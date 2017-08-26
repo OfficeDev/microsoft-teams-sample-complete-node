@@ -2,50 +2,30 @@
   "$schema": "https://statics.teams.microsoft.com/sdk/v1.0/manifest/MicrosoftTeams.schema.json",
   "manifestVersion": "1.0",
   "version": "1.0",
-  "id": "APP_ID",
-  "packageName": "com.Template.microsoftteams",
+  "id": "c0ec0b3c-acc4-417a-8b59-51abb0ef5476",
+  "packageName": "com.microstack.microsoftteams",
   "developer": {
-    "name": "Bot Template",
-    "websiteUrl": "https://dev.botframework.com",
-    "privacyUrl": "https://privacy.microsoft.com/en-us/privacystatement",
-    "termsOfUseUrl": "https://www.botframework.com/Content/Microsoft-Bot-Framework-Preview-Online-Services-Agreement.htm"
+    "name": "MicroStack",
+    "websiteUrl": "https://stackoverflow.microsoft.com/",
+    "privacyUrl": "https://stackoverflow.microsoft.com/",
+    "termsOfUseUrl": "https://stackoverflow.microsoft.com/"
   },
   "name": {
-    "short": "Bot Template",
-    "full": "Bot Template"
+    "short": "MicroStack",
+    "full": "MicroStack - Microsoft Stack Overflow"
   },
   "description": {
-    "short": "Bot Template - a template for creating a bot",
-    "full": "The Bot Template is meant to create an envrionment in which to easily create a bot."
+    "short": "MicroStack - a bot for tracking Microsoft Stack Overflow",
+    "full": "MicroStack - a bot for tracking Microsoft Stack Overflow"
   },
   "icons": {
-    "outline": "BASE_URI/assets/bot_blue.png",
-    "color": "BASE_URI/assets/bot_blue.png"
+    "outline": "stack-overflow.png",
+    "color": "stack-overflow.png"
   },
-  "accentColor": "#0079bf",
-  "configurableTabs": [
-    {
-      "configurationUrl": "BASE_URI/tab/tabConfig/index.html",
-      "canUpdateConfiguration": false,
-      "scopes": [
-        "team"
-      ]
-    }
-  ],
-  "staticTabs": [
-    {
-      "contentUrl": "BASE_URI/tabDisplay",
-      "entityId": "1on1test123",
-      "name": "Bot Info",
-      "scopes": [
-        "team",
-        "personal"
-      ]
-    }
-  ],
+  "accentColor": "#F48024",
   "bots": [
     {
-      "botId": "REGISTERED_BOT_ID",
+      "botId": "c0ec0b3c-acc4-417a-8b59-51abb0ef5476",
       "scopes": [
         "team",
         "personal"
@@ -57,40 +37,16 @@
           ],
           "commands": [
             {
-              "title": "hello",
-              "description": "Runs the simplest hello dialog"
+              "title": "follow tags",
+              "description": "Used to start following tags in this conversation"
             },
             {
-              "title": "multi dialog 2",
-              "description": "Displays a card with invoke buttons"
+              "title": "remove tags",
+              "description": "Used to stop following tags in this conversation"
             },
             {
-              "title": "roster",
-              "description": "Fetches the full roster payload for the current conversation"
-            },
-            {
-              "title": "names",
-              "description": "Lists the names of the users for the current conversation"
-            },
-            {
-              "title": "last dialog",
-              "description": "Shows which dialog sent the last message"
-            },
-            {
-              "title": "send message to 1:1",
-              "description": "Send the user a 1:1 message"
-            },
-            {
-              "title": "setup text message",
-              "description": "Sets up a text message that can be updated"
-            },
-            {
-              "title": "update text message",
-              "description": "Updates a text message once it is setup to be updated"
-            },
-            {
-              "title": "setup card message",
-              "description": "Sets up a card that can be updated"
+              "title": "settings",
+              "description": "Used to see the settings for this conversation"
             }
           ]
         },
@@ -100,64 +56,16 @@
           ],
           "commands": [
             {
-              "title": "hello",
-              "description": "Runs the simplest hello dialog"
+              "title": "follow tags",
+              "description": "Used to start following tags in this conversation"
             },
             {
-              "title": "multi dialog 2",
-              "description": "Displays a card with invoke buttons"
+              "title": "remove tags",
+              "description": "Used to stop following tags in this conversation"
             },
             {
-              "title": "roster",
-              "description": "Fetches the full roster payload for the current conversation"
-            },
-            {
-              "title": "names",
-              "description": "Lists the names of the users for the current conversation"
-            },
-            {
-              "title": "last dialog",
-              "description": "Shows which dialog sent the last message"
-            },
-            {
-              "title": "send message to 1:1",
-              "description": "Send the user a 1:1 message"
-            },
-            {
-              "title": "setup text message",
-              "description": "Sets up a text message that can be updated"
-            },
-            {
-              "title": "update text message",
-              "description": "Updates a text message once it is setup to be updated"
-            },
-            {
-              "title": "setup card message",
-              "description": "Sets up a card that can be updated"
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "composeExtensions": [
-    {
-      "botId": "REGISTERED_BOT_ID",
-      "scopes": [
-        "personal",
-        "team"
-      ],
-      "commands": [
-        {
-          "id": "search123",
-          "description": "Find a card",
-          "title": "Search",
-          "initialRun": true,
-          "parameters": [
-            {
-              "title": "query123",
-              "name": "query",
-              "description": "Search string"
+              "title": "settings",
+              "description": "Used to see the settings for this conversation"
             }
           ]
         }
@@ -169,6 +77,6 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "BASE_URI_EXCLUDING_HTTPS://"
+    "microstack-test.azurewebsites.net"
   ]
 }

@@ -3,16 +3,28 @@ import { TriggerActionDialog } from "../utils/TriggerActionDialog";
 import { DialogIds } from "../utils/DialogIds";
 import { DialogMatches } from "../utils/DialogMatches";
 import { Strings } from "../locale/locale";
-import { isMessageFromChannel, getLocaleFromEvent } from "../utils/DialogUtils";
+import { isMessageFromChannel, getLocaleFromEvent, getTenantId } from "../utils/DialogUtils";
 import { ChannelData } from "../utils/ChannelData";
 import { NotificationEntry } from "../storage/MongoDbTagStorage";
 import { SOEBot } from "../SOEBot";
+import * as config from "config";
 
 export class AddTagsDialog extends TriggerActionDialog {
 
     private static async promptForTags(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         // set the bot in dialogData for later waterfall steps because prompts erase the args
         // session.dialogData.bot = args.constructorArgs.bot;
+
+        // check to validate that the user has a tenant id that is allowed
+        let messageTenantId = getTenantId(session.message);
+        let validationTenantId = config.get("stackOverflowEnterprise.office365TenantId");
+        if (messageTenantId !== validationTenantId &&
+            args.tenantId !== validationTenantId)
+        {
+            session.send("I'm sorry, but you do not have permission to follow tags for this bot.");
+            session.endDialog();
+            return;
+        }
 
         let tagInputString = null;
         if (args && args.intent && args.intent.matched && args.intent.matched[1]) {
