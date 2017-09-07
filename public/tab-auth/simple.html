@@ -16,13 +16,13 @@
 
         <!-- Result -->
         <p>
-            <div id="divGraphError" style="display: none"></div>
-            <div id="divGraphProfile" style="display: none">
-                <div><b>Name:</b> <span id="graphDisplayName"/></div>
-                <div><b>Job title:</b> <span id="graphJobTitle"/></div>
-                <div><b>E-mail:</b> <span id="graphMail"/></div>
-                <div><b>UPN:</b> <span id="graphUpn"/></div>
-                <div><b>Object id:</b> <span id="graphObjectId"/></div>
+            <div id="divError" style="display: none"></div>
+            <div id="divProfile" style="display: none">
+                <div><b>Name:</b> <span id="profileDisplayName"/></div>
+                <div><b>Job title:</b> <span id="profileJobTitle"/></div>
+                <div><b>E-mail:</b> <span id="profileMail"/></div>
+                <div><b>UPN:</b> <span id="profileUpn"/></div>
+                <div><b>Object id:</b> <span id="profileObjectId"/></div>
             </div>
         </p>
 
@@ -45,12 +45,12 @@
                     },
                     failureCallback: function (reason) {
                         console.log("Login failed: " + reason);
-                        $("#divGraphError").text(reason).css({ display: "" });
-                        $("#divGraphProfile").css({ display: "none" });
+                        $("#divError").text(reason).css({ display: "" });
+                        $("#divProfile").css({ display: "none" });
                     }
                 });
             }
-    
+
             // Get the user's profile information from Microsoft Graph
             function getUserProfile(accessToken) {
                 $.ajax({
@@ -59,22 +59,22 @@
                         request.setRequestHeader("Authorization", "Bearer " + accessToken);
                     },
                     success: function (profile) {
-                        $("#graphDisplayName").text(profile.displayName);
-                        $("#graphJobTitle").text(profile.jobTitle);
-                        $("#graphMail").text(profile.mail);
-                        $("#graphUpn").text(profile.userPrincipalName);
-                        $("#graphObjectId").text(profile.id);
-                        $("#divGraphProfile").css({ display: "" });
-                        $("#divGraphError").css({ display: "none" });
+                        $("#profileDisplayName").text(profile.displayName);
+                        $("#profileJobTitle").text(profile.jobTitle);
+                        $("#profileMail").text(profile.mail);
+                        $("#profileUpn").text(profile.userPrincipalName);
+                        $("#profileObjectId").text(profile.id);
+                        $("#divProfile").css({ display: "" });
+                        $("#divError").css({ display: "none" });
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         console.log("textStatus: " + textStatus + ", errorThrown:" + errorThrown);
-                        $("#divGraphError").text(errorThrown).css({ display: "" });
-                        $("#divGraphProfile").css({ display: "none" });
+                        $("#divError").text(errorThrown).css({ display: "" });
+                        $("#divProfile").css({ display: "none" });
                     },
                 });
 
             }
         </script>
     </body>
-    </html>
+</html>
