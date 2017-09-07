@@ -118,25 +118,24 @@
     
             // Get the user's profile information from the id token
             function showProfileInformation(idToken) {
-                $("#divError").text(idToken).css({ display: "" });
-                // $.ajax({
-                //     url: "https://graph.microsoft.com/v1.0/me/",
-                //     beforeSend: function(request) {
-                //         request.setRequestHeader("Authorization", "Bearer " + accessToken);
-                //     },
-                //     success: function (profile) {
-                //         $("#profileDisplayName").text(profile.displayName);
-                //         $("#profileUpn").text(profile.userPrincipalName);
-                //         $("#profileObjectId").text(profile.id);
-                //         $("#divProfile").css({ display: "" });
-                //         $("#divError").css({ display: "none" });
-                //     },
-                //     error: function (xhr, textStatus, errorThrown) {
-                //         console.log("textStatus: " + textStatus + ", errorThrown:" + errorThrown);
-                //         $("#divError").text(errorThrown).css({ display: "" });
-                //         $("#divProfile").css({ display: "none" });
-                //     },
-                // });
+                $.ajax({
+                    url: window.location.origin + "/api/validateToken",
+                    beforeSend: function(request) {
+                        request.setRequestHeader("Authorization", "Bearer " + idToken);
+                    },
+                    success: function (token) {
+                        $("#profileDisplayName").text(token.name);
+                        $("#profileUpn").text(token.upn);
+                        $("#profileObjectId").text(token.oid);
+                        $("#divProfile").css({ display: "" });
+                        $("#divError").css({ display: "none" });
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log("textStatus: " + textStatus + ", errorThrown:" + errorThrown);
+                        $("#divError").text(errorThrown).css({ display: "" });
+                        $("#divProfile").css({ display: "none" });
+                    },
+                });
             }
         </script>
     </body>

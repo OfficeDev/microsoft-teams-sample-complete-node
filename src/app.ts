@@ -17,6 +17,7 @@ import { ComposeExtensionSettingsPopUp } from "./pages/ComposeExtensionSettingsP
 import { MongoDbBotStorage } from "./storage/MongoDbBotStorage";
 import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
 import { AADUserValidation } from "./apis/AADUserValidation";
+import { ValidateAADToken } from "./apis/ValidateAADToken";
 
 // Configure instrumentation - tooling with Azure
 // let appInsights = require("applicationinsights");
@@ -67,6 +68,7 @@ app.post("/api/messages", connector.listen());
 app.get("/api/VSTSOauthCallback", VSTSTokenOAuth2API.setUserAccessToken(bot));
 app.get("/api/validateUser", AADUserValidation.validateUser(bot));
 app.get("/api/success", AADUserValidation.success(bot));
+app.get("/api/validateToken", ValidateAADToken.listen());
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: Function) => {
