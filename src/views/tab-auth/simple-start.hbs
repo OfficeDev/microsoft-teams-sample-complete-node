@@ -18,7 +18,7 @@
 
 <html>
         <head>
-            <title>Simple Authentication Sample (Start Page)</title>
+            <title>Simple Authentication Sample Login</title>
         </head>
         <body>
             <script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js" integrity="sha384-SNENyRfvDvybst1u0LawETYF6L5yMx5Ya1dIqWoG4UDTZ/5UAMB15h37ktdBbyFh" crossorigin="anonymous"></script>
@@ -35,11 +35,11 @@
 
                     // See https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-implicit
                     let queryParams = {
-                        client_id: "b0397c0b-add2-4156-9900-dc48745ba85b",
+                        client_id: "{{appId}}",
                         response_type: "id_token token",
                         response_mode: "fragment",
                         resource: "https://graph.microsoft.com/",
-                        redirect_uri: window.location.origin + "/tab-auth/simple-end.html",
+                        redirect_uri: window.location.origin + "/tab-auth/simple-end",
                         nonce: _guid(),
                         state: state
                     };

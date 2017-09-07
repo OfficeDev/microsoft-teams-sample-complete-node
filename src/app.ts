@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 let express = require("express");
+let exphbs  = require("express-handlebars");
 let favicon = require("serve-favicon");
 let http = require("http");
 let path = require("path");
@@ -33,6 +34,15 @@ app.use(express.static(path.join(__dirname, "../../public")));
 app.use(express.static(path.join(__dirname, "./public"))); // used for static dialogs
 app.use(favicon(path.join(__dirname, "../../public/assets", "favicon.ico")));
 
+let handlebars = exphbs.create({
+    extname: ".hbs",
+    helpers: {
+        appId: () => { return config.get("app.appId"); },
+    },
+});
+app.engine("hbs", handlebars.engine);
+app.set("view engine", "hbs");
+
 // Tab and Popup urls
 app.get("/loading", LoadingTab.getRequestHandler());
 app.get("/default", DefaultTab.getRequestHandler());
@@ -41,6 +51,14 @@ app.get("/vstsAuth", VSTSAuthTab.getRequestHandler());
 app.get("/vstsAuthFlowStart", VSTSAuthFlowStartPopUp.getRequestHandler());
 app.get("/vstsAuthFlowEnd", VSTSAuthFlowEndPopUp.getRequestHandler());
 app.get("/composeExtensionSettings", ComposeExtensionSettingsPopUp.getRequestHandler());
+
+// Tab authentication sample routes
+app.get("/tab-auth/simple", (req, res) => { res.render("tab-auth/simple"); });
+app.get("/tab-auth/simple-start", (req, res) => { res.render("tab-auth/simple-start"); });
+app.get("/tab-auth/simple-end", (req, res) => { res.render("tab-auth/simple-end"); });
+app.get("/tab-auth/silent", (req, res) => { res.render("tab-auth/silent"); });
+app.get("/tab-auth/silent-start", (req, res) => { res.render("tab-auth/silent-start"); });
+app.get("/tab-auth/silent-end", (req, res) => { res.render("tab-auth/silent-end"); });
 
 // Create Teams connector for the bot
 let connector = new teams.TeamsChatConnector({

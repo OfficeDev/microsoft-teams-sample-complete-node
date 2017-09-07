@@ -43,7 +43,7 @@
       ]
     },
     {
-      "contentUrl": "BASE_URI/tab-auth/simple.html",
+      "contentUrl": "BASE_URI/tab-auth/simple",
       "entityId": "simpleAuth",
       "name": "Simple Auth",
       "scopes": [
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "contentUrl": "BASE_URI/tab-auth/silent.html",
+      "contentUrl": "BASE_URI/tab-auth/silent",
       "entityId": "silentAuth",
       "name": "Silent Auth",
       "scopes": [

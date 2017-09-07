@@ -44,9 +44,9 @@
                 // ADAL.js configuration
                 let config = {
                     // The id of the AAD app
-                    clientId: "b0397c0b-add2-4156-9900-dc48745ba85b",
+                    clientId: "{{appId}}",
                     // AAD app registration should have this in the list of redirect uris
-                    redirectUri: window.location.origin + "/tab-auth/silent-end.html",
+                    redirectUri: window.location.origin + "/tab-auth/silent-end",
                     cacheLocation: "localStorage",
                     navigateToLoginRequestUrl: false,
                 };
@@ -95,8 +95,11 @@
     
             // Login to Azure AD
             function login() {
+                $("#divError").text("").css({ display: "none" });
+                $("#divProfile").css({ display: "none" });
+
                 microsoftTeams.authentication.authenticate({
-                    url: window.location.origin + "/tab-auth/silent-start.html",
+                    url: window.location.origin + "/tab-auth/silent-start",
                     width: 600,
                     height: 535,
                     successCallback: function (result) {
@@ -106,7 +109,7 @@
                         if (idToken) {
                             showProfileInformation(idToken);
                         } else {
-                            console.error("Error getting cached id token. This should never happen.");
+                            console.error("Error getting cached id token. This should never happen.");                            
                             // At this point we have to get the user involved, so show the login button
                             $("#btnLogin").css({ display: "" });
                         };

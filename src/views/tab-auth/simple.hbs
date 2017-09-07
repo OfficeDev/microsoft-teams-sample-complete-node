@@ -12,7 +12,7 @@
         </p>
 
         <!-- Login button -->
-        <button onclick="loginToAzureAD()">Login to Azure AD</button>
+        <button onclick="login()">Login to Azure AD</button>
 
         <!-- Result -->
         <p>
@@ -33,13 +33,16 @@
             microsoftTeams.initialize();
 
             // Login to Azure AD and get access to Microsoft Graph
-            function loginToAzureAD() {
+            function login() {
+                $("#divError").text("").css({ display: "none" });
+                $("#divProfile").css({ display: "none" });
+
                 microsoftTeams.authentication.authenticate({
-                    url: window.location.origin + "/tab-auth/simple-start.html",
+                    url: window.location.origin + "/tab-auth/simple-start",
                     width: 600,
                     height: 535,
                     successCallback: function (result) {
-                        // simple-end.html returns the Graph access token in result
+                        // simple-end returns the Graph access token in result
                         console.log(result);
                         getUserProfile(result.accessToken);
                     },

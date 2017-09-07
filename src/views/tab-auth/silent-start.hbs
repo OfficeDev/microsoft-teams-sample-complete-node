@@ -19,9 +19,9 @@
                 // ADAL.js configuration
                 let config = {
                     // The id of the AAD app
-                    clientId: "b0397c0b-add2-4156-9900-dc48745ba85b",
+                    clientId: "{{appId}}",
                     // AAD app registration should have this in the list of redirect uris
-                    redirectUri: window.location.origin + "/tab-auth/silent-end.html",
+                    redirectUri: window.location.origin + "/tab-auth/silent-end",
                     cacheLocation: "localStorage",
                     navigateToLoginRequestUrl: false,
                 };
