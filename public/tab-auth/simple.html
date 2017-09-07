@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Simple Authentication Sample</title>
+    </head>
+    <body>
+        <p>
+            This sample shows the basics of an authentication/authorization flow in a Microsoft Teams tab.
+        </p>
+        <p>
+            This sample shows the basics of an authentication/authorization flow in a Microsoft Teams tab.
+            Click on the "Login" button below to login to Azure AD, and grant the sample app access to your profile information.
+            The app will fetch your profile using Microsoft Graph, and display information about you below. 
+        </p>
+
+        <!-- Login button -->
+        <button onclick="loginToAzureAD()">Login to Azure AD</button>
+
+        <!-- Result -->
+        <p>
+            <div id="divGraphError" style="display: none"></div>
+            <div id="divGraphProfile" style="display: none">
+                <div><b>Name:</b> <span id="graphDisplayName"/></div>
+                <div><b>Job title:</b> <span id="graphJobTitle"/></div>
+                <div><b>E-mail:</b> <span id="graphMail"/></div>
+                <div><b>UPN:</b> <span id="graphUpn"/></div>
+                <div><b>Object id:</b> <span id="graphObjectId"/></div>
+            </div>
+        </p>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha384-VC7EHu0lDzZyFfmjTPJq+DFyIn8TUGAJbEtpXquazFVr00Q/OOx//RjiZ9yU9+9m" crossorigin="anonymous"></script>
+        <script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js" integrity="sha384-SNENyRfvDvybst1u0LawETYF6L5yMx5Ya1dIqWoG4UDTZ/5UAMB15h37ktdBbyFh" crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+            microsoftTeams.initialize();
+
+            // Login to Azure AD and get access to Microsoft Graph
+            function loginToAzureAD() {
+                microsoftTeams.authentication.authenticate({
+                    url: window.location.origin + "/tab-auth/simple-start.html",
+                    width: 600,
+                    height: 535,
+                    successCallback: function (result) {
+                        // simple-end.html returns the Graph access token in result
+                        console.log(result);
+                        getUserProfile(result.accessToken);
+                    },
+                    failureCallback: function (reason) {
+                        console.log("Login failed: " + reason);
+                        $("#divGraphError").text(reason).css({ display: "" });
+                        $("#divGraphProfile").css({ display: "none" });
+                    }
+                });
+            }
+    
+            // Get the user's profile information from Microsoft Graph
+            function getUserProfile(accessToken) {
+                $.ajax({
+                    url: "https://graph.microsoft.com/v1.0/me/",
+                    beforeSend: function(request) {
+                        request.setRequestHeader("Authorization", "Bearer " + accessToken);
+                    },
+                    success: function (profile) {
+                        $("#graphDisplayName").text(profile.displayName);
+                        $("#graphJobTitle").text(profile.jobTitle);
+                        $("#graphMail").text(profile.mail);
+                        $("#graphUpn").text(profile.userPrincipalName);
+                        $("#graphObjectId").text(profile.id);
+                        $("#divGraphProfile").css({ display: "" });
+                        $("#divGraphError").css({ display: "none" });
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log("textStatus: " + textStatus + ", errorThrown:" + errorThrown);
+                        $("#divGraphError").text(errorThrown).css({ display: "" });
+                        $("#divGraphProfile").css({ display: "none" });
+                    },
+                });
+
+            }
+        </script>
+    </body>
+    </html>
