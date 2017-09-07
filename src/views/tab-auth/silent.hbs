@@ -68,10 +68,8 @@
             function loadData(upn) {
                 // ADAL.js configuration
                 let config = {
-                    // The id of the AAD app
                     clientId: "{{appId}}",
-                    // AAD app registration should have this in the list of redirect uris
-                    redirectUri: window.location.origin + "/tab-auth/silent-end",
+                    redirectUri: window.location.origin + "/tab-auth/silent-end",       // This should be in the list of redirect uris for the AAD app
                     cacheLocation: "localStorage",
                     navigateToLoginRequestUrl: false,
                 };
