@@ -36,7 +36,7 @@
                     // See https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-implicit
                     let queryParams = {
                         client_id: "b0397c0b-add2-4156-9900-dc48745ba85b",
-                        response_type: "token",
+                        response_type: "id_token token",
                         response_mode: "fragment",
                         resource: "https://graph.microsoft.com/",
                         redirect_uri: window.location.origin + "/tab-auth/simple-end.html",
