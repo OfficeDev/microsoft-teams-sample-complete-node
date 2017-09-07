@@ -29,7 +29,6 @@
 
         <!-- Check before upgrading your ADAL version, as this sample depends on an internal function to authenticate silently -->
         <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.15/js/adal.min.js" integrity="sha384-lIk8T3uMxKqXQVVfFbiw0K/Nq+kt1P3NtGt/pNexiDby2rKU6xnDY8p16gIwKqgI" crossorigin="anonymous"></script>
-        <script src="adal-config.js"></script>
         
         <script type="text/javascript">
             microsoftTeams.initialize();
@@ -42,6 +41,16 @@
 
             // Loads data for the given user
             function loadData(upn) {
+                // ADAL.js configuration
+                let config = {
+                    // The id of the AAD app
+                    clientId: "b0397c0b-add2-4156-9900-dc48745ba85b",
+                    // AAD app registration should have this in the list of redirect uris
+                    redirectUri: window.location.origin + "/tab-auth/silent-end.html",
+                    cacheLocation: "localStorage",
+                    navigateToLoginRequestUrl: false,
+                };
+
                 // Setup extra query parameters for ADAL
                 // - openid and profile scope adds profile information to the id_token
                 // - login_hint provides the expected user name
