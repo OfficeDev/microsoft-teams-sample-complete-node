@@ -9,7 +9,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node ./build/src/app.js",
+    "start": "gulp build && cd ./build/src && node app.js",
     "build": "gulp build",
     "debug": "node ./build/src/app.js"
   },

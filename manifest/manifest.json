@@ -2,7 +2,7 @@
   "$schema": "https://statics.teams.microsoft.com/sdk/v1.0/manifest/MicrosoftTeams.schema.json",
   "manifestVersion": "1.0",
   "version": "1.0",
-  "id": "APP_ID",
+  "id": "REGISTERED_BOT_ID",
   "packageName": "com.Template.microsoftteams",
   "developer": {
     "name": "Bot Template",
@@ -19,8 +19,8 @@
     "full": "The Bot Template is meant to create an envrionment in which to easily create a bot."
   },
   "icons": {
-    "outline": "BASE_URI/assets/bot_blue.png",
-    "color": "BASE_URI/assets/bot_blue.png"
+    "outline": "bot_blue.png",
+    "color": "bot_blue.png"
   },
   "accentColor": "#0079bf",
   "configurableTabs": [
