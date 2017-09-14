@@ -99,9 +99,11 @@ app.use(function(err: any, req: Request, res: Response, next: Function): void {
     });
 });
 
+let endpoint = config.get("app.baseUri") || "unknown";
+
 http.createServer(app).listen(app.get("port"), function (): void {
     console.log("Express server listening on port " + app.get("port"));
-    console.log("Bot running at endpoint + /api/messages.  E.g. localhost:" + app.get("port") + "/api/messages");
+    console.log("Public bot messaging endpoint: " + endpoint + "/api/messages");
 });
 
 module.exports = app;
