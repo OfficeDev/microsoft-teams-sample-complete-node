@@ -15,7 +15,6 @@
             "outFiles": [ "${workspaceRoot}/build/**/*.js" ],
             "env": {
                 "BASE_URI": "http://localhost:3978",
-                "TEAMS_APP_ID": "",
                 "MICROSOFT_APP_ID": "",
                 "MICROSOFT_APP_PASSWORD": "",
                 "LUIS_ENDPOINT_URI": "",
@@ -42,7 +41,6 @@
             "outFiles": [ "${workspaceRoot}/build/**/*.js" ],
             "env": {
                 "BASE_URI": "http://localhost:3978",
-                "TEAMS_APP_ID": "",
                 "MICROSOFT_APP_ID": "",
                 "MICROSOFT_APP_PASSWORD": "",
                 "LUIS_ENDPOINT_URI": "",
@@ -69,7 +67,6 @@
             "outFiles": [ "${workspaceRoot}/build/**/*.js" ],
             "env": {
                 "BASE_URI": "http://localhost:3978",
-                "TEAMS_APP_ID": "",
                 "MICROSOFT_APP_ID": "",
                 "MICROSOFT_APP_PASSWORD": "",
                 "LUIS_ENDPOINT_URI": "",
@@ -98,7 +95,6 @@
             "outFiles": [],
             "env": {
                 "BASE_URI": "http://localhost:3978",
-                "TEAMS_APP_ID": "",
                 "MICROSOFT_APP_ID": "",
                 "MICROSOFT_APP_PASSWORD": "",
                 "LUIS_ENDPOINT_URI": "",
