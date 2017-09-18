@@ -41,6 +41,22 @@
         "team",
         "personal"
       ]
+    },
+    {
+      "contentUrl": "BASE_URI/tab-auth/simple",
+      "entityId": "simpleAuth",
+      "name": "Simple Auth",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "contentUrl": "BASE_URI/tab-auth/silent",
+      "entityId": "silentAuth",
+      "name": "Silent Auth",
+      "scopes": [
+        "personal"
+      ]
     }
   ],
   "bots": [
