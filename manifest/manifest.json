@@ -2,7 +2,7 @@
   "$schema": "https://statics.teams.microsoft.com/sdk/v1.0/manifest/MicrosoftTeams.schema.json",
   "manifestVersion": "1.0",
   "version": "1.0",
-  "id": "REGISTERED_BOT_ID",
+  "id": "<<REGISTERED_BOT_ID>>",
   "packageName": "com.Template.microsoftteams",
   "developer": {
     "name": "Bot Template",
@@ -25,7 +25,7 @@
   "accentColor": "#0079bf",
   "configurableTabs": [
     {
-      "configurationUrl": "BASE_URI/tab/tabConfig/index.html",
+      "configurationUrl": "<<BASE_URI>>/tab/tabConfig/index.html",
       "canUpdateConfiguration": false,
       "scopes": [
         "team"
@@ -34,7 +34,7 @@
   ],
   "staticTabs": [
     {
-      "contentUrl": "BASE_URI/loading",
+      "contentUrl": "<<BASE_URI>>/loading",
       "entityId": "1on1test123",
       "name": "Bot Info",
       "scopes": [
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "contentUrl": "BASE_URI/tab-auth/simple",
+      "contentUrl": "<<BASE_URI>>/tab-auth/simple",
       "entityId": "simpleAuth",
       "name": "Simple Auth",
       "scopes": [
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "contentUrl": "BASE_URI/tab-auth/silent",
+      "contentUrl": "<<BASE_URI>>/tab-auth/silent",
       "entityId": "silentAuth",
       "name": "Silent Auth",
       "scopes": [
@@ -61,7 +61,7 @@
   ],
   "bots": [
     {
-      "botId": "REGISTERED_BOT_ID",
+      "botId": "<<REGISTERED_BOT_ID>>",
       "scopes": [
         "team",
         "personal"
@@ -158,7 +158,7 @@
   ],
   "composeExtensions": [
     {
-      "botId": "REGISTERED_BOT_ID",
+      "botId": "<<REGISTERED_BOT_ID>>",
       "scopes": [
         "personal",
         "team"
@@ -186,6 +186,6 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "BASE_URI_EXCLUDING_HTTPS://"
+    "<<BASE_URI_DOMAIN>>"
   ]
 }

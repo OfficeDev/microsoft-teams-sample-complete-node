@@ -8,9 +8,7 @@ export class ManifestCreatorStart {
             let baseUri = config.get("app.baseUri");
             let appId = config.get("bot.botId");
 
-            // let domain = baseUri.replace(/^https:\/\/|^http:\/\//, "");
-
-            res.render("manifestCreatorStart", {
+            res.render("manifest-creator/manifestCreatorStart", {
                 baseUri: baseUri,
                 appId: appId,
                 buttonEnabled: baseUri && appId,

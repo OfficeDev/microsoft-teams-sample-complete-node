@@ -50,16 +50,16 @@
         <br>
 
         {{#if buttonEnabled}}
-            <button type="button" onclick="createManifest()">Create Manifest</button>
+            <button type="button" onclick="createManifest()">Download Manifest</button>
         {{else}}
-            <button type="button" disabled>Create Manifest</button>
+            <button type="button" disabled>Download Manifest</button>
             <br>
             <p>Note: In order to create a manifest, all requirements above must be met with environment variables.</p>
         {{/if}}
 
         <script type="text/javascript">
             function createManifest() {
-                alert("This is when you would create the manifest");
+                window.location = window.location.protocol + '//' + window.location.host + '/createManifest'
             } 
         </script>
     </body>

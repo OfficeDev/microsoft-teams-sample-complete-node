@@ -20,6 +20,7 @@ import { MongoDbBotChannelStorage } from "./storage/MongoDbBotChannelStorage";
 import { AADUserValidation } from "./apis/AADUserValidation";
 import { ValidateAADToken } from "./apis/ValidateAADToken";
 import { ManifestCreatorStart } from "./pages/ManifestCreatorStart";
+import { ManifestCreatorEnd } from "./pages/ManifestCreatorEnd";
 
 // Configure instrumentation - tooling with Azure
 // let appInsights = require("applicationinsights");
@@ -62,6 +63,7 @@ app.get("/tab-auth/silent-start", (req, res) => { res.render("tab-auth/silent-st
 app.get("/tab-auth/silent-end", (req, res) => { res.render("tab-auth/silent-end"); });
 
 app.get("/", ManifestCreatorStart.getRequestHandler());
+app.get("/createManifest", ManifestCreatorEnd.getRequestHandler());
 
 // Create Teams connector for the bot
 let connector = new teams.TeamsChatConnector({
