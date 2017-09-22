@@ -1,6 +1,6 @@
 # Fastest way to see this project in action
 
-* Remix and get the project running on Glitch by simply clicking here (keep this tab open):<br><br>
+* Remix and get the project running on Glitch by simply clicking here:<br><br>
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/incredible-court?GLITCH_NO_LINT=true&BASE_URI='https%3A%2F%2F'%22%24PROJECT_DOMAIN%22'.glitch.me'&MICROSOFT_APP_ID=NeedToSetThis&MICROSOFT_APP_PASSWORD=NeedToSetThis)
 
 * It will take a few moments for the project to start running. Watch as the project builds/deploys by clicking the "Logs" button on the left. You know it is running when you see something similar to this at the end of the logs:<br><br>
