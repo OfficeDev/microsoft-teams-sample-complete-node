@@ -20,7 +20,7 @@ MICROSOFT\_APP\_PASSWORD=abc123abc123abc123abc12
 
 * With Glitch, file saves happen automatically, and the project is rebuilt seconds after the file is saved. Once you get the confirmation from the logs that your server is running again, press the "Show Live" button at the top.
 
-* This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download a manifest file for the project.
+* This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download Manifest file for the project.
 
 * Click to Create/Download Manifest taking note of the download location. Once complete, sideload the manifest to a team as described here (open in a new tab):<br>
 https://msdn.microsoft.com/en-us/microsoft-teams/sideload
