@@ -10,7 +10,7 @@ export class ManifestCreatorStart {
             let validBaseUri = baseUri && !(/^https:\/\/localhost|^http:\/\/localhost|^localhost/i.test(baseUri));
             let appId = config.get("bot.botId");
             // this is to check against the default value I put in the env variable for the Glitch deployment
-            let validAppId = appId && appId !== "NeedToSet";
+            let validAppId = appId && appId !== "NeedToSetThis";
 
             res.render("manifest-creator/manifestCreatorStart", {
                 baseUri: baseUri,
