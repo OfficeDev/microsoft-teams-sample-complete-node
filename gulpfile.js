@@ -70,14 +70,16 @@ gulp.task('locale:generate', function() {
  * Lint all TypeScript files.
  */
 gulp.task('ts:lint', ['locale:generate'], function () {
-    return gulp
-        .src(filesToLint)
-        .pipe(tslint({
-            formatter: 'verbose'
-        }))
-        .pipe(tslint.report({
-            summarizeFailureOutput: true
-        }));
+    if (!process.env.GLITCH_NO_LINT) {
+        return gulp
+            .src(filesToLint)
+            .pipe(tslint({
+                formatter: 'verbose'
+            }))
+            .pipe(tslint.report({
+                summarizeFailureOutput: true
+            }));
+    }
 });
 
 /**

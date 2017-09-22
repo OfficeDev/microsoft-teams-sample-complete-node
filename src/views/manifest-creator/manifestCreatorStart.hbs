@@ -25,41 +25,53 @@
         <h1>Manifest Creator</h1>
 
         <div style="padding: 50px 0px 0px 0px">
-        {{#if baseUri}}
+        {{#if validBaseUri}}
             <div style="height:20px; width:20px; background-color:green; float:left;"></div>
-            <p style="float:left; margin:0px 0px 0px 10px;">Base URI to use: {{baseUri}}</p>
+            <p style="float:left; margin:0px 0px 0px 10px;">Endpoint to register in Bot Framework: {{baseUri}}/api/messages</p>
         {{else}}
             <div style="height:20px; width:20px; background-color:red; float:left;"></div>
-            <p style="float:left; margin:0px 0px 0px 10px;">Base URI to use: unknown - set environment variable BASE_URI</p>
+            <p style="float:left; margin:0px 0px 0px 10px;">Endpoint to register in Bot Framework: unknown - set environment variable BASE_URI</p>
         {{/if}}
         </div>
 
         <br>
 
         <div style="padding: 5px 0px 0px 0px">
-        {{#if appId}}
+        {{#if validBaseUri}}
             <div style="height:20px; width:20px; background-color:green; float:left;"></div>
-            <p style="float:left; margin:0px 0px 0px 10px;">App ID to use: {{appId}}</p>
+            <p style="float:left; margin:0px 0px 0px 10px;">Base URI to use in manifest: {{baseUri}}</p>
         {{else}}
             <div style="height:20px; width:20px; background-color:red; float:left;"></div>
-            <p style="float:left; margin:0px 0px 0px 10px;">App ID to use: unknown - set environment variable MICROSOFT_APP_ID</p>
+            <p style="float:left; margin:0px 0px 0px 10px;">Base URI to use in manifest: unknown - set environment variable BASE_URI</p>
+        {{/if}}
+        </div>
+
+        <br>
+
+        <div style="padding: 5px 0px 0px 0px">
+        {{#if validAppId}}
+            <div style="height:20px; width:20px; background-color:green; float:left;"></div>
+            <p style="float:left; margin:0px 0px 0px 10px;">App ID to use in manifest: {{appId}}</p>
+        {{else}}
+            <div style="height:20px; width:20px; background-color:red; float:left;"></div>
+            <p style="float:left; margin:0px 0px 0px 10px;">App ID to use in manifest: unknown - set environment variable MICROSOFT_APP_ID</p>
         {{/if}}
         </div>
 
         <br>
         <br>
 
-        {{#if buttonEnabled}}
-            <button type="button" onclick="createManifest()">Download Manifest</button>
+        {{#if createManifestEnabled}}
+            <button type="button" onclick="createManifest()">Create/Download Manifest</button>
         {{else}}
-            <button type="button" disabled>Download Manifest</button>
+            <button type="button" disabled>Create/Download Manifest</button>
             <br>
             <p>Note: In order to create a manifest, all requirements above must be met with environment variables.</p>
         {{/if}}
 
         <script type="text/javascript">
             function createManifest() {
-                window.location = window.location.protocol + '//' + window.location.host + '/createManifest'
+                window.location = window.location.protocol + '//' + window.location.host + '/createdManifest'
             } 
         </script>
     </body>

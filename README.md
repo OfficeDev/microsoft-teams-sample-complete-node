@@ -1,3 +1,33 @@
+# Fastest way to see this project in action
+
+* Remix and get the project running on Glitch by simply clicking (keep this tab open):<br>
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/incredible-court?GLITCH_NO_LINT=true&BASE_URI='https%3A%2F%2F'%22%24PROJECT_DOMAIN%22'.glitch.me'&MICROSOFT_APP_ID=NeedToSetThis&MICROSOFT_APP_PASSWORD=NeedToSetThis)
+
+* Wait a few moments for the project to start running. You can see the building of the project if you click the "Logs" button. You know it is running when you see something similar to this at the end of the logs:<br><br>
+Server running successfully<br>
+Endpoint to register in Bot Framework:<br>
+https://incredible-court.glitch.me/api/messages
+
+* Using the endpoint given in the logs (see step above), register a new bot (or update an existing bot) using the full endpoint as the bot's "Messaging endpoint".<br>
+**NOTE**: When you create your bot you will create an App ID and App password - make sure you keep these for later.<br>
+Bot registration is here: https://dev.botframework.com/bots
+
+* Once you have saved your bot and gotten the confirmation that it is created, navigate back to your Glitch project. In the project, open the ".env" file. There, copy/paste your App ID and App password from the step above in the environment variables replacing "NeedToSetThis".<br><br>
+e.g.<br>
+MICROSOFT\_APP\_ID=88888888-1111-2222-3333-999999999999<br>
+MICROSOFT\_APP\_PASSWORD=abc123abc123abc123abc12
+
+* With Glitch, file saves happen automatically, and the project is rebuilt seconds after the file is saved. Once you get the confirmation from the logs that your server is running again, press the "Show Live" button at the top.
+
+* This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download a manifest file for the project.
+
+* Click to Create/Download the manifest taking note of the download location. Once complete, sideload the manifest to a team as described here: https://msdn.microsoft.com/en-us/microsoft-teams/sideload
+
+* Congratulations!!! You have just created and sideloaded your first Microsoft Teams app! Try adding a configurable tab, at-mentioning your bot's name, or viewing your static tabs.<br><br>
+NOTE: Most of the sample app's functionality will now work. The only limitations are the authentication examples because your app is not registered with AAD or Visual Studio Team Services.
+
+
+
 # Overview
 
 This project is meant to help a Teams developer in two ways.  First, it is meant to show many examples of how an app can integrate into Teams.  Second, it is meant to give a set of patterns, templates, and tools that can be used as a starting point for creating a larger, scalable, more enterprise level bot to work within Teams.  Although this project focuses on creating a robust bot, it does include simples examples of tabs as well as examples of how a bot can give links into these tabs.

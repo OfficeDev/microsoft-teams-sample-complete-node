@@ -63,7 +63,7 @@ app.get("/tab-auth/silent-start", (req, res) => { res.render("tab-auth/silent-st
 app.get("/tab-auth/silent-end", (req, res) => { res.render("tab-auth/silent-end"); });
 
 app.get("/", ManifestCreatorStart.getRequestHandler());
-app.get("/createManifest", ManifestCreatorEnd.getRequestHandler());
+app.get("/createdManifest", ManifestCreatorEnd.getRequestHandler());
 
 // Create Teams connector for the bot
 let connector = new teams.TeamsChatConnector({
@@ -124,11 +124,19 @@ app.use(function(err: any, req: Request, res: Response, next: Function): void {
     });
 });
 
-let endpoint = config.get("app.baseUri") || "unknown";
+let baseUri = config.get("app.baseUri");
+let validBaseUri = !(/^https:\/\/localhost|^http:\/\/localhost|^localhost/i.test(baseUri));
 
 http.createServer(app).listen(app.get("port"), function (): void {
+    console.log(""); // for blank line for readability
     console.log("Express server listening on port " + app.get("port"));
-    console.log("Public bot messaging endpoint: " + endpoint + "/api/messages");
+    console.log(""); // for blank line for readability
+    console.log("Server running successfully");
+    // only return message to register in Bot Framework if it is set to something other than your locally running instance
+    if (validBaseUri) {
+        console.log("Endpoint to register in Bot Framework:");
+        console.log(baseUri + "/api/messages");
+    }
 });
 
 module.exports = app;
