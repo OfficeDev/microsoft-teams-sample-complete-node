@@ -10,7 +10,8 @@ https://incredible-court.glitch.me/api/messages
 
 * Using the endpoint given in the logs (see step above), register a new bot (or update an existing one) with Bot Framework by using the full endpoint as the bot's "Messaging endpoint".<br>
 **NOTE**: When you create your bot you will create an App ID and App password - make sure you keep these for later.<br>
-Bot registration is here: [Bot Framework](https://dev.botframework.com/bots)
+Bot registration is here:<br>
+https://dev.botframework.com/bots
 
 * Once you have saved your bot and gotten the confirmation that it is created, navigate back to your Glitch project. Open the ".env" file. There, copy/paste your App ID and App password from the step above in the environment variables replacing "NeedToSetThis".<br><br>
 e.g.<br>
@@ -21,7 +22,8 @@ MICROSOFT\_APP\_PASSWORD=abc123abc123abc123abc12
 
 * This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download a manifest file for the project.
 
-* Click to Create/Download the manifest taking note of the download location. Once complete, sideload the manifest to a team as described here: [Sideload Manifest](https://msdn.microsoft.com/en-us/microsoft-teams/sideload)
+* Click to Create/Download the manifest taking note of the download location. Once complete, sideload the manifest to a team as described here:<br>
+https://msdn.microsoft.com/en-us/microsoft-teams/sideload
 
 * Congratulations!!! You have just created and sideloaded your first Microsoft Teams app! Try adding a configurable tab, at-mentioning your bot by its registered name, or viewing your static tabs.<br><br>
 NOTE: Most of this sample app's functionality will now work. The only limitations are the authentication examples because your app is not registered with AAD nor Visual Studio Team Services.
