@@ -42,3 +42,5 @@ jspm_packages
 build/
 _package/
 src/locale/locale.ts
+manifest/createdManifest/manifest.json
+manifest/createdManifest/createdManifest.zip

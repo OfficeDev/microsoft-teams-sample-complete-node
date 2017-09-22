@@ -16,5 +16,5 @@
             "\\.ts"
         ]
     },
-    "throttle": 5000
+    "throttle": 2000
 }
