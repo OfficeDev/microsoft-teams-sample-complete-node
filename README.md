@@ -15,8 +15,8 @@
 
 1. Once you have saved your bot and gotten the confirmation that it is created, navigate back to your Glitch project. Open the ".env" file. There, copy/paste your App ID and App password from the step above in the environment variables replacing "NeedToSetThis", e.g.
     ```
-    MICROSOFT\_APP\_ID=88888888-1111-2222-3333-999999999999
-    MICROSOFT\_APP\_PASSWORD=abc123abc123abc123abc12
+    MICROSOFT_APP_ID=88888888-1111-2222-3333-999999999999
+    MICROSOFT_APP_PASSWORD=abc123abc123abc123abc12
     ```
 
 1. With Glitch, file saves happen automatically, and the project is rebuilt seconds after the file is saved. Once you get the confirmation from the logs that your server is running again, press the "Show Live" button at the top. This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download Manifest file for the project.
