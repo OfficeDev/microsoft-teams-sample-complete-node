@@ -62,7 +62,9 @@ NOTE: Teams does not work nor render things exactly like the Bot Emulator - this
 
 2. In VSCode go to the debug tab on the left side (looks like a bug), and then at the top click the play button (should be defaulted to running the "Launch - Emulator" configuration) 
 
-3. Once the code is running (bar at the bottom will be orange), connect with the Bot Emulator to the default endpoint, "http://localhost:3978/api/messages", leaving "Microsoft App ID" and "Microsoft App Password" blank - you can now chat with the bot
+3. Once the code is running (bar at the bottom will be orange), connect with the Bot Emulator to the default endpoint, "http://localhost:3978/api/messages", leaving "Microsoft App ID" and "Microsoft App Password" blank
+
+Congratulations!!! You can now chat with the bot in the Bot Emulator!
 
 ## Steps to see the full app in Microsoft Teams
 
