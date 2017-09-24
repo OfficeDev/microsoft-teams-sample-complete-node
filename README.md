@@ -10,9 +10,9 @@
     > Endpoint to register in Bot Framework:<br>
     > https://incredible-court.glitch.me/api/messages
 
-3. Using the endpoint given in the logs, register a new bot (or update an existing one) with Bot Framework by using the full endpoint as the bot's "Messaging endpoint".
+3. Using the endpoint given in the logs, register a new bot (or update an existing one) with Bot Framework by using the full endpoint as the bot's "Messaging endpoint". Bot registration is here (open in a new browser tab): https://dev.botframework.com/bots
 
-    > **NOTE**: When you create your bot you will create an App ID and App password - make sure you keep these for later. Bot registration is here (open in a new browser tab): https://dev.botframework.com/bots
+    > **NOTE**: When you create your bot you will create an App ID and App password - make sure you keep these for later.
 
 4. Once you have saved your bot and gotten the confirmation that it is created, navigate back to your Glitch project. Open the ".env" file. There, copy/paste your App ID and App password from the step above in the environment variables replacing "NeedToSetThis", e.g.
     ```
@@ -23,6 +23,82 @@
 5. With Glitch, file saves happen automatically, and the project is rebuilt seconds after the file is saved. Once you get the confirmation from the logs that your server is running again, press the "Show Live" button at the top. This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download Manifest file for the project.
 
 6. Click to Create/Download Manifest taking note of the download location. Once complete, sideload the manifest to a team as described here (open in a new browser tab): https://msdn.microsoft.com/en-us/microsoft-teams/sideload
+
+Congratulations!!! You have just created and sideloaded your first Microsoft Teams app! Try adding a configurable tab, at-mentioning your bot by its registered name, or viewing your static tabs.<br><br>
+NOTE: Most of this sample app's functionality will now work. The only limitations are the authentication examples because your app is not registered with AAD nor Visual Studio Team Services.
+
+# Steps to run locally
+
+## Prerequisites
+
+* Install Git for windows: https://git-for-windows.github.io/
+
+* Clone this repo:<br>
+    ```
+    git clone https://github.com/OfficeDev/microsoft-teams-template-bot.git
+    ```
+
+* Install VSCode: https://code.visualstudio.com/  
+    * NOTE: When installing, setting "open with" for the file and directory contexts can be helpful
+
+* Install Node: https://nodejs.org/en/download/    
+
+* Download the npm modules - in the microsoft-teams-bot-template directory run:<br>
+    ```
+    npm install
+    ```
+
+* (Only needed if wanting to run in Microsoft Teams)<br>
+Install some sort of tunnelling service. These instructions assume you are using ngrok: https://ngrok.com/
+
+* (Only needed if wanting to run in the Bot Emulator)<br>
+Install the Bot Emulator - click on "Bot Framework Emulator (Mac and Windows)": https://docs.botframework.com/en-us/downloads/#navtitle  
+    * NOTE: make sure to pin the emulator to your task bar because it can sometimes be difficult to find again 
+
+## Steps to see the bot running in the Bot Emulator<br>
+NOTE: Teams does not work nor render things exactly like the Bot Emulator - this method is meant as just a slightly easier way to see the project's bot running
+
+1. Open the microsoft-teams-bot-template directory with VSCode  
+
+2. In VSCode go to the debug tab on the left side (looks like a bug), and then at the top click the play button (should be defaulted to running the "Launch - Emulator" configuration) 
+
+3. Once the code is running (bar at the bottom will be orange), connect with the Bot Emulator to the default endpoint, "http://localhost:3978/api/messages", leaving "Microsoft App ID" and "Microsoft App Password" blank - you can now chat with the bot
+
+## Steps to see the full app in Microsoft Teams
+
+1. Begin your tunnelling service to get an https endpoint. For this example ngrok is used. Start an ngrok tunnel with the following command (you'll need the https endpoint for the bot registration):<br>
+    ```
+    ngrok http 3978 --host-header=localhost
+    ```
+    
+2. Register a new bot (or update an existing one) with Bot Framework by using the https endpoint started by ngrok and the extension "/api/messages" as the full endpoint for the bot's "Messaging endpoint". e.g. "https://####abcd.ngrok.io/api/messages" - Bot registration is here (open in a new browser tab): https://dev.botframework.com/bots
+
+    > **NOTE**: When you create your bot you will create an App ID and App password - make sure you keep these for later.
+
+3. Open the whole project, the microsoft-teams-bot-template directory, with VSCode - navigate to .vscode/launch.json and find the configuration named "Launch - Teams Debug" - here you will need to set three of the environment variables:
+    * BASE_URI - gets set to your ngrok's https endpoint
+    * MICROSOFT_APP_ID - gets set to your registered bot's app ID
+    * MICROSOFT_APP_PASSWORD - gets set to your registered bot's app password        
+        ```
+        "BASE_URI": "https://#####abc.ngrok.io"
+        "MICROSOFT_APP_ID": "88888888-8888-8888-8888-888888888888"
+        "MICROSOFT_APP_PASSWORD": "aaaa22229999dddd0000999"
+        ```
+NOTE: making the above changes to the "Launch - Fiddler" configuration and running this configuration will allow the bot's messages to show up in Fiddler. Fiddler must be running, though, for the app to work.
+
+4. Start your app. Do this by going to the debug tab on the left side of VSCode (looks like a bug) - in the upper left hand corner you will see a dropdown that probably says "Launch - Emulator" - change that to the "Launch - Teams Debug" configuration that you setup (NOTE: certain things can trigger this to revert back to the "Launch - Emulator" configuration, so make sure you are running the correct configuration) - click the play button - the app is running when the bar at the bottom changes to orange
+
+5. Once the app is running, a manifest file is needed. There are two ways to get this:
+    * Easiest - in a browser, navigate to (open in a new browser tab) http://localhost:3978 - this should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download Manifest file for the project. Click to Create/Download Manifest taking note of the download location.<br><br>
+**OR**<br>
+    * Manual way, but good to know about the manifest file -  on the left pane of VSCode, navigate back to the Files Explorer. Navigate to the file, manifest/manifest.json - change:
+        * <<REGISTERED_BOT_ID>> (there are 3) change to your registered bot's app ID
+        * <<BASE_URI>> (there are 4) change to your https endpoint from ngrok
+        * <<BASE_URI_DOMAIN>> (there is 1) change to your https endpoint from ngrok excluding the "https://" part
+		
+    * Save the file and zip this file and the bot_blue.png file (located next to it) together to create a manifest.zip file
+
+6. Once complete, sideload your zipped manifest to a team as described here (open in a new browser tab): https://msdn.microsoft.com/en-us/microsoft-teams/sideload
 
 Congratulations!!! You have just created and sideloaded your first Microsoft Teams app! Try adding a configurable tab, at-mentioning your bot by its registered name, or viewing your static tabs.<br><br>
 NOTE: Most of this sample app's functionality will now work. The only limitations are the authentication examples because your app is not registered with AAD nor Visual Studio Team Services.
@@ -42,40 +118,6 @@ The easiest way to get started is to follow the steps listed in the "Steps to ge
 Most Typescript files that need to be transpiled (and the bulk of the project) reside in the src directory.  Most files outside of the src directory are static files used for either configuration or for providing static resources to tabs, e.g. images and html.  At build time, Gulp will transpile everything in the src directory and place these transpiled files into a build directory.  Gulp will also move a few static files into this new build directory.  Because of this, it is recommended that nothing be changed by a developer in the build directory.  All changes should be done on the "source" files so rebuilding the project will update the build directory.
 
 The general flow for using this template is to copy/paste/create/build on the example dialogs in the src/dialogs/examples directory, but to put your newly created dialogs outside of the src/dialogs/examples directory (either parallel to the src/dialogs/examples directory or in new directories of your own).  In this way, your dialogs do not coexist with the example dialogs so if the time comes to delete the examples, one can simply delete the src/dialogs/examples directory.  More information on how to create new dialogs and add to this project can be found in the file src/dialogs/README.md in the "Creating a New Dialog" section.
-
-
-# Steps to get started running in the Bot Emulator
-
-Get VSCode:  
-* https://code.visualstudio.com/  
-* NOTE: When installing, setting "open with" for the file and directory contexts can be helpful
-
-Install Node:  
-* https://nodejs.org/en/download/  
-* NOTE: This gives you npm  
-
-Install the bot Emulator - click on "Bot Framework Emulator (Mac and Windows)":  
-* https://docs.botframework.com/en-us/downloads/#navtitle  
-* NOTE: make sure to pin the emulator to your task bar because it can sometimes be difficult to find again  
-
-Install Git for windows:  
-* https://git-for-windows.github.io/
-
-Clone this repo:  
-* git clone https://github.com/OfficeDev/microsoft-teams-template-bot.git  
-
-Get the npm modules - in the microsoft-teams-bot-template directory run:  
-* npm install
-
-Open microsoft-teams-bot-template with VSCode  
-
-In VSCode go to the debug tab on the left side (looks like a bug) and click the play button  
-
-Once the code is running you can now connect and chat with the bot using the emulator  
-* connect to the default "http://localhost:3978/api/messages" leaving "Microsoft App ID" and "Microsoft App Password" blank
-
-NOTE: Athough not necessary to get running in the Bot Emulator, installing ngrok (or another tunnelling tool) will help to get a locally running instance of this project into Teams:  
-* https://ngrok.com/
 
 # Files and Directories
 
