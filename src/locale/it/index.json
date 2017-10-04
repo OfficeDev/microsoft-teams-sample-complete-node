@@ -9,7 +9,7 @@
     "compose_extension_reset_message": "Your compose extension state has been reset (it)",
     "compose_extension_setting_keyword": "setting (it)",
     "compose_extension_settings_keyword": "settings (it)",
-    "compose_extension_directions": "This Compose Extension is used to make queries to Wikipedia. To change your settings either enter the work 'settings' or change your settings on the settings menu option. To reset your configuration, simply enter the word 'reset'. (it)",
+    "compose_extension_directions": "This Compose Extension is used to make queries to Wikipedia. To change your settings either enter the word 'settings' or change your settings on the settings menu option. To reset your configuration, simply enter the word 'reset'. (it)",
     "start_of_example_string_responses": "******************************* EVERYTHING BELOW HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************",
     "default_title": "Title (it)",
     "default_subtitle": "Subtitle (it)",
