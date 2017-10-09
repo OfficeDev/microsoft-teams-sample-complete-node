@@ -28,12 +28,13 @@
 
             // Get the tab context, and use the information to navigate to Azure AD login page
             microsoftTeams.getContext(function (context) {
-                // Generate state
+                // Generate random state string and store it, so we can verify it in the callback
                 let state = _guid();
                 localStorage.setItem("simple.state", state);
                 localStorage.removeItem("simple.error");
 
                 // See https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-implicit
+                // for documentation on these query parameters
                 let queryParams = {
                     client_id: "{{appId}}",
                     response_type: "id_token token",
@@ -41,23 +42,25 @@
                     resource: "https://graph.microsoft.com/",
                     redirect_uri: window.location.origin + "/tab-auth/simple-end",
                     nonce: _guid(),
-                    state: state
+                    state: state,
+                    // login_hint pre-fills the username/email address field of the sign in page for the user, 
+                    // if you know their username ahead of time.
+                    login_hint: context.upn,
                 };
 
-                // login_hint pre-fills the username/email address field of the sign in page for the user, 
-                // if you know their username ahead of time.
-                queryParams.login_hint = context.upn;
+                // Go to the AzureAD authorization endpoint
+                let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + toQueryString(queryParams);
+                window.location.assign(authorizeEndpoint);
+            });
 
+            // Build query string from map of query parameter
+            function toQueryString(queryParams) {
                 let encodedQueryParams = [];
                 for (let key in queryParams) {
                     encodedQueryParams.push(key + "=" + encodeURIComponent(queryParams[key]));
                 }
-
-                // Navigate to the AzureAD authorization endpoint
-                let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + encodedQueryParams.join("&");
-                console.log(authorizeEndpoint);
-                window.location.assign(authorizeEndpoint);
-            });
+                return encodedQueryParams.join("&");
+            }
 
             // Converts decimal to hex equivalent
             // (From ADAL.js: https://github.com/AzureAD/azure-activedirectory-library-for-js/blob/dev/lib/adal.js)
