@@ -38,6 +38,7 @@
 
         <!-- Login button -->
         <button onclick="login()">Login to Azure AD</button>
+        <button onclick="loginV2()">Login to Azure AD (V2 endpoint)</button>
 
         <!-- Result -->
         <p>
@@ -63,6 +64,25 @@
 
                 microsoftTeams.authentication.authenticate({
                     url: window.location.origin + "/tab-auth/simple-start",
+                    width: 600,
+                    height: 535,
+                    successCallback: function (result) {
+                        console.log("Login succeeded: " + result);
+                        getUserProfile(result.accessToken);
+                    },
+                    failureCallback: function (reason) {
+                        console.log("Login failed: " + reason);
+                        handleAuthError(reason);
+                    }
+                });
+            }
+
+            // Login to Azure AD and get access to Microsoft Graph
+            function loginV2() {
+                hideProfileAndError(); 
+
+                microsoftTeams.authentication.authenticate({
+                    url: window.location.origin + "/tab-auth/simple-start-v2",
                     width: 600,
                     height: 535,
                     successCallback: function (result) {
