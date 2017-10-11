@@ -146,18 +146,17 @@ export class ComposeExtensionHandlers {
                                     imageUrl = "https://upload.wikimedia.org/wikipedia/commons/d/de/Wikipedia_Logo_1.0.png";
                                 }
 
-                                let originalTitle: string = wikiResult.title;
-                                // make title into a link
-                                originalTitle = "<a href=\"" + "https://en.wikipedia.org/wiki/" + encodeURI(originalTitle) + "\ target=\"_blank\">" + originalTitle + "</a>";
-
                                 // highlight matched keyword
-                                let highlightedTitle = originalTitle;
+                                let highlightedTitle = wikiResult.title;
                                 if (queryParameter) {
                                     let matches = highlightedTitle.match(new RegExp(queryParameter, "gi"));
                                     if (matches && matches.length > 0) {
                                         highlightedTitle = highlightedTitle.replace(new RegExp(queryParameter, "gi"), "<b>" + matches[0] + "</b>");
                                     }
                                 }
+
+                                // make title into a link
+                                highlightedTitle = "<a href=\"https://en.wikipedia.org/wiki/" + encodeURI(wikiResult.title) + "\" target=\"_blank\">" + highlightedTitle + "</a>";
 
                                 let cardText = wikiResult.snippet + " ...";
 

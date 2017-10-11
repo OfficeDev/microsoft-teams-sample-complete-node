@@ -44,6 +44,9 @@ export class Bot extends builder.UniversalBot {
         // setup invoke payload handler
         this._connector.onInvoke(this.getInvokeHandler(this));
 
+        // setup O365ConnectorCard action handler
+        this._connector.onO365ConnectorCardAction(this.getO365ConnectorCardActionHandler(this));
+
         // setup conversation update handler for things such as a memberAdded event
         this.on("conversationUpdate", this.getConversationUpdateHandler(this));
 
@@ -98,6 +101,22 @@ export class Bot extends builder.UniversalBot {
             } else {
                 session.send(Strings.bot_welcome_to_new_person);
             }
+        };
+    }
+
+    // handler for handling incoming payloads from O365ConnectorCard actions
+    private getO365ConnectorCardActionHandler(bot: builder.UniversalBot): (event: builder.IEvent, query: teams.IO365ConnectorCardActionQuery, callback: (err: Error, result: any, statusCode: number) => void) => void {
+        return async function (event: builder.IEvent, query: teams.IO365ConnectorCardActionQuery, callback: (err: Error, result: any, statusCode: number) => void): Promise<void> {
+            let session = await loadSessionAsync(bot, event);
+
+            let userName = event.address.user.name;
+            let body = JSON.parse(query.body);
+            let msg = new builder.Message(session)
+                        .text(Strings.o365connectorcard_action_response, userName, query.actionId, JSON.stringify(body, null, 2));
+
+            session.send(msg);
+
+            callback(null, null, 200);
         };
     }
 }
