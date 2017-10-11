@@ -15,6 +15,7 @@ export const DialogIds = {
     MessageBackReceiverDialogId: "MessageBackReceiverDialog",
     MultiDialogId: "MultiDialog",
     MultiDialog2Id: "MultiDialog2",
+    O365ConnectorCardActionsDialogId: "O365ConnectorCardActionsDialog",
     O365ConnectorCardDialogId: "O365ConnectorCardDialog",
     ThumbnailCardDialogId: "ThumbnailCardDialog",
     TimezoneDialogId: "TimezoneDialog",

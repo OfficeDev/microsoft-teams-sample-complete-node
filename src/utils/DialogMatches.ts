@@ -14,6 +14,7 @@ export const DialogMatches = {
     MessageBackReceiverDialogMatch: /incoming message from messageBack button/i,
     MultiDialogMatch: /multi dialog 1/i,
     MultiDialog2Match: /multi dialog 2/i,
+    O365ConnectorCardActionsDialogMatch: /connector card actions?/i,
     O365ConnectorCardDialogMatch: /connector card(.*)/i,
     ThumbnailCardDialogMatch: /thumbnail card/i,
     TimezoneDialogMatch: /timezone/i,

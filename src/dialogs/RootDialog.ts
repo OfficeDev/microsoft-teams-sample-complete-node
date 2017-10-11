@@ -14,6 +14,7 @@ import { HelpDialog } from "./examples/basic/HelpDialog";
 import { HeroCardDialog } from "./examples/basic/HeroCardDialog";
 import { MessageBackReceiverDialog } from "./examples/basic/MessageBackReceiverDialog";
 import { MultiDialog } from "./examples/basic/MultiDialog";
+import { O365ConnectorCardActionsDialog } from "./examples/basic/O365ConnectorCardActionsDialog";
 import { O365ConnectorCardDialog } from "./examples/basic/O365ConnectorCardDialog";
 import { ThumbnailCardDialog } from "./examples/basic/ThumbnailCardDialog";
 import { TimezoneDialog } from "./examples/basic/TimezoneDialog";
@@ -73,6 +74,7 @@ export class RootDialog extends builder.IntentDialog {
         new HeroCardDialog(bot);
         new MessageBackReceiverDialog(bot);
         new MultiDialog(bot);
+        new O365ConnectorCardActionsDialog(bot);
         new O365ConnectorCardDialog(bot);
         new ThumbnailCardDialog(bot);
         new TimezoneDialog(bot);
