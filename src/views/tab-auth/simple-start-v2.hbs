@@ -39,7 +39,7 @@
                     client_id: "{{appId}}",
                     response_type: "id_token token",
                     response_mode: "fragment",
-                    resource: "https://graph.microsoft.com/",
+                    scope: "https://graph.microsoft.com/User.Read openid",
                     redirect_uri: window.location.origin + "/tab-auth/simple-end",
                     nonce: _guid(),
                     state: state,
@@ -49,7 +49,7 @@
                 };
 
                 // Go to the AzureAD authorization endpoint
-                let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/authorize?" + toQueryString(queryParams);
+                let authorizeEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?" + toQueryString(queryParams);
                 window.location.assign(authorizeEndpoint);
             });
 

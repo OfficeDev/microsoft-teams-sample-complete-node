@@ -32,16 +32,9 @@
 
         <script type="text/javascript">
             microsoftTeams.initialize();
+            localStorage.removeItem("simple.error");
 
-            // Parse hash parameters
-            let hashParams = {};
-            location.hash.substr(1).split("&").forEach(function(item) {
-                let s = item.split("="),
-                k = s[0],
-                v = s[1] && decodeURIComponent(s[1]);
-                hashParams[k] = v;
-            });
-
+            let hashParams = getHashParameters();
             if (hashParams["error"]) {
                 // Authentication/authorization failed
                 localStorage.setItem("simple.error", JSON.stringify(hashParams));
@@ -49,7 +42,6 @@
             } else if (hashParams["access_token"]) {
                 // Get the stored state parameter and compare with incoming state
                 let expectedState = localStorage.getItem("simple.state");
-
                 if (expectedState !== hashParams["state"]) {
                     // State does not match, report error
                     localStorage.setItem("simple.error", JSON.stringify(hashParams));
@@ -67,6 +59,18 @@
                 // Unexpected condition: hash does not contain error or access_token parameter
                 localStorage.setItem("simple.error", JSON.stringify(hashParams));
                 microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+            }
+
+            // Parse hash parameters into key-value pairs
+            function getHashParameters() {
+                let hashParams = {};
+                location.hash.substr(1).split("&").forEach(function(item) {
+                    let s = item.split("="),
+                    k = s[0],
+                    v = s[1] && decodeURIComponent(s[1]);
+                    hashParams[k] = v;
+                });
+                return hashParams;
             }
         </script>
     </body>

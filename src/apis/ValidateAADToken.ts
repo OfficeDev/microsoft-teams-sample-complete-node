@@ -52,7 +52,7 @@ export class ValidateAADToken {
                 // Verify token
                 const verifyOptions: jwt.VerifyOptions = {
                     algorithms: ["RS256", "RS384", "RS512"],
-                    issuer: "https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/",
+                    issuer: `https://sts.windows.net/${decodedToken.payload.tid}/`,
                     audience: config.get("app.appId"),
                     clockTolerance: 300,
                 };

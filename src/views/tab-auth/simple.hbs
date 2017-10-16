@@ -38,6 +38,7 @@
 
         <!-- Login button -->
         <button onclick="login()">Login to Azure AD</button>
+        <button onclick="loginV2()">Login to Azure AD (V2 endpoint)</button>
 
         <!-- Result -->
         <p>
@@ -59,22 +60,38 @@
 
             // Login to Azure AD and get access to Microsoft Graph
             function login() {
-                $("#divError").text("").css({ display: "none" });
-                $("#divProfile").css({ display: "none" });
+                hideProfileAndError(); 
 
                 microsoftTeams.authentication.authenticate({
                     url: window.location.origin + "/tab-auth/simple-start",
                     width: 600,
                     height: 535,
                     successCallback: function (result) {
-                        // simple-end returns the Graph access token in result
-                        console.log(result);
+                        console.log("Login succeeded: " + result);
                         getUserProfile(result.accessToken);
                     },
                     failureCallback: function (reason) {
                         console.log("Login failed: " + reason);
-                        $("#divError").text(reason).css({ display: "" });
-                        $("#divProfile").css({ display: "none" });
+                        handleAuthError(reason);
+                    }
+                });
+            }
+
+            // Login to Azure AD and get access to Microsoft Graph
+            function loginV2() {
+                hideProfileAndError(); 
+
+                microsoftTeams.authentication.authenticate({
+                    url: window.location.origin + "/tab-auth/simple-start-v2",
+                    width: 600,
+                    height: 535,
+                    successCallback: function (result) {
+                        console.log("Login succeeded: " + result);
+                        getUserProfile(result.accessToken);
+                    },
+                    failureCallback: function (reason) {
+                        console.log("Login failed: " + reason);
+                        handleAuthError(reason);
                     }
                 });
             }
@@ -101,6 +118,18 @@
                         $("#divProfile").css({ display: "none" });
                     },
                 });
+            }
+
+            // Show error information
+            function handleAuthError(reason) {
+                $("#divError").text(reason).css({ display: "" });
+                $("#divProfile").css({ display: "none" });
+            }
+
+            // Clear all information in tab
+            function hideProfileAndError() {
+                $("#divError").text("").css({ display: "none" });
+                $("#divProfile").css({ display: "none" });
             }
         </script>
     </body>
