@@ -94,7 +94,7 @@
                     }
                 }
         
-                // Get the the id token (which is the access token for resource = clientId)
+                // Get the id token (which is the access token for resource = clientId)
                 let token = authContext.getCachedToken(config.clientId);
                 if (token) {
                     showProfileInformation(token);
@@ -108,7 +108,7 @@
                             $("#btnLogin").css({ display: "" });
 
                             // You could attempt to launch the login popup here, but in browsers this could be blocked by
-                            // a popup blocker, in which case the login attempt will fail with an reason FailedToOpenWindow.
+                            // a popup blocker, in which case the login attempt will fail with the reason FailedToOpenWindow.
                         } else {
                             showProfileInformation(idToken);
                         }
