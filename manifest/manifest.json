@@ -1,6 +1,6 @@
 ﻿{
-  "$schema": "https://statics.teams.microsoft.com/sdk/v1.0/manifest/MicrosoftTeams.schema.json",
-  "manifestVersion": "1.0",
+  "$schema": "https://statics.teams.microsoft.com/sdk/v1.1/manifest/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.1",
   "version": "1.0",
   "id": "<<REGISTERED_BOT_ID>>",
   "packageName": "com.Template.microsoftteams",
@@ -11,8 +11,8 @@
     "termsOfUseUrl": "https://www.botframework.com/Content/Microsoft-Bot-Framework-Preview-Online-Services-Agreement.htm"
   },
   "name": {
-    "short": "Bot Template",
-    "full": "Bot Template"
+    "short": "Test Tokyo",
+    "full": "Test Tokyo"
   },
   "description": {
     "short": "Bot Template - a template for creating a bot",
@@ -159,10 +159,6 @@
   "composeExtensions": [
     {
       "botId": "<<REGISTERED_BOT_ID>>",
-      "scopes": [
-        "personal",
-        "team"
-      ],
       "canUpdateConfiguration": true,
       "commands": [
         {

@@ -9,7 +9,7 @@ export class HeroCardDialog extends TriggerActionDialog {
 
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let cards = new Array<builder.HeroCard>();
-        let numbCards = 3;
+        let numbCards = 1;
 
         for (let i = 0; i < numbCards; i++) {
             let buttons = new Array<builder.CardAction>();
@@ -34,7 +34,12 @@ export class HeroCardDialog extends TriggerActionDialog {
                 "}"),
             );
 
-            buttons.push(builder.CardAction.imBack(session, session.gettext(Strings.hello_imback), Strings.imback_button_hello_dialog));
+            // buttons.push(builder.CardAction.imBack(session, session.gettext(Strings.hello_imback), Strings.imback_button_hello_dialog));
+            buttons.push(new builder.CardAction(session)
+                .type("signin")
+                .title("Sign In")
+                .value(config.get("app.baseUri") + "/tab-auth/simple-start?width=5000&height=5000")
+            );
 
             let messageBackButtonValue = JSON.stringify({ anything: "abc12345" });
             let messageBackButton = builder.CardAction.messageBack(session, messageBackButtonValue, Strings.messageBack_button_title)

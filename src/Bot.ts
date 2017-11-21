@@ -9,6 +9,7 @@ import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
 import { ComposeExtensionHandlers } from "./composeExtension/ComposeExtensionHandlers";
+import { AADRequestAPI } from "./apis/AADRequestAPI";
 
 // =========================================================
 // Bot Setup
@@ -71,6 +72,19 @@ export class Bot extends builder.UniversalBot {
         {
             let session = await loadSessionAsync(bot, event);
             if (session) {
+                session.sendTyping();
+                if ((event as any).name === "signin/verifyState") {
+                    let aadApi = new AADRequestAPI();
+                    let response = await aadApi.getAsync("https://graph.microsoft.com/v1.0/me/", { Authorization: " Bearer " + (event as any).value.state.accessToken }, null);
+
+                    let info = JSON.parse(response);
+
+                    session.send(info.displayName + "<br />" + info.mail + "<br />" + info.officeLocation);
+
+                    callback(null, "", 200);
+                    return;
+                }
+
                 // Clear the stack on invoke, as many builtin dialogs don't play well with invoke
                 // Invoke messages should carry the necessary information to perform their action
                 session.clearDialogStack();
