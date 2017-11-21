@@ -35,7 +35,7 @@ NOTE: Most of this sample app's functionality will now work. The only limitation
 
 * Clone this repo:<br>
     ```
-    git clone https://github.com/OfficeDev/microsoft-teams-template-bot.git
+    git clone https://github.com/OfficeDev/microsoft-teams-sample-complete-node.git
     ```
 
 * Install VSCode: https://code.visualstudio.com/  
