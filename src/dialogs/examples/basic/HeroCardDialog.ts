@@ -38,7 +38,7 @@ export class HeroCardDialog extends TriggerActionDialog {
             buttons.push(new builder.CardAction(session)
                 .type("signin")
                 .title("Sign In")
-                .value(config.get("app.baseUri") + "/tab-auth/simple-start?width=5000&height=5000")
+                .value(config.get("app.baseUri") + "/tab-auth/simple-start?width=5000&height=5000"),
             );
 
             let messageBackButtonValue = JSON.stringify({ anything: "abc12345" });
