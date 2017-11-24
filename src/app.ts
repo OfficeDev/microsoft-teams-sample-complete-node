@@ -31,8 +31,7 @@ import { ManifestCreatorEnd } from "./pages/ManifestCreatorEnd";
 
 let app = express();
 
-// app.set("port", process.env.PORT || 3978);
-app.set("port", process.env.PORT || 443);
+app.set("port", process.env.PORT || 3978);
 app.use(express.static(path.join(__dirname, "../../public")));
 app.use(express.static(path.join(__dirname, "./public"))); // used for static dialogs
 app.use(favicon(path.join(__dirname, "../../public/assets", "favicon.ico")));
@@ -89,8 +88,7 @@ let botSettings = {
 let bot = new Bot(connector, botSettings);
 
 // Configure bot routes
-// app.post("/api/messages", connector.listen());
-app.post("/v3/ComposeExtensions1P/handle", connector.listen());
+app.post("/api/messages", connector.listen());
 app.get("/api/VSTSOauthCallback", VSTSTokenOAuth2API.setUserAccessToken(bot));
 app.get("/api/validateUser", AADUserValidation.validateUser(bot));
 app.get("/api/success", AADUserValidation.success(bot));
