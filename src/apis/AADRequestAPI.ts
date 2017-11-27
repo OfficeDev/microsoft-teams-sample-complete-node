@@ -61,7 +61,7 @@ export class AADRequestAPI {
         // }
 
         return new Promise((resolve, reject) => {
-            this.get(url, headers, body, (err, result) => {
+            this.get(url, headers, (err, result) => {
                 if (!err) {
                     resolve(result);
                 } else {
