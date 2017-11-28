@@ -8,6 +8,26 @@ export interface ValidatedAADInformation {
     objectId: string;
 }
 
+/** Get token response */
+export interface TokenResponse {
+    /** The requested access token. The app can use this token to authenticate to the secured resource, such as a web API. */
+    access_token: string;
+    /** Indicates the token type value. The only type that Azure AD supports is Bearer. For more information about Bearer tokens, see OAuth2.0 Authorization Framework: Bearer Token Usage (RFC 6750) */
+    token_type: string;
+    /** How long the access token is valid (in seconds). */
+    expires_in: number;
+    /** The time when the access token expires. The date is represented as the number of seconds from 1970-01-01T0:0:0Z UTC until the expiration time. This value is used to determine the lifetime of cached tokens. */
+    expires_on: number;
+    /** The App ID URI of the web API (secured resource). */
+    resource: string;
+    /** Impersonation permissions granted to the client application. The default permission is user_impersonation. The owner of the secured resource can register additional values in Azure AD. */
+    scope: string;
+    /** An OAuth 2.0 refresh token. The app can use this token to acquire additional access tokens after the current access token expires. Refresh tokens are long-lived, and can be used to retain access to resources for extended periods of time. */
+    refresh_token: string;
+    /** An unsigned JSON Web Token (JWT). The app can base64Url decode the segments of this token to request information about the user who signed in. The app can cache the values and display them, but it should not rely on them for any authorization or security boundaries. */
+    id_token: string;
+}
+
 export class AADAPI {
 
     private requestAPI: AADRequestAPI;
@@ -45,6 +65,43 @@ export class AADAPI {
 
         // let authorizationUrl = createAuthorizationUrl(validationNumber);
         return authorizationUrl;
+    }
+
+    /**
+     * Redeems the authorization code for access and refresh tokens via the V1 endpoint.
+     */
+    public async getAccessTokenV1Async(code: string, redirectUri: string, resource?: string): Promise<TokenResponse> {
+        let tokenRequest = {
+            grant_type: "authorization_code",
+            code: code,
+            redirect_uri: redirectUri,
+            client_id: config.get("bot.botId"),
+            client_secret: config.get("bot.botPassword"),
+        };
+
+        if (resource) {
+            tokenRequest["resource"] = resource;
+        }
+
+        let responseBody = await this.requestAPI.postAsync("https://login.microsoftonline.com/common/oauth2/token", null, tokenRequest);
+        return (JSON.parse(responseBody) as TokenResponse);
+    }
+
+    /**
+     * Redeems the authorization code for access and refresh tokens via the V2 endpoint.
+     */
+    public async getAccessTokenV2Async(code: string, redirectUri: string, scope: string): Promise<TokenResponse> {
+        let tokenRequest = {
+            grant_type: "authorization_code",
+            code: code,
+            scope: scope,
+            redirect_uri: redirectUri,
+            client_id: config.get("bot.botId"),
+            client_secret: config.get("bot.botPassword"),
+        };
+
+        let responseBody = await this.requestAPI.postAsync("https://login.microsoftonline.com/common/oauth2/v2.0/token", null, tokenRequest);
+        return (JSON.parse(responseBody) as TokenResponse);
     }
 
     /**

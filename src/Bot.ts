@@ -9,6 +9,7 @@ import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
 import { ComposeExtensionHandlers } from "./composeExtension/ComposeExtensionHandlers";
+import { AADAPI, TokenResponse } from "./apis/AADAPI";
 import { AADRequestAPI } from "./apis/AADRequestAPI";
 
 // =========================================================
@@ -73,13 +74,43 @@ export class Bot extends builder.UniversalBot {
             let session = await loadSessionAsync(bot, event);
             if (session) {
                 session.sendTyping();
-                if ((event as any).name === "signin/verifyState") {
-                    let aadApi = new AADRequestAPI();
-                    let response = await aadApi.getAsync("https://graph.microsoft.com/v1.0/me/", { Authorization: " Bearer " + (event as any).value.state.accessToken }, null);
+                let eventAsAny = event as any;
+                if (eventAsAny.name === "signin/verifyState") {
+                    let aadApi = new AADAPI();
+                    const graphResource = "https://graph.microsoft.com";
+                    const botRedirectUri = config.get("app.baseUri") + "/bot-auth/simple-end";
 
-                    let info = JSON.parse(response);
+                    try
+                    {
+                        // Redeem the authorization code for access & refresh tokens
+                        let queryParams = JSON.parse(eventAsAny.value.state);
+                        let tokenResponse = await aadApi.getAccessTokenV1Async(queryParams.code, botRedirectUri, graphResource);
+                        console.log(tokenResponse);
 
-                    session.send(info.displayName + "<br />" + info.mail + "<br />" + info.officeLocation);
+                        // Save the tokens in the user state (remember to use data store that is encrypted at rest!)
+                        let aadTokens = session.userData.aadTokens || {};
+                        aadTokens[tokenResponse.resource] = tokenResponse;
+                        session.userData.aadTokens = aadTokens;
+                    } catch (e) {
+                        console.log(e);
+                        session.send("There was an error redeeming the authorization code.");
+                        callback(null, "", 200);    // Return success, otherwise chat service will retry the invoke
+                        return;
+                    }
+
+                    // Use the Graph token to get the basic profile
+                    try {
+                        let requestHelper = new AADRequestAPI();
+                        let graphToken = session.userData.aadTokens[graphResource] as TokenResponse;
+                        let response = await requestHelper.getAsync("https://graph.microsoft.com/v1.0/me/", { Authorization: "Bearer " + graphToken.access_token }, null);
+
+                        let info = JSON.parse(response);
+                        session.send(info.displayName + "<br />" + info.mail + "<br />" + info.officeLocation);
+                    } catch (e) {
+                        console.log(e);
+                        session.send("There was an error getting the user's profile.");
+                        callback(null, "", 200);    // Return success, otherwise chat service will retry the invoke
+                    }
 
                     callback(null, "", 200);
                     return;

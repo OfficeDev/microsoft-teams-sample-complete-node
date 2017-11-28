@@ -63,6 +63,11 @@ app.get("/tab-auth/silent", (req, res) => { res.render("tab-auth/silent"); });
 app.get("/tab-auth/silent-start", (req, res) => { res.render("tab-auth/silent-start"); });
 app.get("/tab-auth/silent-end", (req, res) => { res.render("tab-auth/silent-end"); });
 
+// Bot authentication sample routes
+app.get("/bot-auth/simple-start", (req, res) => { res.render("bot-auth/simple-start"); });
+app.get("/bot-auth/simple-start-v2", (req, res) => { res.render("bot-auth/simple-start-v2"); });
+app.get("/bot-auth/simple-end", (req, res) => { res.render("bot-auth/simple-end"); });
+
 app.get("/", ManifestCreatorStart.getRequestHandler());
 app.get("/createdManifest", ManifestCreatorEnd.getRequestHandler());
 
