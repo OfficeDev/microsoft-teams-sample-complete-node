@@ -3,14 +3,12 @@ import * as config from "config";
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
-// import { SetAADObjectId } from "./middleware/SetAADObjectId";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
 import { ComposeExtensionHandlers } from "./composeExtension/ComposeExtensionHandlers";
-import { AADAPI, TokenResponse } from "./apis/AADAPI";
-import { AADRequestAPI } from "./apis/AADRequestAPI";
+import { AADAPI } from "./apis/AADAPI";
 
 // =========================================================
 // Bot Setup
@@ -74,6 +72,7 @@ export class Bot extends builder.UniversalBot {
             let session = await loadSessionAsync(bot, event);
             if (session) {
                 session.sendTyping();
+
                 let eventAsAny = event as any;
                 if (eventAsAny.name === "signin/verifyState") {
                     let aadApi = new AADAPI();
@@ -84,6 +83,8 @@ export class Bot extends builder.UniversalBot {
                     {
                         // Redeem the authorization code for access & refresh tokens
                         let queryParams = JSON.parse(eventAsAny.value.state);
+                        console.log(queryParams);
+
                         let tokenResponse = await aadApi.getAccessTokenV1Async(queryParams.code, botRedirectUri, graphResource);
                         console.log(tokenResponse);
 
@@ -98,20 +99,8 @@ export class Bot extends builder.UniversalBot {
                         return;
                     }
 
-                    // Use the Graph token to get the basic profile
-                    try {
-                        let requestHelper = new AADRequestAPI();
-                        let graphToken = session.userData.aadTokens[graphResource] as TokenResponse;
-                        let response = await requestHelper.getAsync("https://graph.microsoft.com/v1.0/me/", { Authorization: "Bearer " + graphToken.access_token }, null);
-
-                        let info = JSON.parse(response);
-                        session.send(info.displayName + "<br />" + info.mail + "<br />" + info.officeLocation);
-                    } catch (e) {
-                        console.log(e);
-                        session.send("There was an error getting the user's profile.");
-                        callback(null, "", 200);    // Return success, otherwise chat service will retry the invoke
-                    }
-
+                    // Sign in successful, welcome the user
+                    session.send(`Hello, ${session.message.address.user.name}!`);
                     callback(null, "", 200);
                     return;
                 }

@@ -36,10 +36,13 @@
 
             let queryParams = getQueryParameters();
             if (queryParams["error"]) {
+
                 // Authentication/authorization failed
                 localStorage.setItem("simple.error", JSON.stringify(queryParams));
                 microsoftTeams.authentication.notifyFailure(queryParams["error"]);
+
             } else if (queryParams["code"]) {
+
                 // Get the stored state parameter and compare with incoming state
                 let expectedState = localStorage.getItem("simple.state");
                 if (expectedState !== queryParams["state"]) {
@@ -50,10 +53,13 @@
                     // Success -- return token information to the parent page
                     microsoftTeams.authentication.notifySuccess(JSON.stringify(queryParams)); 
                 }
+
             } else {
-                // Unexpected condition: query does not contain error or access_token parameter
+
+                // Unexpected condition: query does not contain error or code parameter
                 localStorage.setItem("simple.error", JSON.stringify(queryParams));
                 microsoftTeams.authentication.notifyFailure("UnexpectedFailure");
+
             }
 
             // Parse query parameters into key-value pairs

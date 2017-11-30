@@ -33,8 +33,6 @@
                 localStorage.setItem("simple.state", state);
                 localStorage.removeItem("simple.error");
 
-                // See https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-implicit
-                // for documentation on these query parameters
                 let queryParams = {
                     client_id: "{{appId}}",
                     response_type: "code",
