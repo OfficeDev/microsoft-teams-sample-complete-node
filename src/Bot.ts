@@ -43,12 +43,11 @@ export class Bot extends builder.UniversalBot {
 
         // setup invoke payload handler
         this._connector.onInvoke(this.getInvokeHandler(this));
-
         // setup O365ConnectorCard action handler
         this._connector.onO365ConnectorCardAction(this.getO365ConnectorCardActionHandler(this));
-
         // setup conversation update handler for things such as a memberAdded event
         this.on("conversationUpdate", this.getConversationUpdateHandler(this));
+        this._connector.onSigninStateVerification(this.SigninHandler(this));
 
         // setup compose extension handlers
         // onQuery is for events that come through the compose extension itself including
@@ -91,6 +90,23 @@ export class Bot extends builder.UniversalBot {
         };
     }
 
+    private SigninHandler(bot: builder.UniversalBot): (event: builder.IEvent, query: teams.ISigninStateVerificationQuery, callback: (err: Error, body: any, status?: number) => void) => void {
+        return async function (
+            event: builder.IEvent,
+            query: teams.ISigninStateVerificationQuery,
+            callback: (err: Error, body: any, status?: number) => void,
+        ): Promise<void>
+        {
+            let session = await loadSessionAsync(bot, event);
+            if (session) {
+                session.clearDialogStack();
+                session.send("Authentication Successful!!");
+
+            }
+            callback(null, "", 200);
+        };
+    }
+
     // set incoming event to any because membersAdded is not a field in builder.IEvent
     private getConversationUpdateHandler(bot: builder.UniversalBot): (event: any) => void {
         return async function(event: any): Promise<void> {
@@ -119,4 +135,5 @@ export class Bot extends builder.UniversalBot {
             callback(null, null, 200);
         };
     }
+    
 }

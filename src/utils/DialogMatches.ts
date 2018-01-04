@@ -11,6 +11,7 @@ export const DialogMatches = {
     HelloDialogMatch2: /hi/i,
     HelpDialogMatch: /help/i,
     HeroCardDialogMatch: /hero card/i,
+    PopUpSignInDialogMatch: /sign in/i,
     MessageBackReceiverDialogMatch: /incoming message from messageBack button/i,
     MultiDialogMatch: /multi dialog 1/i,
     MultiDialog2Match: /multi dialog 2/i,
