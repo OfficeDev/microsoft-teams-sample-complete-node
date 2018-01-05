@@ -135,5 +135,4 @@ export class Bot extends builder.UniversalBot {
             callback(null, null, 200);
         };
     }
-    
 }
