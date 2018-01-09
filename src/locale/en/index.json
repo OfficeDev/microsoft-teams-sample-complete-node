@@ -119,5 +119,8 @@
     "open_uri": "Open Uri",
     "message_summary": "A sample O365 actionable card",
     "o365connectorcard_action_response": "<h2>Thanks, %s!</h2><br/><h3>Your input action ID:</h3><br/><pre>%s</pre><br/><h3>Your input body:</h3><br/><pre>%s</pre>",
-    "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
+    "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************",
+    "popupsignin_card_title":"Please click below for Popup Sign-In experience",
+    "popupsignin_button_title":"Sign In",
+    "popupsignin_successful":"Authentication Successful!!"
 }

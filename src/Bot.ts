@@ -47,7 +47,11 @@ export class Bot extends builder.UniversalBot {
         this._connector.onO365ConnectorCardAction(this.getO365ConnectorCardActionHandler(this));
         // setup conversation update handler for things such as a memberAdded event
         this.on("conversationUpdate", this.getConversationUpdateHandler(this));
-        this._connector.onSigninStateVerification(this.SigninHandler(this));
+
+        this._connector.onSigninStateVerification((event, query, callback) =>
+        {
+            this.verifySigninState(event, query, callback);
+        });
 
         // setup compose extension handlers
         // onQuery is for events that come through the compose extension itself including
@@ -73,7 +77,6 @@ export class Bot extends builder.UniversalBot {
                 // Clear the stack on invoke, as many builtin dialogs don't play well with invoke
                 // Invoke messages should carry the necessary information to perform their action
                 session.clearDialogStack();
-
                 let payload = (event as any).value;
 
                 // Invokes don't participate in middleware
@@ -90,28 +93,24 @@ export class Bot extends builder.UniversalBot {
         };
     }
 
-    private SigninHandler(bot: builder.UniversalBot): (event: builder.IEvent, query: teams.ISigninStateVerificationQuery, callback: (err: Error, body: any, status?: number) => void) => void {
-        return async function (
-            event: builder.IEvent,
-            query: teams.ISigninStateVerificationQuery,
-            callback: (err: Error, body: any, status?: number) => void,
-        ): Promise<void>
+    private async verifySigninState(
+        event: builder.IEvent,
+        query: teams.ISigninStateVerificationQuery,
+        callback: (err: Error, body: any, status?: number) => void): Promise<void>
+    {
+        let session = await loadSessionAsync(this, event);
+        if (session)
         {
-            let session = await loadSessionAsync(bot, event);
-            if (session) {
-                session.clearDialogStack();
-                session.send("Authentication Successful!!");
-
-            }
-            callback(null, "", 200);
-        };
+            session.clearDialogStack();
+            session.send(Strings.popupsignin_successful);
+        }
+        callback(null, "", 200);
     }
 
     // set incoming event to any because membersAdded is not a field in builder.IEvent
     private getConversationUpdateHandler(bot: builder.UniversalBot): (event: any) => void {
         return async function(event: any): Promise<void> {
             let session = await loadSessionAsync(bot, event);
-
             if (event.membersAdded && event.membersAdded[0].id && event.membersAdded[0].id.endsWith(config.get("bot.botId"))) {
                 session.send(Strings.bot_introduction); // probably only works in Teams
             } else {
