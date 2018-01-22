@@ -21,6 +21,7 @@ import { AADUserValidation } from "./apis/AADUserValidation";
 import { ValidateAADToken } from "./apis/ValidateAADToken";
 import { ManifestCreatorStart } from "./pages/ManifestCreatorStart";
 import { ManifestCreatorEnd } from "./pages/ManifestCreatorEnd";
+import * as builder from "botbuilder";
 
 // Configure instrumentation - tooling with Azure
 // let appInsights = require("applicationinsights");
@@ -74,11 +75,12 @@ let connector = new teams.TeamsChatConnector({
 
 // Create storage for the bot
 let channelStorage = null;
-let botStorage = null;
+// This defaults to using the botbuilder's in memory storage
+let botStorage: builder.IBotStorage = new builder.MemoryBotStorage();
 if (config.get("channelStorageType") === "mongoDb") {
     channelStorage = new MongoDbBotChannelStorage(config.get("mongoDb.botStateCollection"), config.get("mongoDb.connectionString"));
     botStorage = new MongoDbBotStorage(config.get("mongoDb.botStateCollection"), config.get("mongoDb.connectionString"));
-};
+}
 
 let botSettings = {
     channelStorage: channelStorage,
@@ -95,11 +97,11 @@ app.get("/api/success", AADUserValidation.success(bot));
 app.get("/api/validateToken", ValidateAADToken.listen());
 
 // catch 404 and forward to error handler
-app.use((req: Request, res: Response, next: Function) => {
-    let err: any = new Error("Not Found");
-    err.status = 404;
-    next(err);
-});
+// app.use((req: Request, res: Response, next: Function) => {
+//     let err: any = new Error("Not Found");
+//     err.status = 404;
+//     next(err);
+// });
 
 // error handlers
 
