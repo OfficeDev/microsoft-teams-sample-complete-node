@@ -8,7 +8,7 @@ import * as config from "config";
 // Demonstrates using a signin action to show a login page in a popup
 export class PopupSignInDialog extends TriggerActionDialog {
 
-    private static async popupsignin(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
+    private static async sendPopupSigninCard(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         let popUpUrl = config.get("app.baseUri") + "/botViews/popUpSignin.html";
 
         session.send(
@@ -29,7 +29,7 @@ export class PopupSignInDialog extends TriggerActionDialog {
         super(bot,
             DialogIds.PopupSignInDialogId,
             DialogMatches.PopUpSignInDialogMatch,
-            PopupSignInDialog.popupsignin,
+            PopupSignInDialog.sendPopupSigninCard,
         );
     }
 }

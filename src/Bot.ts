@@ -99,10 +99,14 @@ export class Bot extends builder.UniversalBot {
         callback: (err: Error, body: any, status?: number) => void): Promise<void>
     {
         let session = await loadSessionAsync(this, event);
+        let magicNumber = '';
+
         if (session)
         {
+            magicNumber = query.state;
+
             session.clearDialogStack();
-            session.send(Strings.popupsignin_successful);
+            session.send(session.gettext(Strings.popupsignin_successful) + magicNumber);
         }
         callback(null, "", 200);
     }

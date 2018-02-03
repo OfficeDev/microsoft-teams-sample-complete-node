@@ -6,11 +6,15 @@
 When the user clicks on the Login button, it calls notifySuccess() to fake a successful login and trigger a new message to the bot -->
 <body>
     <div>
-        User Name : <input type="text" />
+        User Name : <input type="text"/>
     </div>
     <br />
     <div>
         Password : <input type="password" />
+    </div>
+    <br />
+    <div>
+        Magic Number : <input type="magicnumber" id="txtMagicNumber" disabled="disabled"/>
     </div>
 
     <button onClick="submit()">Login</button> 
@@ -18,11 +22,25 @@ When the user clicks on the Login button, it calls notifySuccess() to fake a suc
     <script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js"></script>
 
     <script>
-        microsoftTeams.initialize();
+        var elem = document.getElementById("txtMagicNumber");        
+        if(elem!=null)
+        {
+            elem.value = Math.floor((Math.random() * 10000) + 1);
+        }
+        
+        microsoftTeams.initialize();        
+
         function submit()
         {
-            microsoftTeams.authentication.notifySuccess('PopUpSignInAuthenticationSuccess');
+            var magicNumber;
+            if(document.getElementById('txtMagicNumber')!=null)
+            {
+              magicNumber = document.getElementById('txtMagicNumber').value;
+            }
+
+            microsoftTeams.authentication.notifySuccess(magicNumber);
         }
+
     </script>
 </body>
 </html>
