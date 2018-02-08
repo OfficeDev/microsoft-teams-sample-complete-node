@@ -12,6 +12,7 @@ import { GetLastDialogUsedDialog } from "./examples/basic/GetLastDialogUsedDialo
 import { HelloDialog } from "./examples/basic/HelloDialog";
 import { HelpDialog } from "./examples/basic/HelpDialog";
 import { HeroCardDialog } from "./examples/basic/HeroCardDialog";
+import { PopupSignInDialog } from "./examples/basic/PopupSignInDialog";
 import { MessageBackReceiverDialog } from "./examples/basic/MessageBackReceiverDialog";
 import { MultiDialog } from "./examples/basic/MultiDialog";
 import { O365ConnectorCardActionsDialog } from "./examples/basic/O365ConnectorCardActionsDialog";
@@ -72,6 +73,7 @@ export class RootDialog extends builder.IntentDialog {
         new HelloDialog(bot);
         new HelpDialog(bot);
         new HeroCardDialog(bot);
+        new PopupSignInDialog(bot);
         new MessageBackReceiverDialog(bot);
         new MultiDialog(bot);
         new O365ConnectorCardActionsDialog(bot);

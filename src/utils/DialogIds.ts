@@ -12,6 +12,7 @@ export const DialogIds = {
     HelloDialogId: "HelloDialog",
     HelpDialogId: "HelpDialog",
     HeroCardDialogId: "HeroCardDialog",
+    PopupSignInDialogId: "PopupSignInDialog",
     MessageBackReceiverDialogId: "MessageBackReceiverDialog",
     MultiDialogId: "MultiDialog",
     MultiDialog2Id: "MultiDialog2",
