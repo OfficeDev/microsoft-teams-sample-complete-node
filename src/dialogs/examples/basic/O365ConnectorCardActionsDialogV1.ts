@@ -10,7 +10,7 @@ export class O365ConnectorCardActionsDialogV1 extends TriggerActionDialog {
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
         // multiple choice examples
         let cardAction1 = new teams.O365ConnectorCardActionCard(session)
-                            .id("CardsTypesection1")
+                            .id("CardsTypeSection1")
                             .name(Strings.multiple_choice)
                             .inputs([
                                 new teams.O365ConnectorCardMultichoiceInput(session)
@@ -77,7 +77,7 @@ export class O365ConnectorCardActionsDialogV1 extends TriggerActionDialog {
                             .potentialAction([cardAction1]);
 
         let cardAction2 = new teams.O365ConnectorCardActionCard(session)
-                            .id("CardsTypesection2")
+                            .id("CardsTypeSection2")
                             .name(Strings.multiple_choice)
                             .inputs([
                                 new teams.O365ConnectorCardMultichoiceInput(session)
@@ -143,7 +143,7 @@ export class O365ConnectorCardActionsDialogV1 extends TriggerActionDialog {
                             .name(Strings.text_input)
                             .inputs([
                                 new teams.O365ConnectorCardTextInput(session)
-                                    .id("Input Card")
+                                    .id("text-1")
                                     .title(Strings.text_box_title)
                                     .isMultiline(true),
                             ])
@@ -162,7 +162,7 @@ export class O365ConnectorCardActionsDialogV1 extends TriggerActionDialog {
                             .name(Strings.date_input)
                             .inputs([
                                 new teams.O365ConnectorCardDateInput(session)
-                                    .id("Date Card")
+                                    .id("date-1")
                                     .title(Strings.default_title)
                                     .includeTime(false)
                                     .isRequired(false),
@@ -179,13 +179,11 @@ export class O365ConnectorCardActionsDialogV1 extends TriggerActionDialog {
         let section2 = new teams.O365ConnectorCardSection(session)
                         .markdown(true)
                         .title("Section Title 2")
-                        .text("")
                         .potentialAction([cardAction2, cardAction3, cardAction4]);
         let card = new teams.O365ConnectorCard(session)
                         .summary(Strings.o365_card_summary)
                         .themeColor("#E67A9E")
                         .title(Strings.work_today)
-                        .text("")
                         .sections([section1, section2]);
 
         let msg = new teams.TeamsMessage(session)

@@ -147,7 +147,7 @@ export class O365ConnectorCardActionsDialogV3 extends TriggerActionDialog {
                             .name(Strings.text_input)
                             .inputs([
                                 new teams.O365ConnectorCardTextInput(session)
-                                    .id("Input Card")
+                                    .id("text-1")
                                     .title(Strings.text_box_title)
                                     .isMultiline(true),
                             ])
@@ -166,7 +166,7 @@ export class O365ConnectorCardActionsDialogV3 extends TriggerActionDialog {
                             .name(Strings.date_input)
                             .inputs([
                                 new teams.O365ConnectorCardDateInput(session)
-                                    .id("Date Card")
+                                    .id("date-1")
                                     .title(Strings.default_title)
                                     .includeTime(true)
                                     .isRequired(true),
@@ -189,7 +189,6 @@ export class O365ConnectorCardActionsDialogV3 extends TriggerActionDialog {
                         .summary(Strings.o365_card_summary)
                         .themeColor("#E67A9E")
                         .title(Strings.work_today)
-                        .text("")
                         .sections([section1, blank, section2]);
 
         let msg = new teams.TeamsMessage(session)

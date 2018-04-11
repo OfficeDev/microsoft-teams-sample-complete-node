@@ -77,7 +77,7 @@ export class O365ConnectorCardActionsDialogV2 extends TriggerActionDialog {
                             .name(Strings.text_input)
                             .inputs([
                                 new teams.O365ConnectorCardTextInput(session)
-                                    .id("Input Card")
+                                    .id("text-1")
                                     .title(Strings.text_box_title)
                                     .isMultiline(true),
                             ])
@@ -92,13 +92,11 @@ export class O365ConnectorCardActionsDialogV2 extends TriggerActionDialog {
 
         let section1 = new teams.O365ConnectorCardSection(session)
                         .markdown(true)
-                        .text("")
                         .potentialAction([cardAction1, cardAction3]);
         let card = new teams.O365ConnectorCard(session)
                         .summary(Strings.o365_card_summary)
                         .themeColor("#E67A9E")
                         .title(Strings.work_today)
-                        .text("")
                         .sections([section1]);
 
         let msg = new teams.TeamsMessage(session)
