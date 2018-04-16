@@ -1,5 +1,4 @@
 import * as builder from "botbuilder";
-import * as config from "config";
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
@@ -104,8 +103,8 @@ export class Bot extends builder.UniversalBot {
             let session = await loadSessionAsync(bot, event);
 
             // Determine if the bot was added to the conversation
-            let lowercaseBotId = config.get("bot.botId").toLowerCase();
-            let botAdded = event.membersAdded && event.membersAdded.find(user => user.id.toLowerCase().endsWith(lowercaseBotId));
+            let botId = event.address.bot.id;
+            let botAdded = event.membersAdded && event.membersAdded.find(member => (member.id === botId));
 
             if (!event.address.conversation.isGroup) {
                 // 1:1 conversation event
