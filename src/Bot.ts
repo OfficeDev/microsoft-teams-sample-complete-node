@@ -37,7 +37,7 @@ export class Bot extends builder.UniversalBot {
             new SetLocaleFromTeamsSetting(),
 
             // set on "botbuilder" (after session created)
-            new ResetBotChat(this),
+            new ResetBotChat(this),             // We recommend having this only in non-prod environments, for testing your first-run experience
             new StripBotAtMentions(),
             // new SetAADObjectId(),
             new LoadBotChannelData(this.get("channelStorage")),
