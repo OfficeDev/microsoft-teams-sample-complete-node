@@ -18,6 +18,8 @@ export class ResetBotChat implements builder.IMiddlewareMap {
             session.privateConversationData = {};
             session.save().sendBatch();
 
+            // If you need to reset the user state in other services your app uses, do it here. 
+
             // Synthesize a conversation update event
             // Note that this is a fake event, as Teams does not support deleting a 1:1 conversation and re-creating it
             let conversationUpdateEvent: builder.IConversationUpdate = {
