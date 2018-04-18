@@ -118,7 +118,7 @@ export class Bot extends builder.UniversalBot {
                 } else {
                     // First-run message has already been sent, so skip sending it again
                     // Do not remove the check for "freSent" above. Your bot can receive spurious conversationUpdate
-                    // activities from chat service, so if you always respond to all of them, you will send random 
+                    // activities from chat service, so if you always respond to all of them, you will send random
                     // welcome messages to users who have already received the welcome.
                 }
             } else {
