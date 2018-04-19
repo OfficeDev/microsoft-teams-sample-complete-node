@@ -22,14 +22,17 @@ export class SimulateResetBotChat implements builder.IMiddlewareMap {
 
             // Synthesize a conversation update event and send it to the bot
             // Note that this is a fake event, as Teams does not support deleting a 1:1 conversation and re-creating it
-            let conversationUpdateEvent: builder.IConversationUpdate = {
+            let conversationUpdateEvent: any = {
                 type: "conversationUpdate",
                 agent: message.agent,
                 source: message.source,
                 sourceEvent: message.sourceEvent,
                 user: message.user,
                 address: message.address,
-                membersAdded: [ message.address.bot ],
+                timestamp: message.timestamp,
+                localTimestamp: message.localTimestamp,
+                entities: message.entities,
+                membersAdded: [ message.address.user, message.address.bot ],
             };
             this.bot.receive(conversationUpdateEvent);
 
