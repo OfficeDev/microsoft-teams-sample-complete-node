@@ -2,7 +2,7 @@
 // tslint:disable-next-line:variable-name
 export const DialogMatches = {
     // *************************** BEGINNING OF EXAMPLES ***************************
-    ResetUserStateDialogMatch: /reset/i,
+    ResetUserStateDialogMatch: /^reset$/i,
     VSTSAPICallDialogMatch: /vsts api call/i,
     VSTS_Auth_Validate_User_Dialog_Intent: "VSTS_Auth_Validate_User_Dialog_Intent",
     VSTSLogInDialogMatch: /log ?in/i,
