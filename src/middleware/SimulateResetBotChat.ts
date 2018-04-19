@@ -30,8 +30,6 @@ export class SimulateResetBotChat implements builder.IMiddlewareMap {
                 user: message.user,
                 address: message.address,
                 timestamp: message.timestamp,
-                localTimestamp: message.localTimestamp,
-                entities: message.entities,
                 membersAdded: [ message.address.user, message.address.bot ],
             };
             this.bot.receive(conversationUpdateEvent);
