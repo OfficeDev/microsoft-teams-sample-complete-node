@@ -4,7 +4,7 @@ import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSettin
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
 // import { SetAADObjectId } from "./middleware/SetAADObjectId";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
-import { ResetBotChat } from "./middleware/ResetBotChat";
+import { SimulateResetBotChat } from "./middleware/SimulateResetBotChat";
 import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
@@ -36,7 +36,7 @@ export class Bot extends builder.UniversalBot {
             new SetLocaleFromTeamsSetting(),
 
             // set on "botbuilder" (after session created)
-            new ResetBotChat(this),             // We recommend having this only in non-prod environments, for testing your first-run experience
+            new SimulateResetBotChat(this),             // We recommend having this only in non-prod environments, for testing your 1:1 first-run experience
             new StripBotAtMentions(),
             // new SetAADObjectId(),
             new LoadBotChannelData(this.get("channelStorage")),
@@ -95,7 +95,7 @@ export class Bot extends builder.UniversalBot {
     // set incoming event to any because membersAdded is not a field in builder.IEvent
     private getConversationUpdateHandler(bot: builder.UniversalBot): (event: builder.IConversationUpdate) => void {
         return async function(event: builder.IConversationUpdate): Promise<void> {
-            // We are only interested in member add events
+            // For sending a welcome message, we are only interested in member add events
             if (!event.membersAdded || (event.membersAdded.length === 0)) {
                 return;
             }
@@ -104,7 +104,7 @@ export class Bot extends builder.UniversalBot {
 
             // Determine if the bot was added to the conversation
             let botId = event.address.bot.id;
-            let botAdded = event.membersAdded && event.membersAdded.find(member => (member.id === botId));
+            let botWasAdded = event.membersAdded && event.membersAdded.find(member => (member.id === botId));
 
             if (!event.address.conversation.isGroup) {
                 // 1:1 conversation event
@@ -112,19 +112,21 @@ export class Bot extends builder.UniversalBot {
                 // introducing your bot and what it can do. Do NOT send this blindly, as you can receive
                 // spurious conversationUpdate events, especially if you use proactive messaging.
 
-                if (!session.userData.freSent) {
-                    session.userData.freSent = true;
-                    session.send(Strings.bot_introduction);
-                } else {
-                    // First-run message has already been sent, so skip sending it again
-                    // Do not remove the check for "freSent" above. Your bot can receive spurious conversationUpdate
-                    // activities from chat service, so if you always respond to all of them, you will send random
-                    // welcome messages to users who have already received the welcome.
+                if (botWasAdded) {
+                    if (!session.userData.freSent) {
+                        session.userData.freSent = true;
+                        session.send(Strings.bot_introduction);
+                    } else {
+                        // First-run message has already been sent, so skip sending it again
+                        // Do not remove the check for "freSent" above. Your bot can receive spurious conversationUpdate
+                        // activities from chat service, so if you always respond to all of them, you will send random
+                        // welcome messages to users who have already received the welcome.
+                    }
                 }
             } else {
-                // Team event (bot or user was added to a team)
+                // Not 1:1 event (bot or user was added to a team or group chat)
 
-                if (botAdded) {
+                if (botWasAdded) {
                     // Bot was added to the team
                     // Send a message to the team's channel, introducing your bot and what you can do
                     session.send(Strings.bot_introduction);

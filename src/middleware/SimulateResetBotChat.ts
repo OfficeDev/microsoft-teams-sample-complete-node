@@ -1,7 +1,7 @@
 import * as builder from "botbuilder";
 
-// Handle requests to reset the bot chat
-export class ResetBotChat implements builder.IMiddlewareMap {
+// Handle requests to simulate resetting the bot chat
+export class SimulateResetBotChat implements builder.IMiddlewareMap {
 
     constructor(private bot: builder.UniversalBot) {
     }
@@ -20,7 +20,7 @@ export class ResetBotChat implements builder.IMiddlewareMap {
 
             // If you need to reset the user state in other services your app uses, do it here.
 
-            // Synthesize a conversation update event
+            // Synthesize a conversation update event and send it to the bot
             // Note that this is a fake event, as Teams does not support deleting a 1:1 conversation and re-creating it
             let conversationUpdateEvent: builder.IConversationUpdate = {
                 type: "conversationUpdate",
