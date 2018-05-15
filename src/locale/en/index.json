@@ -120,7 +120,7 @@
     "message_summary": "A sample O365 actionable card",
     "o365connectorcard_action_response": "<h2>Thanks, %s!</h2><br/><h3>Your input action ID:</h3><br/><pre>%s</pre><br/><h3>Your input body:</h3><br/><pre>%s</pre>",
     "pick_a_card": "Pick a card",
-    "pick_a_app": "Pick a app",
+    "pick_an_app": "Pick an app",
     "section_title1": "Section Title 1",
     "section_title2": "Section Title 2",
     "combo_box_title": "This is a title of combo box",
