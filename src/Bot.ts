@@ -51,6 +51,9 @@ export class Bot extends builder.UniversalBot {
         // setup conversation update handler for things such as a memberAdded event
         this.on("conversationUpdate", this.getConversationUpdateHandler(this));
 
+        // setup message reaction handler for like and remove like message
+        this.on("messageReaction", this.getMessageReactionsHandler(this));
+
         // setup compose extension handlers
         // onQuery is for events that come through the compose extension itself including
         // config and auth responses from popups that were started in the compose extension
@@ -150,6 +153,18 @@ export class Bot extends builder.UniversalBot {
             session.send(msg);
 
             callback(null, null, 200);
+        };
+    }
+
+    // set incoming event to any because membersAdded is not a field in builder.IEvent
+    private getMessageReactionsHandler(bot: builder.UniversalBot): (event: any) => void {
+    return async function(event: any): Promise<void> {
+            let session = await loadSessionAsync(bot, event);
+            if (event.reactionsAdded && event.reactionsAdded[0].type && event.reactionsAdded[0].type === "like") {
+                session.send(Strings.like_message);
+            } else {
+                session.send(Strings.remove_like_message);
+            }
         };
     }
 }
