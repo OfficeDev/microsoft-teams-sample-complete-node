@@ -27,9 +27,7 @@
     {
       "configurationUrl": "<<BASE_URI>>/tab/tabConfig/index.html",
       "canUpdateConfiguration": false,
-      "scopes": [
-        "team"
-      ]
+      "scopes": [ "team", "groupchat" ]
     }
   ],
   "staticTabs": [
@@ -62,10 +60,7 @@
   "bots": [
     {
       "botId": "<<REGISTERED_BOT_ID>>",
-      "scopes": [
-        "team",
-        "personal"
-      ],
+      "scopes": [ "team", "personal", "groupchat" ],
       "commandLists": [
         {
           "scopes": [
