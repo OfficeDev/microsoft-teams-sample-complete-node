@@ -1,7 +1,7 @@
 ﻿{
   "$schema": "https://statics.teams.microsoft.com/sdk/v1.3.0-beta.2/manifest/MicrosoftTeams.schema.json",
   "manifestVersion": "1.3",
-  "version": "1.0",
+  "version": "1.3",
   "id": "<<REGISTERED_BOT_ID>>",
   "packageName": "com.Template.microsoftteams",
   "developer": {
