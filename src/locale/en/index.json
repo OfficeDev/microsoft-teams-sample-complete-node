@@ -130,7 +130,7 @@
     "actionable_message_section1_text": "This is an actionable message card section1, please note if there is only one potential Action tied to section then buttons won't display in the card.",
     "actionable_message_section2": "Actionable message section2",
     "actionable_message_section2_text": "This is an actionable message card. as this section has multiple potential actions in card, action button will be there to expand and hide the controls.",
-    "like_message":"You liked this message",
-    "remove_like_message":"You removed like on this message",
+    "like_message":"You liked a message",
+    "remove_like_message":"You removed a 'like' from a message.",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }

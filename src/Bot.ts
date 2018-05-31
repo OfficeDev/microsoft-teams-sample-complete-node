@@ -156,13 +156,16 @@ export class Bot extends builder.UniversalBot {
         };
     }
 
-    // set incoming event to any because membersAdded is not a field in builder.IEvent
-    private getMessageReactionsHandler(bot: builder.UniversalBot): (event: any) => void {
-    return async function(event: any): Promise<void> {
+    // handler for handling incoming payloads from Message reactions
+    private getMessageReactionsHandler(bot: builder.UniversalBot): (event: builder.IMessageUpdate) => void {
+    return async function(event: builder.IMessageUpdate): Promise<void> {
             let session = await loadSessionAsync(bot, event);
-            if (event.reactionsAdded && event.reactionsAdded[0].type && event.reactionsAdded[0].type === "like") {
+            if (event.reactionsAdded && event.reactionsAdded[0].type === "like") {
                 session.send(Strings.like_message);
-            } else {
+            }
+
+            if (event.reactionsRemoved && event.reactionsRemoved[0].type === "like")
+            {
                 session.send(Strings.remove_like_message);
             }
         };
