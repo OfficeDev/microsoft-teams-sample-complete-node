@@ -52,7 +52,9 @@ export class Bot extends builder.UniversalBot {
         this.on("conversationUpdate", this.getConversationUpdateHandler(this));
 
         // setup message reaction handler for like and remove like message
-        this.on("messageReaction", this.getMessageReactionsHandler(this));
+        this.on("messageReaction", (event: builder.IMessageUpdate) => {
+            this.handleMessageReaction(this, event);
+        });
 
         // setup compose extension handlers
         // onQuery is for events that come through the compose extension itself including
@@ -156,18 +158,16 @@ export class Bot extends builder.UniversalBot {
         };
     }
 
-    // handler for handling incoming payloads from Message reactions
-    private getMessageReactionsHandler(bot: builder.UniversalBot): (event: builder.IMessageUpdate) => void {
-    return async function(event: builder.IMessageUpdate): Promise<void> {
-            let session = await loadSessionAsync(bot, event);
-            if (event.reactionsAdded && event.reactionsAdded[0].type === "like") {
-                session.send(Strings.like_message);
-            }
+    // method for handling incoming payloads from message reactions
+    private async handleMessageReaction(bot: builder.UniversalBot, event: builder.IMessageUpdate): Promise<void>
+    {
+        let session = await loadSessionAsync(bot, event);
+        if (event.reactionsAdded && event.reactionsAdded[0].type === "like") {
+            session.send(Strings.like_message);
+        }
 
-            if (event.reactionsRemoved && event.reactionsRemoved[0].type === "like")
-            {
-                session.send(Strings.remove_like_message);
-            }
-        };
+        if (event.reactionsRemoved && event.reactionsRemoved[0].type === "like") {
+            session.send(Strings.remove_like_message);
+        }
     }
 }
