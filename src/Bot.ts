@@ -53,7 +53,7 @@ export class Bot extends builder.UniversalBot {
 
         // setup message reaction handler for like and remove like message
         this.on("messageReaction", (event: builder.IMessageUpdate) => {
-            this.handleMessageReaction(this, event);
+            this.handleMessageReaction(event);
         });
 
         // setup compose extension handlers
@@ -159,9 +159,9 @@ export class Bot extends builder.UniversalBot {
     }
 
     // method for handling incoming payloads from message reactions
-    private async handleMessageReaction(bot: builder.UniversalBot, event: builder.IMessageUpdate): Promise<void>
+    private async handleMessageReaction(event: builder.IMessageUpdate): Promise<void>
     {
-        let session = await loadSessionAsync(bot, event);
+        let session = await loadSessionAsync(this, event);
         if (event.reactionsAdded && event.reactionsAdded[0].type === "like") {
             session.send(Strings.like_message);
         }
