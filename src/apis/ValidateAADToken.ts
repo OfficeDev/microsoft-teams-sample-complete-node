@@ -33,7 +33,8 @@ export class ValidateAADToken {
         let msaOpenIdMetadata = new OpenIdMetadata("https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration");
         return (req: express.Request, res: express.Response) => {
             // Get bearer token
-            let authHeaderMatch = /^Bearer (.*)/i.exec(req.headers["authorization"]);
+            let authorization = req.headers["authorization"] as string;
+            let authHeaderMatch = /^Bearer (.*)/i.exec(authorization);
             if (!authHeaderMatch) {
                 console.error("No Authorization token provided");
                 res.sendStatus(401);
@@ -43,7 +44,7 @@ export class ValidateAADToken {
             // Decode token and get signing key
             const encodedToken = authHeaderMatch[1];
             const decodedToken = jwt.decode(encodedToken, { complete: true });
-            msaOpenIdMetadata.getKey(decodedToken.header.kid, (key) => {
+            msaOpenIdMetadata.getKey(decodedToken["header"].kid, (key) => {
                 if (!key) {
                     console.error("Invalid signing key or OpenId metadata document");
                     res.sendStatus(500);
@@ -52,7 +53,7 @@ export class ValidateAADToken {
                 // Verify token
                 const verifyOptions: jwt.VerifyOptions = {
                     algorithms: ["RS256", "RS384", "RS512"],
-                    issuer: `https://sts.windows.net/${decodedToken.payload.tid}/`,
+                    issuer: `https://sts.windows.net/${decodedToken["payload"].tid}/`,
                     audience: config.get("app.appId"),
                     clockTolerance: 300,
                 };

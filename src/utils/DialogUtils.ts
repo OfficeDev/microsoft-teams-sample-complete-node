@@ -118,7 +118,7 @@ async function sendRequestWithAccessToken(chatConnector: builder.ChatConnector, 
                         reject(e instanceof Error ? e : new Error(e.toString()));
                     }
                 } else {
-                    let txt = "Request to '" + options.url + "' failed: [" + response.statusCode + "] " + response.statusMessage;
+                    let txt = "Request to '" + options["url"] + "' failed: [" + response.statusCode + "] " + response.statusMessage;
                     reject(new Error(txt));
                 }
             }
