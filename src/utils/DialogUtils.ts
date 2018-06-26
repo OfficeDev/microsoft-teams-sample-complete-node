@@ -100,7 +100,7 @@ export async function startReplyChainInChannel(chatConnector: builder.ChatConnec
 }
 
 // Send an authenticated request
-async function sendRequestWithAccessToken(chatConnector: builder.ChatConnector, options: request.Options): Promise<any> {
+async function sendRequestWithAccessToken(chatConnector: builder.ChatConnector, options: request.UrlOptions): Promise<any> {
     // Add access token
     await addAccessToken(chatConnector, options);
 

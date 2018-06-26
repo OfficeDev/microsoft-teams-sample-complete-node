@@ -97,10 +97,10 @@ export class AADAPI {
             return false;
         }
 
-        let type = claims.header.typ;
-        let algorithm = claims.header.alg;
-        let signingKeyId = claims.header.kid;
-        let tenantId = claims.payload.tid;
+        let type = claims["header"].typ;
+        let algorithm = claims["header"].alg;
+        let signingKeyId = claims["header"].kid;
+        let tenantId = claims["payload"].tid;
 
         if (type !== "JWT") {
             return false;
