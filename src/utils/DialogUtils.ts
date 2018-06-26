@@ -100,7 +100,7 @@ export async function startReplyChainInChannel(chatConnector: builder.ChatConnec
 }
 
 // Send an authenticated request
-async function sendRequestWithAccessToken(chatConnector: builder.ChatConnector, options: request.Options): Promise<any> {
+async function sendRequestWithAccessToken(chatConnector: builder.ChatConnector, options: request.UrlOptions): Promise<any> {
     // Add access token
     await addAccessToken(chatConnector, options);
 
@@ -118,7 +118,7 @@ async function sendRequestWithAccessToken(chatConnector: builder.ChatConnector, 
                         reject(e instanceof Error ? e : new Error(e.toString()));
                     }
                 } else {
-                    let txt = "Request to '" + options["url"] + "' failed: [" + response.statusCode + "] " + response.statusMessage;
+                    let txt = "Request to '" + options.url + "' failed: [" + response.statusCode + "] " + response.statusMessage;
                     reject(new Error(txt));
                 }
             }
