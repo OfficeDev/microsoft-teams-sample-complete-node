@@ -57,6 +57,14 @@
         
         <script type="text/javascript">
             microsoftTeams.initialize();
+            
+            // ADAL.js configuration
+            let config = {
+                clientId: "{{appId}}",
+                redirectUri: window.location.origin + "/tab-auth/silent-end",       // This should be in the list of redirect uris for the AAD app
+                cacheLocation: "localStorage",
+                navigateToLoginRequestUrl: false,
+            };
     
             let upn = undefined;
             microsoftTeams.getContext(function (context) {
@@ -66,14 +74,6 @@
 
             // Loads data for the given user
             function loadData(upn) {
-                // ADAL.js configuration
-                let config = {
-                    clientId: "{{appId}}",
-                    redirectUri: window.location.origin + "/tab-auth/silent-end",       // This should be in the list of redirect uris for the AAD app
-                    cacheLocation: "localStorage",
-                    navigateToLoginRequestUrl: false,
-                };
-
                 // Setup extra query parameters for ADAL
                 // - openid and profile scope adds profile information to the id_token
                 // - login_hint provides the expected user name
