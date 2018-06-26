@@ -33,7 +33,7 @@ export class ValidateAADToken {
         let msaOpenIdMetadata = new OpenIdMetadata("https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration");
         return (req: express.Request, res: express.Response) => {
             // Get bearer token
-            let authHeaderMatch = /^Bearer (.*)/i.exec(req.header["authorization"]);
+            let authHeaderMatch = /^Bearer (.*)/i.exec(req.header("authorization"));
             if (!authHeaderMatch) {
                 console.error("No Authorization token provided");
                 res.sendStatus(401);
