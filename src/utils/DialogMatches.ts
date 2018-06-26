@@ -32,6 +32,7 @@ export const DialogMatches = {
     ChannelDataDialogMatch: /channel data/i,
     DeeplinkDialogMatch: /deeplink/i,
     FetchRosterDialogMatch: /roster/i,
+    FetchTeamsInfoDialogMatch: /aadid/i,
     ProactiveMsgTo1to1DialogMatch: /send (?:a )?message to (?:1:1|1 to 1)/i,
     ProactiveMsgToChannelDialogMatch: /send (?:a )?message to(?: the)?(.*?)(?:channel)?$/i,
     Update_Card_Msg_Dialog_Intent: "Update_Card_Msg_Dialog_Intent",

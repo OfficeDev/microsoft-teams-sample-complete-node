@@ -33,6 +33,7 @@ export const DialogIds = {
     ChannelDataDialogId: "ChannelDataDialog",
     DeeplinkDialogId: "DeeplinkDialog",
     FetchRosterDialogId: "FetchRosterDialog",
+    FetchTeamsInfoDialogId: "FetchTeamsInfoDialog",
     ProactiveMsgTo1to1DialogId: "ProactiveMsgTo1to1Dialog",
     ProactiveMsgToChannelDialogId: "ProactiveMsgToChannelDialog",
     UpdateCardMsgDialogId: "UpdateCardMsgDialog",
