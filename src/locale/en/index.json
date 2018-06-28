@@ -132,6 +132,6 @@
     "actionable_message_section2_text": "This is an actionable message card. as this section has multiple potential actions in card, action button will be there to expand and hide the controls.",
     "like_message":"You liked a message",
     "remove_like_message":"You removed a 'like' from a message.",
-    "aadid_1to1_error":"AAD Group id doesn't exists for one to one conversation.",
+    "teaminfo_notinchannel_error":"This command only works in channels.",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }

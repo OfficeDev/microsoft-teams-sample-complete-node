@@ -1,6 +1,7 @@
 import * as builder from "botbuilder";
 import * as request from "request";
 import * as urlJoin from "url-join";
+import * as teams from "botbuilder-teams";
 
 export interface MultiTriggerActionDialogEntry {
     dialogId: string;
@@ -182,6 +183,18 @@ export function getTeamId(event: builder.IEvent): string {
         } else if (sourceEvent.teamsTeamId) {
             return sourceEvent.teamsTeamId;
         }
+    }
+    return "";
+}
+
+// Generate the team info data in table format
+export function generateTableForTeamInfo(teamDetails: teams.TeamInfo): string {
+    if (teamDetails) {
+        return `<table border='1'>
+                    <tr><td> Team id </td><td>${teamDetails.id}</td></tr>
+                    <tr><td> Team name </td><td>${teamDetails.name}</td></tr>
+                    <tr><td> AAD group id </td><td>${teamDetails.aadGroupId}</td><tr>
+                </table>`;
     }
     return "";
 }
