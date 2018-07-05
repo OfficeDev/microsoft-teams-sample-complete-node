@@ -5,7 +5,6 @@ import { DialogIds } from "../../../utils/DialogIds";
 import { DialogMatches } from "../../../utils/DialogMatches";
 import { Strings } from "../../../locale/locale";
 import * as teams from "botbuilder-teams";
-import { generateTableForTeamInfo } from "../../../utils/DialogUtils";
 
 export class FetchTeamInfoDialog extends TriggerActionDialog {
 
@@ -27,15 +26,27 @@ export class FetchTeamInfoDialog extends TriggerActionDialog {
             teamsChatConnector.fetchTeamInfo(msgServiceUrl, teamId,
                 (err, result) => {
                     if (!err) {
-                        session.send(generateTableForTeamInfo(result));
+                        session.send(FetchTeamInfoDialog.generateTableForTeamInfo(result));
                     } else {
-                        session.error(err);
+                        session.send(Strings.teaminfo_error + err.message);
                     }
                 },
             );
         }
 
         session.endDialog();
+    }
+
+    // Generate the team info data in table format
+    private static generateTableForTeamInfo(teamDetails: teams.TeamInfo): string {
+        if (teamDetails) {
+            return `<table border='1'>
+                        <tr><td> Team id </td><td>${teamDetails.id}</td></tr>
+                        <tr><td> Team name </td><td>${teamDetails.name}</td></tr>
+                        <tr><td> AAD group id </td><td>${teamDetails.aadGroupId}</td><tr>
+                    </table>`;
+        }
+        return "";
     }
 
     constructor(
