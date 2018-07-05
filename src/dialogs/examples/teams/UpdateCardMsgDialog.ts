@@ -6,49 +6,49 @@ import { Strings } from "../../../locale/locale";
 let config = require("config");
 
 export class UpdateCardMsgDialog extends TriggerActionDialog {
-
+    // update the card, if user has already setup the card message from below dialog file using update button click
+    // microsoft-teams-sample-complete-node\src\dialogs\examples\teams\UpdateCardMsgSetupDialog.ts
     private static async updateCardMessage(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
-        if (session.conversationData.updateCardCounter !== null) {
-            session.conversationData.updateCardCounter = session.conversationData.updateCardCounter + 1;
-        }
-
-        if (args.address) {
+        if (session.message.replyToId)
+        {
             let buttons = new Array<builder.CardAction>();
+            let updateCardCounter = session.message.value.updateCounterKey;
+            let messageBackButtonValue = JSON.stringify({ updateCounterKey: ++updateCardCounter });
 
-            buttons.push(new builder.CardAction(session)
-                .type("invoke")
-                .title(Strings.update_card_button, session.conversationData.updateCardCounter)
-                .value("{" +
-                    "\"dialog\": \"" + DialogIds.UpdateCardMsgDialogId + "\", " +
-                    "\"address\": " + JSON.stringify(args.address) + "" +
-                "}"),
-            );
+            let messageBackButton = builder.CardAction.messageBack(session, messageBackButtonValue)
+                .displayText(Strings.messageBack_button_display_text)
+                .title(Strings.update_card_button, updateCardCounter)
+                .text("update card message");
+            buttons.push(messageBackButton);
 
             let newCard = new builder.HeroCard(session)
-                .title(Strings.default_title)
-                .subtitle(Strings.default_subtitle)
+                .title(Strings.updated_card_title)
+                .subtitle(Strings.updated_card_subtitle)
                 .text(Strings.default_text)
                 .images([
                     new builder.CardImage(session)
                         .url(config.get("app.baseUri") + "/assets/computer_person.jpg")
                         .alt(session.gettext(Strings.img_default)),
-                ])
+                    ])
                 .buttons(buttons);
 
+            let newAddress = { ...session.message.address, id: session.message.replyToId };
+
             let msg = new builder.Message(session)
-                .address(args.address)
+                .address(newAddress)
                 .addAttachment(newCard);
 
             session.connector.update(msg.toMessage(), (err, address) => {
                 if (!err) {
-                    // do not need to save the incoming address because Teams does not change it
                     session.send(Strings.updated_msg_confirmation);
                 } else {
-                    session.error(err);
+                    session.send(Strings.update_card_error + err.message);
                 }
                 session.endDialog();
             });
-        } else {
+        }
+        else
+        {
             session.send(Strings.no_msg_to_update);
             session.endDialog();
         }
@@ -59,7 +59,7 @@ export class UpdateCardMsgDialog extends TriggerActionDialog {
     ) {
         super(bot,
             DialogIds.UpdateCardMsgDialogId,
-            DialogMatches.Update_Card_Msg_Dialog_Intent,
+            DialogMatches.UpdateCardMsgDialogMatch,
             UpdateCardMsgDialog.updateCardMessage,
         );
     }

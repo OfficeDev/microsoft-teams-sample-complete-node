@@ -134,5 +134,8 @@
     "remove_like_message":"You removed a 'like' from a message.",
     "teaminfo_notinchannel_error":"This command only works in channels.",
     "teaminfo_error":"Error getting team info: ",
+    "updated_card_title":"This is updated card",
+    "updated_card_subtitle":"This card is updated now",
+    "update_card_error":"Error updating card message: ",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }
