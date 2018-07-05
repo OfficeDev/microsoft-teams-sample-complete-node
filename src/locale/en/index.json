@@ -67,7 +67,7 @@
     "updated_msg_confirmation": "Message updated - see above",
     "no_msg_to_update": "No message to update.",
     "loading": "Loading...",
-    "update_card_button": "Update %s",
+    "update_card_button": "Update card",
     "cmd_only_works_in_channel": "Sorry - this call only works when called from within a channel chat",
     "choose_channel_prompt": "What channel would you like to send a message to?",
     "channel_choice_failure": "Could not find the channel you were looking for",
@@ -134,7 +134,8 @@
     "remove_like_message":"You removed a 'like' from a message.",
     "teaminfo_notinchannel_error":"This command only works in channels.",
     "teaminfo_error":"Error getting team info: ",
-    "updated_card_title":"This is updated card",
+    "updated_card_default_title":"This is default card title %s",
+    "updated_card_title":"This is updated card title %s",
     "updated_card_subtitle":"This card is updated now",
     "update_card_error":"Error updating card message: ",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
