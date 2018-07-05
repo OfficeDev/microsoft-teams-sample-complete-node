@@ -31,6 +31,7 @@ import { AtMentionDialog } from "./examples/teams/AtMentionDialog";
 import { ChannelDataDialog } from "./examples/teams/ChannelDataDialog";
 import { DeeplinkDialog } from "./examples/teams/DeeplinkDialog";
 import { FetchRosterDialog } from "./examples/teams/FetchRosterDialog";
+import { FetchTeamInfoDialog } from "./examples/teams/FetchTeamInfoDialog";
 import { ProactiveMsgTo1to1Dialog } from "./examples/teams/ProactiveMsgTo1to1Dialog";
 import { ProactiveMsgToChannelDialog } from "./examples/teams/ProactiveMsgToChannelDialog";
 import { UpdateCardMsgDialog } from "./examples/teams/UpdateCardMsgDialog";
@@ -91,6 +92,7 @@ export class RootDialog extends builder.IntentDialog {
         new ChannelDataDialog(bot);
         new DeeplinkDialog(bot);
         new FetchRosterDialog(bot);
+        new FetchTeamInfoDialog(bot);
         new ProactiveMsgTo1to1Dialog(bot);
         new ProactiveMsgToChannelDialog(bot);
         new UpdateCardMsgDialog(bot);
