@@ -57,7 +57,7 @@ export class UpdateCardMsgDialog extends TriggerActionDialog {
     ) {
         super(bot,
             DialogIds.UpdateCardMsgDialogId,
-            DialogMatches.Update_Card_Msg_Dialog_Intent,
+            DialogMatches.UpdateCardMsgDialogMatch,
             UpdateCardMsgDialog.updateCardMessage,
         );
     }
