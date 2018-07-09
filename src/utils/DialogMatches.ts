@@ -35,7 +35,7 @@ export const DialogMatches = {
     FetchTeamInfoDialogMatch: /team info/i,
     ProactiveMsgTo1to1DialogMatch: /send (?:a )?message to (?:1:1|1 to 1)/i,
     ProactiveMsgToChannelDialogMatch: /send (?:a )?message to(?: the)?(.*?)(?:channel)?$/i,
-    Update_Card_Msg_Dialog_Intent: "Update_Card_Msg_Dialog_Intent",
+    UpdateCardMsgDialogMatch: /update card message/i,
     UpdateCardMsgSetupDialogMatch: /setup card message/i,
     UpdateTextMsgDialogMatch: /update text message/i,
     UpdateTextMsgSetupDialogMatch: /setup text message/i,
