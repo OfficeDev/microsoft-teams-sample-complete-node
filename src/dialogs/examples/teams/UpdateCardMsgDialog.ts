@@ -17,7 +17,7 @@ export class UpdateCardMsgDialog extends TriggerActionDialog {
             let messageBackButton = builder.CardAction.messageBack(session, messageBackButtonValue)
                 .displayText(Strings.messageBack_button_display_text)
                 .title(Strings.update_card_button)
-                .text("update card message");
+                .text("update card message"); // This must be a string that routes to UpdateCardMsgDialog, which handles card updates
 
             let newCard = new builder.HeroCard(session)
                 .title(Strings.updated_card_title, updateCardCounter)
