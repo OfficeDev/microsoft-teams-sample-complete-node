@@ -2,7 +2,7 @@ import * as builder from "botbuilder";
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
-// import { SetAADObjectId } from "./middleware/SetAADObjectId";
+import { SecureTrafficTenantLevel } from "./middleware/SecureTrafficTenantLevel";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { SimulateResetBotChat } from "./middleware/SimulateResetBotChat";
 import { Strings } from "./locale/locale";
@@ -38,7 +38,7 @@ export class Bot extends builder.UniversalBot {
             // set on "botbuilder" (after session created)
             new SimulateResetBotChat(this),             // We recommend having this only in non-prod environments, for testing your 1:1 first-run experience
             new StripBotAtMentions(),
-            // new SetAADObjectId(),
+            new SecureTrafficTenantLevel(),
             new LoadBotChannelData(this.get("channelStorage")),
         );
 
@@ -54,6 +54,11 @@ export class Bot extends builder.UniversalBot {
         // setup message reaction handler for like and remove like message
         this.on("messageReaction", (event: builder.IMessageUpdate) => {
             this.handleMessageReaction(event);
+        });
+
+        // setup popup signin incoming request
+        this._connector.onSigninStateVerification((event, query, callback) => {
+            this.verifySigninState(event, query, callback);
         });
 
         // setup compose extension handlers
@@ -169,5 +174,20 @@ export class Bot extends builder.UniversalBot {
         if (event.reactionsRemoved && event.reactionsRemoved[0].type === "like") {
             session.send(Strings.remove_like_message);
         }
+    }
+
+    // method for handling incoming payloads from popup signin
+    private async verifySigninState (event: builder.IEvent, query: teams.ISigninStateVerificationQuery, callback: (err: Error, body: any, status?: number) => void): Promise<void>
+    {
+        let session = await loadSessionAsync(this, event);
+
+        if (session)
+        {
+            let magicNumber = query.state;
+
+            session.clearDialogStack();
+            session.send(session.gettext(Strings.popupsignin_successful) + magicNumber);
+        }
+        callback(null, "", 200);
     }
 }

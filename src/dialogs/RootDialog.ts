@@ -38,6 +38,8 @@ import { UpdateCardMsgDialog } from "./examples/teams/UpdateCardMsgDialog";
 import { UpdateCardMsgSetupDialog } from "./examples/teams/UpdateCardMsgSetupDialog";
 import { UpdateTextMsgDialog } from "./examples/teams/UpdateTextMsgDialog";
 import { UpdateTextMsgSetupDialog } from "./examples/teams/UpdateTextMsgSetupDialog";
+import { NotifyDialog } from "./examples/teams/NotifyDialog";
+import { PopupSignInDialog } from "./examples/basic/PopupSignInDialog";
 // *************************** END OF EXAMPLES *********************************
 
 // Add imports for dialogs
@@ -99,6 +101,8 @@ export class RootDialog extends builder.IntentDialog {
         new UpdateCardMsgSetupDialog(bot);
         new UpdateTextMsgDialog(bot);
         new UpdateTextMsgSetupDialog(bot);
+        new NotifyDialog(bot);
+        new PopupSignInDialog(bot);
         // *************************** END OF EXAMPLES *********************************
 
         // Add child dialogs

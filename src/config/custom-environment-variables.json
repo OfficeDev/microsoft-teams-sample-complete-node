@@ -27,5 +27,6 @@
         "connectionString": "MONGODB_CONNECTION_STRING",
         "botStateCollection": "MONGODB_BOT_STATE_COLLECTION",
         "tempTokensCollection": "MONGODB_TEMP_TOKENS_COLLECTION"
-    }
+    },
+    "OFFICE_365_TENANT_FILTER" :"OFFICE_365_TENANT_FILTER"
 }
