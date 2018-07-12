@@ -2,7 +2,7 @@ import * as builder from "botbuilder";
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
-import { SecureTrafficTenantLevel } from "./middleware/SecureTrafficTenantLevel";
+import { RestrictIncomingMessagesToTenants } from "./middleware/RestrictIncomingMessagesToTenants";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
 import { SimulateResetBotChat } from "./middleware/SimulateResetBotChat";
 import { Strings } from "./locale/locale";
@@ -38,7 +38,7 @@ export class Bot extends builder.UniversalBot {
             // set on "botbuilder" (after session created)
             new SimulateResetBotChat(this),             // We recommend having this only in non-prod environments, for testing your 1:1 first-run experience
             new StripBotAtMentions(),
-            new SecureTrafficTenantLevel(),
+            new RestrictIncomingMessagesToTenants(),
             new LoadBotChannelData(this.get("channelStorage")),
         );
 
@@ -186,7 +186,7 @@ export class Bot extends builder.UniversalBot {
             let magicNumber = query.state;
 
             session.clearDialogStack();
-            session.send(session.gettext(Strings.popupsignin_successful) + magicNumber);
+            session.send(session.gettext(Strings.popupsignin_successful, magicNumber));
         }
         callback(null, "", 200);
     }
