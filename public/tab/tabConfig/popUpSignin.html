@@ -43,7 +43,7 @@
     </style>    
 </head>
 <!-- Purpose of this login html page is to show fake authentication when user click on signin action using popup window -->
-<!-- From popup window, user can pass information from popup window to bot e.g. here we are passing random number from popup to Bot --> 
+<!-- From popup window, user can send information from popup window to bot e.g. here we are passing random magic number to Bot -->
 <body>
     <div class="row input-container">
         <div>
@@ -62,15 +62,21 @@
     </div>
 
     <input type="submit" class="primary-button" value="Submit" onClick="submit()">
-    <input type="submit" class="primary-button" value="Cancel" onClick="window.close();">
+    <input type="submit" class="primary-button" value="Close" onClick="closeWindow()">
 
     <script src="https://statics.teams.microsoft.com/sdk/v1.2/js/MicrosoftTeams.min.js"></script>
     <script>
+        // magic number would not normally be shown to the user in the UI -- that is only to demonstrate the flow
+        // receiving code can compare the magic number with what it expected
         document.getElementById('magicnumber').value = Math.floor(Math.random() * 1000000);
         microsoftTeams.initialize();
         function submit()
         {
             microsoftTeams.authentication.notifySuccess(document.getElementById('magicnumber').value);
+        }
+        function closeWindow()
+        {
+            microsoftTeams.authentication.notifyFailure();
         }
     </script>
 </body>

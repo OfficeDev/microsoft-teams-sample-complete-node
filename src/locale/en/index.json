@@ -137,7 +137,7 @@
     "updated_card_title":"Updated card %s",
     "updated_card_subtitle":"This card is updated now",
     "update_card_error":"Error updating card message: ",
-    "notify_msg": "Activity feed notification sent (check left top corner bell icon for notifcation)",
+    "notify_msg": "Activity feed notification sent (check left top corner bell icon for notification)",
     "notifyerror_msg": "Activity notification only supported in MS Teams 1 to 1 chat experience.",
     "popupsignin_card_title":"Please click below for popup sign-in experience",
     "popupsignin_button_title":"Sign In",
