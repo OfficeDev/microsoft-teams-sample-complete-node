@@ -27,5 +27,6 @@
         "connectionString": "MONGODB_CONNECTION_STRING",
         "botStateCollection": "MONGODB_BOT_STATE_COLLECTION",
         "tempTokensCollection": "MONGODB_TEMP_TOKENS_COLLECTION"
-    }
+    },
+    "office365TenantFilter" :"OFFICE_365_TENANT_FILTER" // e.g. TenantId - 72f988bf-86f1-41af-91ab-2d7cd011db47
 }

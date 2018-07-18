@@ -39,6 +39,8 @@ export const DialogMatches = {
     UpdateCardMsgSetupDialogMatch: /setup card message/i,
     UpdateTextMsgDialogMatch: /update text message/i,
     UpdateTextMsgSetupDialogMatch: /setup text message/i,
+    NotifyDialogMatch: /notify/i,
+    PopUpSignInDialogMatch: /signin/i,
     // *************************** END OF EXAMPLES *********************************
 
     // Add regex or string intent matches for dialogs
