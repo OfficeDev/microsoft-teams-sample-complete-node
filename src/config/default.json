@@ -20,5 +20,5 @@
         "appSecret": "SET_AS_ENVIRONMENT_VARIABLE"
     },
     "channelStorageType": "default_bot_framework_sdk_store",
-    "office365TenantFilter" :"OFFICE_365_TENANT_FILTER" // e.g. TenantId - 72f988bf-86f1-41af-91ab-2d7cd011db47
+    "office365TenantFilter" :"#ANY#"
 }
