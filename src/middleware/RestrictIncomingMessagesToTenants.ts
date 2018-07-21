@@ -5,9 +5,9 @@ import * as config from "config";
 export class RestrictIncomingMessagesToTenants implements builder.IMiddlewareMap {
 
     public readonly botbuilder = (session: builder.Session, next: Function): void => {
-        let targetTenant = typeof(config.office365TenantFilter) !== "undefined" ? config.office365TenantFilter : null;
-        let currentMsgTenant = session.message.sourceEvent.tenant && session.message.sourceEvent.tenant.id;
-        if (targetTenant !== null && targetTenant !== "#ANY#") {
+      let targetTenant = config.office365TenantFilter;
+      let currentMsgTenant = session.message.sourceEvent.tenant && session.message.sourceEvent.tenant.id;
+      if (targetTenant && targetTenant !== "#ANY#") {
           if (targetTenant === currentMsgTenant) {
             next();
           } else {
