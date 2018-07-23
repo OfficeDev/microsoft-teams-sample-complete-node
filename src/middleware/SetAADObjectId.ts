@@ -38,10 +38,9 @@ export class SetAADObjectId implements builder.IMiddlewareMap {
                     currId = session.message.address.conversation.id;
                 }
 
-                teamsChatConnector.fetchMemberList(
+                teamsChatConnector.fetchMembers(
                     msgServiceUrl,
                     currId,
-                    teams.TeamsMessage.getTenantId(session.message),
                     async (err, result) => {
                         if (!err) {
                             // get data for _id:aad_id - if doesn't exist, just add aad to userData
