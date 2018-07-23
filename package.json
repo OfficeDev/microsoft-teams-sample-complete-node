@@ -14,8 +14,7 @@
     "debug": "node ./build/src/app.js"
   },
   "engines": {
-    "node": ">=6.9.1",
-    "npm": "4.2.0"
+    "node": ">=6.9.1"
   },
   "dependencies": {
     "assert": "^1.4.1",
