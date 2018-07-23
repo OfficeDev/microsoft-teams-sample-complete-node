@@ -20,7 +20,7 @@ export class NotifyDialog extends TriggerActionDialog {
             {
                 // Actvity notications will only work in 1 to 1 chat
                 let msg = new teams.TeamsMessage(session).text(Strings.notify_msg);
-                let alertFlag = teams.TeamsMessage.AlertFlag();
+                let alertFlag = teams.TeamsMessage.alertFlag();
                 let notification = msg.sourceEvent({
                     "msteams" : alertFlag,
                 });

@@ -40,10 +40,11 @@ export class FetchTeamInfoDialog extends TriggerActionDialog {
     // Generate the team info data in table format
     private static generateTableForTeamInfo(teamDetails: teams.TeamInfo): string {
         if (teamDetails) {
+            // Currently, aadGroupId is present but is not defined in the TeamInfo typings
             return `<table border='1'>
                         <tr><td> Team id </td><td>${teamDetails.id}</td></tr>
                         <tr><td> Team name </td><td>${teamDetails.name}</td></tr>
-                        <tr><td> AAD group id </td><td>${teamDetails.aadGroupId}</td><tr>
+                        <tr><td> AAD group id </td><td>${(teamDetails as any).aadGroupId}</td><tr>
                     </table>`;
         }
         return "";

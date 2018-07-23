@@ -21,10 +21,9 @@ export class FetchRosterDialog extends TriggerActionDialog {
             currId = session.message.address.conversation.id;
         }
 
-        teamsChatConnector.fetchMemberList(
+        teamsChatConnector.fetchMembers(
             msgServiceUrl,
             currId,
-            teams.TeamsMessage.getTenantId(session.message),
             (err, result) => {
                 if (!err) {
                     session.send(JSON.stringify(result));
