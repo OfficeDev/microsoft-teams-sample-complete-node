@@ -40,7 +40,7 @@ import { UpdateTextMsgDialog } from "./examples/teams/UpdateTextMsgDialog";
 import { UpdateTextMsgSetupDialog } from "./examples/teams/UpdateTextMsgSetupDialog";
 import { NotifyDialog } from "./examples/teams/NotifyDialog";
 import { PopupSignInDialog } from "./examples/basic/PopupSignInDialog";
-import { AdaptiveCardDailog } from "./examples/basic/AdaptiveCardDailog";
+import { AdaptiveCardDialog } from "./examples/basic/AdaptiveCardDialog";
 // *************************** END OF EXAMPLES *********************************
 
 // Add imports for dialogs
@@ -104,7 +104,7 @@ export class RootDialog extends builder.IntentDialog {
         new UpdateTextMsgSetupDialog(bot);
         new NotifyDialog(bot);
         new PopupSignInDialog(bot);
-        new AdaptiveCardDailog(bot);
+        new AdaptiveCardDialog(bot);
         // *************************** END OF EXAMPLES *********************************
 
         // Add child dialogs

@@ -2,7 +2,7 @@ import * as builder from "botbuilder";
 import { DialogMatches } from "../utils/DialogMatches";
 
 // Set the text field on message events to "adaptive card", if request is from an adaptive card
-export class AdapticeCardSubmitAction implements builder.IMiddlewareMap {
+export class AdaptiveCardSubmitAction implements builder.IMiddlewareMap {
 
     public readonly receive = (event: builder.IEvent, next: Function): void => {
         let currEvent = (event as any);
@@ -15,7 +15,7 @@ export class AdapticeCardSubmitAction implements builder.IMiddlewareMap {
             let payload = currEvent.value;
             if (payload && payload.dialog)
             {
-                currEvent.text = DialogMatches.AdaptiveCardDailogSubmitAction;
+                currEvent.text = DialogMatches.AdaptiveCardDialogSubmitAction;
             }
         }
 

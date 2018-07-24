@@ -3,7 +3,7 @@ import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
 import { DialogIds } from "../../../utils/DialogIds";
 import { DialogMatches } from "../../../utils/DialogMatches";
 
-export class AdaptiveCardDailog extends TriggerActionDialog {
+export class AdaptiveCardDialog extends TriggerActionDialog {
 
     private static async step1(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void>
     {
@@ -441,11 +441,11 @@ export class AdaptiveCardDailog extends TriggerActionDialog {
         bot: builder.UniversalBot,
     ) {
         super(bot,
-            DialogIds.AdaptiveCardDailog,
+            DialogIds.AdaptiveCardDialog,
             [
-                DialogMatches.AdaptiveCardDailog,
+                DialogMatches.AdaptiveCardDialog,
             ],
-            AdaptiveCardDailog.step1,
+            AdaptiveCardDialog.step1,
         );
     }
 }
