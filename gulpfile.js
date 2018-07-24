@@ -90,6 +90,9 @@ gulp.task('ts', ['clean', 'locale:generate'], function() {
         .src()
         .pipe(sourcemaps.init())
         .pipe(tsProject())
+        .once('error', function () {
+            this.once('finish', () => process.exit(1));
+        })
         .pipe(sourcemaps.write('.', { sourceRoot: function(file) { return file.cwd + '/build'; }}))
         .pipe(gulp.dest('build'));
 });
