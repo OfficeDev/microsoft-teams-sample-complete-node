@@ -1,7 +1,7 @@
 import * as builder from "botbuilder";
 import { RootDialog } from "./dialogs/RootDialog";
 import { SetLocaleFromTeamsSetting } from "./middleware/SetLocaleFromTeamsSetting";
-import { AdaptiveCardSubmitAction } from "./middleware/AdaptiveCardSubmitAction";
+import { AdaptiveCardSubmitActionHandler } from "./middleware/AdaptiveCardSubmitActionHandler";
 import { StripBotAtMentions } from "./middleware/StripBotAtMentions";
 import { RestrictIncomingMessagesToTenants } from "./middleware/RestrictIncomingMessagesToTenants";
 import { LoadBotChannelData } from "./middleware/LoadBotChannelData";
@@ -33,11 +33,9 @@ export class Bot extends builder.UniversalBot {
             // with updating messages examples
             // builder.Middleware.sendTyping(),
 
-            // set on "receive" of message
+            // set on "receive" of incoming payload
             new SetLocaleFromTeamsSetting(),
-
-            // set on "receive" of Adaptive Card Submit Action
-            new AdaptiveCardSubmitAction(),
+            new AdaptiveCardSubmitActionHandler(),
 
             // set on "botbuilder" (after session created)
             new SimulateResetBotChat(this),             // We recommend having this only in non-prod environments, for testing your 1:1 first-run experience
