@@ -8,9 +8,9 @@ export class AdaptiveCardSubmitActionHandler implements builder.IMiddlewareMap {
         {
             let currEvent = (event as builder.IMessage);
 
-            // if event text is blank, replyToId is not null, event value is has isFromAdaptiveCard and messageText (please find these two fields in \src\dialogs\examples\basic\AdaptiveCardDialog.ts,
-            // submit action data field) in incoming payload to check if incoming request is from an adaptive card then set event text to messageText "adaptive card" to trigger Adaptive Card dialog,
-            // it's a work around that will be cleaned up later
+            // Check event text is blank, replyToId is not null, event value has isFromAdaptiveCard and messageText in incoming payload to check if the incoming
+            // payload is from a Submit action button click from an AdaptiveCard (this is set in …\src\dialogs\examples\basic\AdaptiveCardDialog.ts) in the Submit action
+            // data field. If so, then set the text field of the incoming payload so the BotFramework regex recognizers will route the message to the desired dialog.
             if (currEvent.text === "" && currEvent.replyToId && currEvent.value && currEvent.value.isFromAdaptiveCard && currEvent.value.messageText)
             {
                 currEvent.text = currEvent.value.messageText;

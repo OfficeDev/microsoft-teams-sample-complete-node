@@ -2,7 +2,6 @@ import * as builder from "botbuilder";
 import { TriggerActionDialog } from "../../../utils/TriggerActionDialog";
 import { DialogIds } from "../../../utils/DialogIds";
 import { DialogMatches } from "../../../utils/DialogMatches";
-let textToTriggerThisDialog = "Adaptive Card";
 
 export class AdaptiveCardDialog extends TriggerActionDialog {
     private static async sendAdaptiveCard(session: builder.Session, args?: any | builder.IDialogResult<any>, next?: (args?: builder.IDialogResult<any>) => void): Promise<void> {
@@ -19,6 +18,8 @@ export class AdaptiveCardDialog extends TriggerActionDialog {
 
     // Get the adaptive card attachment
     private static getAdaptiveCardAttachment(): any {
+        let textToTriggerThisDialog = "Adaptive Card";
+
         let adaptiveCardJson = {
             contentType: "application/vnd.microsoft.card.adaptive",
             content: {
@@ -384,8 +385,8 @@ export class AdaptiveCardDialog extends TriggerActionDialog {
                         title: "Submit",
                         speak: "<s>Search</s>",
                         data: {
-                            "isFromAdaptiveCard": "true",
-                            "messageText": textToTriggerThisDialog,
+                            isFromAdaptiveCard: true,
+                            messageText: textToTriggerThisDialog,
                         },
                     },
                     // show action defines an inline AdaptiveCard which is shown to the user when it is clicked
@@ -420,8 +421,8 @@ export class AdaptiveCardDialog extends TriggerActionDialog {
                                     title: "Submit",
                                     speak: "<s>Search</s>",
                                     data: {
-                                        "isFromAdaptiveCard": "true",
-                                        "messageText": textToTriggerThisDialog,
+                                        isFromAdaptiveCard: true,
+                                        messageText: textToTriggerThisDialog,
                                     },
                                 },
                             ],
