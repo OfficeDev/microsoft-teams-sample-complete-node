@@ -42,6 +42,7 @@ export const DialogMatches = {
     NotifyDialogMatch: /notify/i,
     PopUpSignInDialogMatch: /signin/i,
     AdaptiveCardDialogMatch: /adaptive card/i,
+    ListCardDialogMatch: /list card/i,
     // *************************** END OF EXAMPLES *********************************
 
     // Add regex or string intent matches for dialogs

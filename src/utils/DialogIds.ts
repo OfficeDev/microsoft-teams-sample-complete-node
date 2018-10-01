@@ -43,6 +43,7 @@ export const DialogIds = {
     NotifyDialogId: "NotifyDialog",
     PopupSignInDialogId: "PopupSignInDialog",
     AdaptiveCardDialogId: "AdaptiveCardDialog",
+    ListCardDialogId: "ListCardDialog",
     // *************************** END OF EXAMPLES *********************************
 
     // Add entries for dialog ids
