@@ -1,0 +1,38 @@
+<html>
+  <head>
+     <script src='https://unpkg.com/@microsoft/teams-js@1.3.7/dist/MicrosoftTeams.min.js'></script>
+     <script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
+     <script type="text/javascript">
+     microsoftTeams.initialize();
+
+     //- Handle the Esc key
+     document.onkeyup = function(event) {
+        if ((event.key === 27) || (event.key === "Escape")) {
+          microsoftTeams.tasks.submitTask(null); //- this will return an err object to the completionHandler() 
+        }
+      }
+
+     function submitTaskModule(){
+       var inputCommand = document.getElementById('inputCommandText').value;
+       var commandInfo = {commandToBot:inputCommand, levelType:"{{query.type}}"};
+       microsoftTeams.tasks.submitTask(commandInfo,"{{appId}}"); 
+       return true;
+     }
+     </script>
+  </head>
+  <body>   
+     <p>List of all the sample commands</p>
+     <iframe id="botCommandListFrame" width="500" height="300"  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+     <br>
+     <br>
+     <span>Enter Valid Command: </span> <input id="inputCommandText" type="text" name="commandName"/>
+     <br>
+     <br>
+     <input type="submit" value="Submit" onclick="submitTaskModule();"/>
+    
+    <script>
+      let botCommandsHrf= "{{baseUri}}" + "/allCommands";
+      $("#botCommandListFrame").attr("src",botCommandsHrf);
+    </script>
+  </body>
+</html>

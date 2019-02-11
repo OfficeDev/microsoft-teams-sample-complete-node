@@ -36,9 +36,11 @@
     "oauth": "^0.9.15",
     "q": "^1.4.1",
     "random-number-csprng": "^1.0.2",
-    "serve-favicon": "^2.4.0"
+    "serve-favicon": "^2.4.0",
+    "stjs": "0.0.5"
   },
   "devDependencies": {
+    "@microsoft/teams-js": "^1.3.7",
     "@types/bluebird": "^3.0.37",
     "@types/chai": "^3.4.34",
     "@types/mocha": "^2.2.39",
