@@ -1,3 +1,16 @@
+---
+topic: sample
+products:
+- Microsoft Teams
+- Office 365
+languages:
+- Node.js
+extensions:
+  contentType: samples
+  technologies:
+  - Tabs
+  createdDate: 5/8/2017 9:41:53 AM
+---
 # Fastest way to see this project in action
 
 1. Remix and get the project running on Glitch by simply clicking here:
