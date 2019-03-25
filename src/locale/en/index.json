@@ -142,5 +142,10 @@
     "popupsignin_card_title":"Please click below for popup sign-in experience",
     "popupsignin_button_title":"Sign In",
     "popupsignin_successful":"Authentication popup closed, magic number passed through - %s",
+    "list_card_item1_title":"Item1 title",
+    "list_card_item2_title":"Item2 title",
+    "list_card_item1_subtitle":"Item1 sub title",
+    "list_card_item2_subtitle":"Item2 sub title",
+    "list_card_title":"List card title here",
     "end_of_example_string_responses": "******************************* EVERYTHING ABOVE HERE IS FOR A TEMPLATE EXAMPLE DIALOG *******************************"
 }
