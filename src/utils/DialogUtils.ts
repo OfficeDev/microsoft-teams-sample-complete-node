@@ -1,6 +1,8 @@
 import * as builder from "botbuilder";
 import * as request from "request";
-import * as urlJoin from "url-join";
+
+// used this format due to how url-join is created and packaged in node_modules
+const urlJoin = require("url-join");
 
 export interface MultiTriggerActionDialogEntry {
     dialogId: string;
