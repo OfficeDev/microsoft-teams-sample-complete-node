@@ -16,7 +16,7 @@
   },
   "description": {
     "short": "Bot Template - a template for creating a bot",
-    "full": "The Bot Template is meant to create an envrionment in which to easily create a bot."
+    "full": "The Bot Template is meant to create an environment in which to easily create a bot."
   },
   "icons": {
     "outline": "bot_blue.png",
