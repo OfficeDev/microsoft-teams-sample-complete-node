@@ -56,7 +56,7 @@ NOTE: Most of this sample app's functionality will now work. The only limitation
 
 * Install Node: https://nodejs.org/en/download/    
 
-* Download the npm modules - in the microsoft-teams-bot-template directory run:<br>
+* Download the npm modules - in the microsoft-teams-sample-complete-node directory run:<br>
     ```
     npm install
     ```
@@ -65,13 +65,13 @@ NOTE: Most of this sample app's functionality will now work. The only limitation
 Install some sort of tunnelling service. These instructions assume you are using ngrok: https://ngrok.com/
 
 * (Only needed if wanting to run in the Bot Emulator)<br>
-Install the Bot Emulator - click on "Bot Framework Emulator (Mac and Windows)": https://docs.botframework.com/en-us/downloads/#navtitle  
+Install the Bot Emulator - click on "Bot Framework Emulator (Mac and Windows)": https://github.com/Microsoft/BotFramework-Emulator/releases/latest 
     * NOTE: make sure to pin the emulator to your task bar because it can sometimes be difficult to find again 
 
 ## Steps to see the bot running in the Bot Emulator<br>
 NOTE: Teams does not work nor render things exactly like the Bot Emulator - this method is meant as just a slightly easier way to see the project's bot running
 
-1. Open the microsoft-teams-bot-template directory with VSCode  
+1. Open the microsoft-teams-sample-complete-node directory with VSCode  
 
 2. In VSCode go to the debug tab on the left side (looks like a bug), and then at the top click the play button (should be defaulted to running the "Launch - Emulator" configuration) 
 
