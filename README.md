@@ -124,13 +124,13 @@ This project is meant to help a Teams developer in two ways.  First, it is meant
 
 # What it is
 
-At a high level, this project is written in Typescript, built to run a Node server, uses Gulp to run its build steps, runs a Typescript linting tool to keep the code uniform, and uses the BotFramework to handle the bot's requests and responses.  This project is designed to be run in VSCode using its debugger in order to leverage breakpoints in Typescript.  Most directories will hold a README file which will describe what the files within that directory do. 
+At a high level, this project is written in TypeScript, built to run a Node server, uses Gulp to run its build steps, runs a TypeScript linting tool to keep the code uniform, and uses the BotFramework to handle the bot's requests and responses.  This project is designed to be run in VSCode using its debugger in order to leverage breakpoints in TypeScript.  Most directories will hold a README file which will describe what the files within that directory do. 
 
 The easiest way to get started is to follow the steps listed in the "Steps to get started running the Bot Emulator".  Once this is complete and running, the easiest way to add your own content is to create a new dialog in src/dialogs by copying one from src/dialogs/examples, change it accordingly, and then instantiate it with the others in the RootDialog.ts.
 
 # General Architecture
 
-Most Typescript files that need to be transpiled (and the bulk of the project) reside in the src directory.  Most files outside of the src directory are static files used for either configuration or for providing static resources to tabs, e.g. images and html.  At build time, Gulp will transpile everything in the src directory and place these transpiled files into a build directory.  Gulp will also move a few static files into this new build directory.  Because of this, it is recommended that nothing be changed by a developer in the build directory.  All changes should be done on the "source" files so rebuilding the project will update the build directory.
+Most TypeScript files that need to be transpiled (and the bulk of the project) reside in the src directory.  Most files outside of the src directory are static files used for either configuration or for providing static resources to tabs, e.g. images and html.  At build time, Gulp will transpile everything in the src directory and place these transpiled files into a build directory.  Gulp will also move a few static files into this new build directory.  Because of this, it is recommended that nothing be changed by a developer in the build directory.  All changes should be done on the "source" files so rebuilding the project will update the build directory.
 
 The general flow for using this template is to copy/paste/create/build on the example dialogs in the src/dialogs/examples directory, but to put your newly created dialogs outside of the src/dialogs/examples directory (either parallel to the src/dialogs/examples directory or in new directories of your own).  In this way, your dialogs do not coexist with the example dialogs so if the time comes to delete the examples, one can simply delete the src/dialogs/examples directory.  More information on how to create new dialogs and add to this project can be found in the file src/dialogs/README.md in the "Creating a New Dialog" section.
 
@@ -146,10 +146,10 @@ This directory holds an example of a json file used to instruct a Luis recognize
 This directory holds the skeleton of a manifest.json file that can be altered in order sideload this application into a team.
 
 * **public**<br><br>
-This directory holds static html, image, and javascript files used by the tabs and bot.  This is not the only public directory that is used for the tabs, though.  This directory holds the html and javascript used for the configuration page of the configurable tab.  The main content of the static and configurable tabs is created dynamically by the code in src/tab/TabSetup.ts or comes from the static files placed in build/src/public/exampleDialogs, which are created at build time based upon the typescript dialogs in src/dialogs/examples.
+This directory holds static html, image, and javascript files used by the tabs and bot.  This is not the only public directory that is used for the tabs, though.  This directory holds the html and javascript used for the configuration page of the configurable tab.  The main content of the static and configurable tabs is created dynamically by the code in src/tab/TabSetup.ts or comes from the static files placed in build/src/public/exampleDialogs, which are created at build time based upon the TypeScript dialogs in src/dialogs/examples.
 
 * **src**<br><br>
-This directory holds all of the typescript files, which run the entire application.  These files, at build, are transpiled and their transpiled javascript files are placed in the build directory.
+This directory holds all of the TypeScript files, which run the entire application.  These files, at build, are transpiled and their transpiled javascript files are placed in the build directory.
 
 * **test**<br><br>
 This is a directory to do two things.  First, it acts as a placeholder to give an example of a place to store tests.  Second, it is a directory that works to keep the directory hierarchy correct when files are moved into the build directory.
@@ -158,10 +158,10 @@ This is a directory to do two things.  First, it acts as a placeholder to give a
 This file defines the tasks that Gulp will run to build the project correctly.  The task to completely build the project is named "build".
 
 * **tsconfig.json**<br><br>
-This file configures the Typescript transpiling tool.
+This file configures the TypeScript transpiling tool.
 
 * **tslint.json**<br><br>
-This file configures the Typescript linting tool.
+This file configures the TypeScript linting tool.
 
 * **web.config**<br><br>
 This file is a skeleton of a web.config file that can be used to upload this project into an Azure application.
