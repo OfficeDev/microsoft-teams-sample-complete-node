@@ -1,10 +1,11 @@
 ---
 topic: sample
 products:
-- Microsoft Teams
-- Office 365
+- office-teams
+- office-365
 languages:
-- Node.js
+- nodejs
+- typescript
 extensions:
   contentType: samples
   technologies:
