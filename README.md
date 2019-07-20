@@ -1,5 +1,5 @@
 ---
-topic: sample
+page_type: sample
 products:
 - office-teams
 - office-365
@@ -12,6 +12,11 @@ extensions:
   - Tabs
   createdDate: 5/8/2017 9:41:53 AM
 ---
+
+# Microsoft Teams Bot in Node.js
+
+Sample that shows how to build a Microsoft Teams bot in Node.js.
+
 # Fastest way to see this project in action
 
 1. Remix and get the project running on Glitch by simply clicking here:
