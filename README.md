@@ -17,7 +17,7 @@ extensions:
 
 Sample that shows how to build a Microsoft Teams bot in Node.js.
 
-# Fastest way to see this project in action
+## Fastest way to see this project in action
 
 1. Remix and get the project running on Glitch by simply clicking here:
 
@@ -46,14 +46,14 @@ Sample that shows how to build a Microsoft Teams bot in Node.js.
 Congratulations!!! You have just created and sideloaded your first Microsoft Teams app! Try adding a configurable tab, at-mentioning your bot by its registered name, or viewing your static tabs.<br><br>
 NOTE: Most of this sample app's functionality will now work. The only limitations are the authentication examples because your app is not registered with AAD nor Visual Studio Team Services.
 
-# Steps to run locally
+## Steps to run locally
 
-## Prerequisites
+### Prerequisites
 
 * Install Git for windows: https://git-for-windows.github.io/
 
 * Clone this repo:<br>
-    ```
+    ```bash
     git clone https://github.com/OfficeDev/microsoft-teams-sample-complete-node.git
     ```
 
@@ -63,7 +63,7 @@ NOTE: Most of this sample app's functionality will now work. The only limitation
 * Install Node: https://nodejs.org/en/download/    
 
 * Download the npm modules - in the microsoft-teams-bot-template directory run:<br>
-    ```
+    ```bash
     npm install
     ```
 
@@ -74,7 +74,7 @@ Install some sort of tunnelling service. These instructions assume you are using
 Install the Bot Emulator - click on "Bot Framework Emulator (Mac and Windows)": https://docs.botframework.com/en-us/downloads/#navtitle  
     * NOTE: make sure to pin the emulator to your task bar because it can sometimes be difficult to find again 
 
-## Steps to see the bot running in the Bot Emulator<br>
+### Steps to see the bot running in the Bot Emulator<br>
 NOTE: Teams does not work nor render things exactly like the Bot Emulator - this method is meant as just a slightly easier way to see the project's bot running
 
 1. Open the microsoft-teams-bot-template directory with VSCode  
@@ -85,10 +85,10 @@ NOTE: Teams does not work nor render things exactly like the Bot Emulator - this
 
 Congratulations!!! You can now chat with the bot in the Bot Emulator!
 
-## Steps to see the full app in Microsoft Teams
+### Steps to see the full app in Microsoft Teams
 
 1. Begin your tunnelling service to get an https endpoint. For this example ngrok is used. Start an ngrok tunnel with the following command (you'll need the https endpoint for the bot registration):<br>
-    ```
+    ```bash
     ngrok http 3978 --host-header=localhost
     ```
     
@@ -119,28 +119,28 @@ NOTE: making the above changes to the "Launch - Fiddler" configuration and runni
 		
     * Save the file and zip this file and the bot_blue.png file (located next to it) together to create a manifest.zip file
 
-6. Once complete, sideload your zipped manifest to a team as described here (open in a new browser tab): https://msdn.microsoft.com/en-us/microsoft-teams/sideload
+6. Once complete, sideload your zipped manifest to a team as described here (open in a new browser tab): https://docs.microsoft.com/microsoftteams/platform/concepts/apps/apps-upload
 
 Congratulations!!! You have just created and sideloaded your first Microsoft Teams app! Try adding a configurable tab, at-mentioning your bot by its registered name, or viewing your static tabs.<br><br>
 NOTE: Most of this sample app's functionality will now work. The only limitations are the authentication examples because your app is not registered with AAD nor Visual Studio Team Services.
 
-# Overview
+## Overview
 
 This project is meant to help a Teams developer in two ways.  First, it is meant to show many examples of how an app can integrate into Teams.  Second, it is meant to give a set of patterns, templates, and tools that can be used as a starting point for creating a larger, scalable, more enterprise level bot to work within Teams.  Although this project focuses on creating a robust bot, it does include simples examples of tabs as well as examples of how a bot can give links into these tabs.
 
-# What it is
+## What it is
 
 At a high level, this project is written in Typescript, built to run a Node server, uses Gulp to run its build steps, runs a Typescript linting tool to keep the code uniform, and uses the BotFramework to handle the bot's requests and responses.  This project is designed to be run in VSCode using its debugger in order to leverage breakpoints in Typescript.  Most directories will hold a README file which will describe what the files within that directory do. 
 
 The easiest way to get started is to follow the steps listed in the "Steps to get started running the Bot Emulator".  Once this is complete and running, the easiest way to add your own content is to create a new dialog in src/dialogs by copying one from src/dialogs/examples, change it accordingly, and then instantiate it with the others in the RootDialog.ts.
 
-# General Architecture
+## General Architecture
 
 Most Typescript files that need to be transpiled (and the bulk of the project) reside in the src directory.  Most files outside of the src directory are static files used for either configuration or for providing static resources to tabs, e.g. images and html.  At build time, Gulp will transpile everything in the src directory and place these transpiled files into a build directory.  Gulp will also move a few static files into this new build directory.  Because of this, it is recommended that nothing be changed by a developer in the build directory.  All changes should be done on the "source" files so rebuilding the project will update the build directory.
 
 The general flow for using this template is to copy/paste/create/build on the example dialogs in the src/dialogs/examples directory, but to put your newly created dialogs outside of the src/dialogs/examples directory (either parallel to the src/dialogs/examples directory or in new directories of your own).  In this way, your dialogs do not coexist with the example dialogs so if the time comes to delete the examples, one can simply delete the src/dialogs/examples directory.  More information on how to create new dialogs and add to this project can be found in the file src/dialogs/README.md in the "Creating a New Dialog" section.
 
-# Files and Directories
+## Files and Directories
 
 * **.vscode**<br><br>
 This directory holds the files used by VSCode to build the project.  The launch.json file is where important environment variables will be stored.
@@ -172,6 +172,6 @@ This file configures the Typescript linting tool.
 * **web.config**<br><br>
 This file is a skeleton of a web.config file that can be used to upload this project into an Azure application.
 
-# Contributing
+## Contributing
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
