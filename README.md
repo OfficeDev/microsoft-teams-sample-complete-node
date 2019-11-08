@@ -39,9 +39,9 @@ Sample that shows how to build a Microsoft Teams bot in Node.js.
     MICROSOFT_APP_PASSWORD=abc123abc123abc123abc12
     ```
 
-5. With Glitch, file saves happen automatically, and the project is rebuilt seconds after the file is saved. Once you get the confirmation from the logs that your server is running again, press the "Show Live" button at the top. This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download Manifest file for the project.
+5. With Glitch, file saves happen automatically, and the project is rebuilt seconds after the file is saved. Once you get the confirmation from the logs (Tools -> Logs at the bottom) that your server is running again, press the "Show" -> "In a New Window" button at the top. This should open a page with information about your project, verification icons with green vs. red indicators, and a button to Create/Download Manifest file for the project.
 
-6. Click to Create/Download Manifest taking note of the download location. Once complete, sideload the manifest to a team as described here (open in a new browser tab): https://msdn.microsoft.com/en-us/microsoft-teams/sideload
+6. Click to Create/Download Manifest taking note of the download location. Once complete, sideload the manifest to a team as described here (open in a new browser tab): https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload
 
 Congratulations!!! You have just created and sideloaded your first Microsoft Teams app! Try adding a configurable tab, at-mentioning your bot by its registered name, or viewing your static tabs.<br><br>
 NOTE: Most of this sample app's functionality will now work. The only limitations are the authentication examples because your app is not registered with AAD nor Visual Studio Team Services.
