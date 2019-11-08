@@ -29,7 +29,7 @@ Sample that shows how to build a Microsoft Teams bot in Node.js.
     > Endpoint to register in Bot Framework:<br>
     > https://incredible-court.glitch.me/api/messages
 
-3. Using the endpoint given in the logs, register a new bot (or update an existing one) with Bot Framework by using the full endpoint as the bot's "Messaging endpoint". Bot registration is here (open in a new browser tab): https://dev.botframework.com/bots
+3. Using the endpoint given in the logs, register a new bot (or update an existing one) with Bot Framework by using the full endpoint as the bot's "Messaging endpoint". Make sure to add Teams as a channel for the bot. Bot registration is here (open in a new browser tab): https://dev.botframework.com/bots
 
     > **NOTE**: When you create your bot you will create an App ID and App password - make sure you keep these for later.
 
