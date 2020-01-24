@@ -11,7 +11,7 @@ export class ComposeExtensionSettingsPopUp {
                         <title>Bot Info</title>
                         <meta charset="utf-8" />
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <script src='https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js'></script>
+                        <script src='https://statics.teams.microsoft.com/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
                         <script src='https://code.jquery.com/jquery-1.11.3.min.js'></script>
                     </head>
 

@@ -99,7 +99,7 @@
             // Get the user's profile information from Microsoft Graph
             function getUserProfile(accessToken) {
                 $.ajax({
-                    url: "https://graph.microsoft.com/v1.0/me/",
+                    url: "https://graph.microsoft.com/v1.6.0/me/",
                     beforeSend: function(request) {
                         request.setRequestHeader("Authorization", "Bearer " + accessToken);
                     },
