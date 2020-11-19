@@ -49,6 +49,7 @@ export class DefaultTab {
                     <br>
                     <button onclick="showContext()">Click to Show Tab's Context</button>
                     <p id="contextOutput"></p>
+                    <button onclick="openTaskModule()">Task Module Demo</button>
                     <script>
                         var microsoftTeams;
 
@@ -71,6 +72,11 @@ export class DefaultTab {
                             microsoftTeams.getContext((context) => {
                                 document.getElementById('contextOutput').innerHTML = JSON.stringify(context);
                             });
+                        }
+
+                        function openTaskModule(){
+                      
+                            window.location = "${config.get("app.baseUri") + "/TaskModuleTab"}";
                         }
                     </script>
                     </body>
