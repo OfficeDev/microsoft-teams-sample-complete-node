@@ -13,6 +13,8 @@ extensions:
   createdDate: 5/8/2017 9:41:53 AM
 ---
 
+#### **NOTE:** This repository is now archived. Its contents have moved [here](https://github.com/OfficeDev/Microsoft-Teams-Samples/tree/main/samples/app-complete-sample/nodejs).
+
 # Microsoft Teams Bot in Node.js
 
 Sample that shows how to build a Microsoft Teams bot in Node.js.
