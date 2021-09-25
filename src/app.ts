@@ -21,6 +21,7 @@ import { AADUserValidation } from "./apis/AADUserValidation";
 import { ValidateAADToken } from "./apis/ValidateAADToken";
 import { ManifestCreatorStart } from "./pages/ManifestCreatorStart";
 import { ManifestCreatorEnd } from "./pages/ManifestCreatorEnd";
+import {TaskModuleTab} from "./pages/TaskModuleTab";
 import * as builder from "botbuilder";
 
 // Configure instrumentation - tooling with Azure
@@ -41,6 +42,7 @@ let handlebars = exphbs.create({
     extname: ".hbs",
     helpers: {
         appId: () => { return config.get("app.appId"); },
+        baseUri: () => {return config.get("app.baseUri"); },
     },
 });
 app.engine("hbs", handlebars.engine);
@@ -54,6 +56,8 @@ app.get("/vstsAuth", VSTSAuthTab.getRequestHandler());
 app.get("/vstsAuthFlowStart", VSTSAuthFlowStartPopUp.getRequestHandler());
 app.get("/vstsAuthFlowEnd", VSTSAuthFlowEndPopUp.getRequestHandler());
 app.get("/composeExtensionSettings", ComposeExtensionSettingsPopUp.getRequestHandler());
+app.get("/TaskModuleTab", TaskModuleTab.getRequestHandler());
+app.get("/customform", (req, res) => { res.render("customform", { appId: config.get("app.appId") , query: req.query}); } );
 
 // Tab authentication sample routes
 app.get("/tab-auth/simple", (req, res) => { res.render("tab-auth/simple"); });

@@ -10,6 +10,8 @@ import { Strings } from "./locale/locale";
 import { loadSessionAsync } from "./utils/DialogUtils";
 import * as teams from "botbuilder-teams";
 import { ComposeExtensionHandlers } from "./composeExtension/ComposeExtensionHandlers";
+import {fetchTemplates, cardTemplates} from "./dialogs/Templates/CardTemplates";
+import {renderACAttachment} from "./utils/CardUtils";
 
 // =========================================================
 // Bot Setup
@@ -89,6 +91,7 @@ export class Bot extends builder.UniversalBot {
                 session.clearDialogStack();
 
                 let payload = (event as any).value;
+                let invokeType = (event as any).name;
 
                 // Invokes don't participate in middleware
                 // If payload has an address, then it is from a button to update a message so we do not what to send typing
@@ -99,6 +102,48 @@ export class Bot extends builder.UniversalBot {
                 if (payload && payload.dialog) {
                     session.beginDialog(payload.dialog, payload);
                 }
+
+                switch (invokeType) {
+                    case "task/fetch":
+                        let taskModule = payload.data.taskModule.toLowerCase();
+                        if (fetchTemplates[taskModule] !== undefined) {
+                            // Return the specified task module response to the bot
+                            callback(null, fetchTemplates[taskModule], 200);
+                        }
+                        else {
+                            callback(new Error(`Error: task module template for ${(payload.taskModule === undefined ? "<undefined>" : payload.taskModule)} not found.`), null, 500);
+                        }
+                        break;
+                    case "task/submit":
+                        if (payload.data !== undefined) {
+                            switch (payload.data.taskResponse) {
+                                case "message":
+                                    // Echo the results to the chat stream
+                                    session.send("**task/submit results from the Adaptive card:**\n```" + JSON.stringify(payload) + "```");
+                                    break;
+                                case "continue":
+                                    let fetchResponse = fetchTemplates.submitResponse;
+                                    fetchResponse.task.value.card = renderACAttachment(cardTemplates.adaptiveCardSubmitResponse, { results: JSON.stringify(payload.data) });
+                                    callback(null, fetchResponse, 200);
+                                    break;
+
+                                case "final":
+                                // do nothing
+                                default:
+                                    if (payload.data.levelType !== undefined && payload.data.levelType === "multistep") {
+                                        callback(null, fetchTemplates.submitMessageResponse, 200);
+                                    }
+                                    if (payload.data.levelType === undefined) {
+                                        session.send("**task/submit results from Task Module adaptive card:**\n\n```" + JSON.stringify(payload) + "```");
+                                    }
+                                    else {
+                                        session.send("**task/submit results from Task Module Html:**\n\n```" + JSON.stringify(payload) + "```");
+                                    }
+                            }
+                        }
+                        break;
+                }
+
             }
             callback(null, "", 200);
         };
